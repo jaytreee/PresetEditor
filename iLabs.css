@@ -1,0 +1,49 @@
+QPlainTextEdit {
+    font-family: "Lucida Console","Courier";
+    font-size: 9pt; 
+    background-color: #262626;
+    selection-background-color: #2e5ea4;
+/*    color: #dddddd;  */
+}
+QWidget:focus {
+    border: 1px solid #2e5ea4;
+}
+QPushButton:pressed {
+    background-color: #2e5ea4; 
+    border: 1px solid #2e5ea4;
+    color: #ffffff;
+}
+/*QPushButton:flat {
+    background-color: #666666;
+    color: #ff0000;    
+    border: 1px solid #cccccc;
+}
+QPushButton:default {
+    background-color: #ff0000;
+    color: #ff0000;    
+    border: 1px solid #000000;
+}*/
+QPushButton {
+    color: #cccccc;    
+    border: 1px solid #888888;
+    background: #ff0000;
+    padding: 2px
+} 
+QWidget {
+    background: #222222;
+	color: #cccccc;
+}
+
+QTreeView::item:has-children {
+	font-weight: bold;
+}
+QTreeView::item:selected {
+     background-color: #2e5ea4;
+     color: #cccccc;
+	 font-weight: bold;
+}
+
+QTreeView::branch {
+    background-color: #222222;
+}
+
