@@ -10,8 +10,17 @@
     <height>541</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <weight>50</weight>
+    <bold>false</bold>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Preset Editor</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
   </property>
   <property name="locale">
    <locale language="English" country="UnitedStates"/>
@@ -126,12 +135,16 @@
     </property>
     <property name="font">
      <font>
-      <weight>50</weight>
-      <bold>false</bold>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="toolTipDuration">
      <number>-1</number>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="currentIndex">
      <number>0</number>
@@ -151,8 +164,8 @@
       </property>
       <property name="font">
        <font>
-        <weight>50</weight>
-        <bold>false</bold>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
       </property>
       <property name="toolTip">
@@ -173,6 +186,12 @@
         <width>51</width>
         <height>23</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
       </property>
       <property name="toolTip">
        <string>Remove Item</string>
@@ -209,9 +228,15 @@
        <rect>
         <x>70</x>
         <y>20</y>
-        <width>47</width>
-        <height>13</height>
+        <width>51</width>
+        <height>16</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
       </property>
       <property name="text">
        <string>Selected</string>
@@ -222,9 +247,15 @@
        <rect>
         <x>320</x>
         <y>20</y>
-        <width>61</width>
+        <width>71</width>
         <height>16</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
       </property>
       <property name="text">
        <string>Unselected</string>
@@ -256,6 +287,12 @@
          <height>17</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Visible</string>
        </property>
@@ -268,6 +305,12 @@
          <width>91</width>
          <height>17</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
        <property name="text">
         <string>Transparent</string>
@@ -282,6 +325,12 @@
          <height>16</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Threshold</string>
        </property>
@@ -294,6 +343,12 @@
          <width>61</width>
          <height>22</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
        <property name="locale">
         <locale language="English" country="UnitedStates"/>
@@ -316,6 +371,12 @@
          <width>61</width>
          <height>22</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
        <property name="locale">
         <locale language="English" country="UnitedStates"/>
@@ -342,6 +403,12 @@
          <height>13</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>min : </string>
        </property>
@@ -354,6 +421,12 @@
          <width>47</width>
          <height>13</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
        <property name="text">
         <string>max</string>
@@ -391,6 +464,12 @@
          <height>17</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>View 1</string>
        </property>
@@ -410,6 +489,12 @@
          <height>17</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>View 2</string>
        </property>
@@ -426,6 +511,12 @@
          <height>17</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>View 3</string>
        </property>
@@ -441,6 +532,12 @@
          <width>61</width>
          <height>17</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
        <property name="text">
         <string>View 4</string>

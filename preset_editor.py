@@ -5,6 +5,8 @@ qt designer test
 # pylint: disable=C0103
 
 import sys
+import os
+from copy import deepcopy
 #from pprint import pprint
 from xmlfileparser import XmlFileParser
 from lxml import etree
@@ -16,11 +18,12 @@ from viewsetting import ViewSetting
 
 
 
+
 class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     """
     Editor for Settings
     """
-    tree = etree
+    tree = None
 
     defaultspectra = ['OPUS', 'Background']
 
@@ -33,6 +36,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     unselectedspectra = list(set(allspectra)-set(spectralist))
 
 
+
     """dimensions = #views; containing corresponing viewsetting objects """
     settingslist = [[], [], [], []]
 
@@ -42,6 +46,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         #self.addBtn.clicked.connect(self.addInputTextToListbox)
         self.loadButton.clicked.connect(self.loadxmlFile)
+        self.saveAsButton.clicked.connect(self.writexmlFile)
 
 
         self.tabWidget.tabBarClicked.connect(self.applySettings)
@@ -74,8 +79,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.cleanup()
 
-        if False:
-            path = QtWidgets.QFileDialog.getOpenFileName()
+        if True:
+            path = QtWidgets.QFileDialog.getOpenFileName(self, filter='XML Files (*.xml)')
+            if not os.path.isfile(path[0]):
+                return
 
         else:
             path = ['', '']
@@ -95,9 +102,100 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def writexmlFile(self):
         """apply changes to lxml tree and then write it"""
-        #TODO:
 
-        pass
+        if self.tree is None:
+            return
+
+        path = QtWidgets.QFileDialog.getSaveFileName(self, filter='XML Files (*.xml)')
+
+        if path[0] == '':
+            return
+
+
+        self.tree.xpath('./DataModelStudyPreset/Name')[0].text = self.nameBox.toPlainText()
+        self.tree.xpath('./DataModelStudyPreset/CompatibleDetectorGUID')[0].text = self.detectorBox.toPlainText()
+
+        # write spectra/ first remove existing data in xml, write new list
+        spectra = self.tree.find('.//UserSelectedSpectra')
+
+        for child in spectra:
+            child.getparent().remove(child)
+
+        for s in self.spectralist:
+            e = etree.Element('string')
+            e.text = s
+            spectra.append(e)
+
+        # change view settings
+        viewingpresets = self.tree.find('.//ViewingPresets')
+        #print(etree.tostring(viewingpresets))
+        views = viewingpresets.findall('.//DataModelViewingPreset')
+
+        showedwarning = None
+
+        #get all layers for all views
+        for i in range(0, len(views)):
+
+            #get  for all layers
+            layers = views[i].findall('.//DataModelImagingLayer')
+            # set for spectra
+            sset = set(self.spectralist)
+            sset |= set(self.defaultspectra)
+            # Hb settings in this layer for blueprint of new layers
+            hbdummy = None
+
+            for j in range(0, len(layers)):
+
+                spectrum = layers[j].find('.//ComponentTagIdentifier')
+                #delete from xml if not found in settings
+                found = False
+
+                for k in range(0, len(self.settingslist[i])):
+                    if self.settingslist[i][k].spectrum == spectrum.text:
+                        found = True
+                        sset.remove(spectrum.text)
+                        s = self.settingslist[i][k]
+                        p = spectrum.getparent()
+                        p.find('.//GainMax').text = str(s.maxthresh)
+                        p.find('.//GainMin').text = str(s.minthresh)
+                        p.find('.//Semitransparent').text = str(s.transparent)
+                        p.find('.//Visible').text = str(s.visible)
+
+                        if spectrum.text == 'Hb':
+                            hbdummy = deepcopy(spectrum.getparent())
+
+                        break
+
+                if not found:
+                    p = spectrum.getparent()
+                    p.getparent().remove(p)
+
+            # add new spectra to xml
+            if hbdummy is None and sset:
+                if not showedwarning:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setText('Cannot create new spectra, because of no Hb template')
+                    msg.exec()
+                    showedwarning = True
+            else:
+                for item in sset:
+                    for k in range(0, len(self.settingslist[i])):
+                        if self.settingslist[i][k].spectrum == item:
+                            s = self.settingslist[i][k]
+                            hbdummy.find('.//ComponentTagIdentifier').text = item
+                            hbdummy.find('.//GainMax').text = str(s.maxthresh)
+                            hbdummy.find('.//GainMin').text = str(s.minthresh)
+                            hbdummy.find('.//Semitransparent').text = str(s.transparent)
+                            hbdummy.find('.//Visible').text = str(s.visible)
+                            layers[0].getparent().append(hbdummy)
+                            hbdummy = deepcopy(hbdummy)
+
+
+
+
+
+        XmlFileParser.write(self, self.tree, path)
+
 
 
     def displayTreetoGUI(self):
@@ -300,8 +398,8 @@ if __name__ == '__main__':
 
     style = 'iLabs.css'
 
-    ''' with open(style, mode='r') as ss:
-        app.setStyleSheet(ss.read()) '''
+    with open(style, mode='r') as ss:
+        app.setStyleSheet(ss.read())
 
     window = QtWidgets.QMainWindow()
 

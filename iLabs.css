@@ -8,6 +8,10 @@ QPlainTextEdit {
 QWidget:focus {
     border: 1px solid #2e5ea4;
 }
+
+QTapWidget{
+    border: 1px solid #2e5ea4;
+}
 QPushButton:pressed {
     background-color: #2e5ea4; 
     border: 1px solid #2e5ea4;
@@ -31,7 +35,7 @@ QPushButton {
 } 
 QWidget {
     background: #222222;
-	color: #cccccc;
+    color: #cccccc;
 }
 
 QTreeView::item:has-children {
@@ -47,3 +51,16 @@ QTreeView::branch {
     background-color: #222222;
 }
 
+QTabBar::tab {
+    background: #222222;   
+	border: 2px solid #cccccc;
+    border-bottom-color: #cccccc; /* same as the pane color */
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    min-width: 8ex;
+    padding: 2px;
+}
+
+QTabBar::tab:selected {
+    background: #2e5ea4
+    }

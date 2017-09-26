@@ -6,6 +6,7 @@ XML/XSD  file parser, for Preset Editor GUI
 
 import os
 from lxml import etree
+from  PyQt5 import QtWidgets
 
 
 class XmlFileParser:
@@ -21,21 +22,31 @@ class XmlFileParser:
         tree = etree.parse(path)
 
         # get xsd file
-        schema_doc = etree.parse((os.path.splitext(path)[0]+'.xsd'))
-        xmlschema = etree.XMLSchema(schema_doc)
-
-        #Validate
-        if(xmlschema.validate(tree)):
-            print('valid schema')
-
+        xsdpath = (os.path.splitext(path)[0]+'.xsd')
+        if os.path.isfile(xsdpath):
+            schema_doc = etree.parse((os.path.splitext(path)[0]+'.xsd'))
+            xmlschema = etree.XMLSchema(schema_doc)
+            #Validate
+            if xmlschema.validate(tree):
+                print('valid schema')
+            else:
+                print('invalid schema')
         else:
-            print('invalid schema')
+            msg = QtWidgets.QMessageBox()
+            msg.setText('XML Schema could not be found')
+            msg.exec()
+
+
+
 
         #print(etree.tostring(tree, pretty_print=False))
         return tree
 
 
 
-    def write(self, settings):
+    def write(self, settings, path):
         """ write the Settings to an xml file"""
-        print(settings)
+        settings.write(path[0], pretty_print=True)
+        msg = QtWidgets.QMessageBox()
+        msg.setText('Saved')
+        msg.exec()
