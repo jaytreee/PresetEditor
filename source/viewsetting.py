@@ -18,6 +18,14 @@ class ViewSetting:
         self.minthresh = minthresh
         self.maxthresh = maxthresh
 
+
+    def __eq__(self, other):
+        return (self.spectrum == other.spectrum and
+                self.visible == other.visible and
+                self.transparent == other.transparent and
+                self.minthresh == other.minthresh and
+                self.maxthresh == other.maxthresh)
+
     def __str__(self):
         out = 'Spectrum: '+str(self.spectrum)+'\n'
         out += 'Visible: '+str(self.visible)+'\n'

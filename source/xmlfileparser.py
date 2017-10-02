@@ -4,7 +4,7 @@ XML/XSD  file parser, for Preset Editor GUI
 
 # pylint: disable=E1101
 
-import os
+import os, glob
 from lxml import etree
 from  PyQt5 import QtWidgets
 
@@ -21,16 +21,28 @@ class XmlFileParser:
         print(path)
         tree = etree.parse(path)
 
-        # get xsd file
-        xsdpath = (os.path.splitext(path)[0]+'.xsd')
-        if os.path.isfile(xsdpath):
-            schema_doc = etree.parse((os.path.splitext(path)[0]+'.xsd'))
+        # get first xsd file in directory
+        # xsdpath = (os.path.splitext(path)[0]+'.xsd')
+        direc = os.path.dirname(path)
+        oldpath = os.getcwd()
+        os.chdir(direc)
+        xsdfile = glob.glob('*.xsd')
+        if xsdfile:
+            #schema_doc = etree.parse((os.path.splitext(path)[0]+'.xsd'))
+            schema_doc = etree.parse(direc+'/'+xsdfile[0])
             xmlschema = etree.XMLSchema(schema_doc)
             #Validate
-            if xmlschema.validate(tree):
+            '''   if xmlschema.validate(tree):
                 print('valid schema')
             else:
-                print('invalid schema')
+                print('invalid schema' )'''
+            try:
+                xmlschema.assertValid(tree)
+                print('valid schema')
+            except etree.DocumentInvalid as err:
+                print('Schema invalid: ' + str(err))
+
+            
         else:
             msg = QtWidgets.QMessageBox()
             msg.setText('XML Schema could not be found')
@@ -40,6 +52,7 @@ class XmlFileParser:
 
 
         #print(etree.tostring(tree, pretty_print=False))
+        os.chdir(oldpath)
         return tree
 
 

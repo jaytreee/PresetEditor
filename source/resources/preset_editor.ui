@@ -20,7 +20,73 @@
    <string>Preset Editor</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">QPlainTextEdit {
+    font-family: &quot;Lucida Console&quot;,&quot;Courier&quot;;
+    font-size: 9pt; 
+    background-color: #262626;
+    selection-background-color: #2e5ea4;
+/*    color: #dddddd;  */
+}
+QWidget:focus {
+    border: 1px solid #2e5ea4;
+}
+
+QTapWidget{
+    border: 1px solid #2e5ea4;
+}
+QPushButton:pressed {
+    background-color: #2e5ea4; 
+    border: 1px solid #2e5ea4;
+    color: #ffffff;
+}
+/*QPushButton:flat {
+    background-color: #666666;
+    color: #ff0000;    
+    border: 1px solid #cccccc;
+}
+QPushButton:default {
+    background-color: #ff0000;
+    color: #ff0000;    
+    border: 1px solid #000000;
+}*/
+QPushButton {
+    color: #cccccc;    
+    border: 1px solid #888888;
+    background: #ff0000;
+    padding: 2px
+} 
+QWidget {
+    background: #222222;
+    color: #cccccc;
+}
+
+QTreeView::item:has-children {
+	font-weight: bold;
+}
+QTreeView::item:selected {
+     background-color: #2e5ea4;
+     color: #cccccc;
+	 font-weight: bold;
+}
+
+QTreeView::branch {
+    background-color: #222222;
+}
+
+QTabBar::tab {
+    background: #222222;   
+	border: 2px solid #cccccc;
+    border-bottom-color: #cccccc; /* same as the pane color */
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    min-width: 8ex;
+    padding: 2px;
+}
+
+QTabBar::tab:selected {
+    background: #2e5ea4
+    }
+</string>
   </property>
   <property name="locale">
    <locale language="English" country="UnitedStates"/>

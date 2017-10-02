@@ -28,17 +28,18 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     defaultspectra = ['OPUS', 'Background']
 
     allspectra = ['HbO2', 'Hb', 'Melanin', 'ICG', 'Test1', 'Test2']
+    """ all available spectra"""
 
-    """selected spectra"""
     spectralist = []
+    """selected spectra"""
 
-    """ unselected spectra"""
     unselectedspectra = list(set(allspectra)-set(spectralist))
+    """ unselected spectra at the start"""
 
 
 
-    """dimensions = #views; containing corresponing viewsetting objects """
     settingslist = [[], [], [], []]
+    """dimensions = #views; containing corresponing viewsetting objects """
 
     def __init__(self):
         super(PresetEditor, self).__init__()
@@ -158,8 +159,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                         p = spectrum.getparent()
                         p.find('.//GainMax').text = str(s.maxthresh)
                         p.find('.//GainMin').text = str(s.minthresh)
-                        p.find('.//Semitransparent').text = str(s.transparent)
-                        p.find('.//Visible').text = str(s.visible)
+                        p.find('.//Semitransparent').text = str(s.transparent).lower()
+                        p.find('.//Visible').text = str(s.visible).lower()
 
                         if spectrum.text == 'Hb':
                             hbdummy = deepcopy(spectrum.getparent())
@@ -185,8 +186,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                             hbdummy.find('.//ComponentTagIdentifier').text = item
                             hbdummy.find('.//GainMax').text = str(s.maxthresh)
                             hbdummy.find('.//GainMin').text = str(s.minthresh)
-                            hbdummy.find('.//Semitransparent').text = str(s.transparent)
-                            hbdummy.find('.//Visible').text = str(s.visible)
+                            hbdummy.find('.//Semitransparent').text = str(s.transparent).lower()
+                            hbdummy.find('.//Visible').text = str(s.visible).lower()
                             layers[0].getparent().append(hbdummy)
                             hbdummy = deepcopy(hbdummy)
 
@@ -199,7 +200,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
     def displayTreetoGUI(self):
-        """ Updat the GUI  with the information in the xml file"""
+        """ Update the GUI  with the information in the xml file"""
         self.nameBox.setPlainText(self.tree.find('.//Name').text)
         self.detectorBox.setPlainText(self.tree.find('.//CompatibleDetectorGUID').text)
         #add spectra to selectedList
@@ -227,7 +228,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
     def cleanup(self):
-        """ clean GUI before reading new file"""
+        """ clean GUI, called before reading a new file"""
         self.selectedList.clear()
         self.viewSpectraList.clear()
         self.viewSpectraList.addItems(self.defaultspectra)
@@ -316,7 +317,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 return
 
     def addspectra(self):
-        """called when addButton is clicked"""
+        """called when addButton is clicked; removes selected spectrum 
+        from unselected list, adds it to the selected list and 
+        create default ViewSetting object of it for all views
+        """
 
         #remove from unselected list and view and add to list and view
         row = self.unselectedList.currentRow()
@@ -396,10 +400,10 @@ if __name__ == '__main__':
 
     app = QtWidgets.QApplication(sys.argv)
 
-    style = 'iLabs.css'
+    ''' style = 'iLabs.css'
 
     with open(style, mode='r') as ss:
-        app.setStyleSheet(ss.read())
+        app.setStyleSheet(ss.read()) '''
 
     window = QtWidgets.QMainWindow()
 
