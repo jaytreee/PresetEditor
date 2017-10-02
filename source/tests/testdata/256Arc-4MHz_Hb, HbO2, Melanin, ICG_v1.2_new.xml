@@ -33,7 +33,7 @@
 <!-- ** Spectra for MSP. Use only Names which have spectra in the ProgramData\ViewMSOTc folder
 		NOTE: Case sensitive -->
 				<UserSelectedSpectra>
-					<string>Hb</string><string>HbO2</string><string>Melanin</string><string>Test1</string></UserSelectedSpectra>
+					<string>Hb</string><string>HbO2</string><string>Melanin</string><string>ICG</string></UserSelectedSpectra>
 
 <!-- ** Background Wavelength of the MSP image shown in the preview and as a default in postprocessing -->
 				<BgWavelength unit="m" unit-modifier="n" number="0">800</BgWavelength>
@@ -620,7 +620,7 @@
 							<GainMin>0.0</GainMin>
 					
 		<!--     Control Overlay and visibility -->
-							<Semitransparent>false</Semitransparent>		<!-- Transparency -->
+							<Semitransparent>true</Semitransparent>		<!-- Transparency -->
 							<Visible>false</Visible>							<!-- Hide Layer (equivalents eye symbol) -->
 							<Load>true</Load>								<!-- Hide the tab completely -->
 							<Flip>false</Flip>								<!-- Flip image Palette -->
@@ -652,12 +652,12 @@
 							</Palette>
 					
 		<!--     Thresholds - Used when Autoscaling is off per default -->
-							<GainMax>2.0</GainMax>
-							<GainMin>-2.0</GainMin>
+							<GainMax>3.0</GainMax>
+							<GainMin>0.0</GainMin>
 					
 		<!--     Control Overlay and visibility -->
 							<Semitransparent>true</Semitransparent>		<!-- Transparency -->
-							<Visible>true</Visible>							<!-- Hide Layer (equivalents eye symbol) -->
+							<Visible>false</Visible>							<!-- Hide Layer (equivalents eye symbol) -->
 							<Load>true</Load>								<!-- Hide the tab completely -->
 							<Flip>false</Flip>								<!-- Flip image Palette -->
 							<LogarithmicScaling>false</LogarithmicScaling>	<!-- Enable Logarithmic Scaling -->
@@ -676,7 +676,7 @@
 						
 		<!-- ********** ICG ************* -->
 						<DataModelImagingLayer>
-							<ComponentTagIdentifier>Test1</ComponentTagIdentifier>
+							<ComponentTagIdentifier>ICG</ComponentTagIdentifier>
 							<Palette>
 								<PaletteType>Contrast</PaletteType>			<!-- Color Map, possible values: Gray, DarkBlue, Yellow, Contrast -->
 		<!--     Transparency Settings - Coordinates in Alpha Curve -->
@@ -688,11 +688,11 @@
 							</Palette>
 					
 		<!--     Thresholds - Used when Autoscaling is off per default -->
-							<GainMax>0.0</GainMax>
-							<GainMin>2.0</GainMin>
+							<GainMax>0.005</GainMax>
+							<GainMin>0.0</GainMin>
 					
 		<!--     Control Overlay and visibility -->
-							<Semitransparent>false</Semitransparent>		<!-- Transparency -->
+							<Semitransparent>true</Semitransparent>		<!-- Transparency -->
 							<Visible>false</Visible>							<!-- Hide Layer (equivalents eye symbol) -->
 							<Load>true</Load>								<!-- Hide the tab completely -->
 							<Flip>false</Flip>								<!-- Flip image Palette -->
@@ -709,8 +709,9 @@
 		<!-- 	 Controls Expander State in the Roi Table - true meaning expanded -->
 							<RoiTableVisible>true</RoiTableVisible>
 						</DataModelImagingLayer>
+
 						
-		</ImageLayers>
+					</ImageLayers>
 <!-- ** Overlay Method ** -->
 					<ImageLayersComposeMethod>Overlay</ImageLayersComposeMethod>
 
@@ -967,7 +968,7 @@
 						
 		<!-- ********** ICG ************* -->
 						<DataModelImagingLayer>
-							<ComponentTagIdentifier>Test1</ComponentTagIdentifier>
+							<ComponentTagIdentifier>ICG</ComponentTagIdentifier>
 							<Palette>
 								<PaletteType>Contrast</PaletteType>			<!-- Color Map, possible values: Gray, DarkBlue, Yellow, Contrast -->
 		<!--     Transparency Settings - Coordinates in Alpha Curve -->
@@ -979,11 +980,11 @@
 							</Palette>
 					
 		<!--     Thresholds - Used when Autoscaling is off per default -->
-							<GainMax>0</GainMax>
-							<GainMin>0</GainMin>
+							<GainMax>1.0</GainMax>
+							<GainMin>0.0</GainMin>
 					
 		<!--     Control Overlay and visibility -->
-							<Semitransparent>false</Semitransparent>		<!-- Transparency -->
+							<Semitransparent>true</Semitransparent>		<!-- Transparency -->
 							<Visible>false</Visible>							<!-- Hide Layer (equivalents eye symbol) -->
 							<Load>true</Load>								<!-- Hide the tab completely -->
 							<Flip>false</Flip>								<!-- Flip image Palette -->
@@ -1000,8 +1001,9 @@
 		<!-- 	 Controls Expander State in the Roi Table - true meaning expanded -->
 							<RoiTableVisible>true</RoiTableVisible>
 						</DataModelImagingLayer>
+
 						
-		</ImageLayers>
+					</ImageLayers>
 <!-- ** Overlay Method ** -->
 					<ImageLayersComposeMethod>Overlay</ImageLayersComposeMethod>
 
@@ -1265,7 +1267,7 @@
 						
 		<!-- ********** ICG ************* -->
 						<DataModelImagingLayer>
-							<ComponentTagIdentifier>Test1</ComponentTagIdentifier>
+							<ComponentTagIdentifier>ICG</ComponentTagIdentifier>
 							<Palette>
 								<PaletteType>Contrast</PaletteType>			<!-- Color Map, possible values: Gray, DarkBlue, Yellow, Contrast -->
 		<!--     Transparency Settings - Coordinates in Alpha Curve -->
@@ -1277,11 +1279,11 @@
 							</Palette>
 					
 		<!--     Thresholds - Used when Autoscaling is off per default -->
-							<GainMax>0</GainMax>
-							<GainMin>0</GainMin>
+							<GainMax>1.0</GainMax>
+							<GainMin>0.0</GainMin>
 					
 		<!--     Control Overlay and visibility -->
-							<Semitransparent>false</Semitransparent>		<!-- Transparency -->
+							<Semitransparent>true</Semitransparent>		<!-- Transparency -->
 							<Visible>false</Visible>							<!-- Hide Layer (equivalents eye symbol) -->
 							<Load>true</Load>								<!-- Hide the tab completely -->
 							<Flip>false</Flip>								<!-- Flip image Palette -->
@@ -1298,8 +1300,9 @@
 		<!-- 	 Controls Expander State in the Roi Table - true meaning expanded -->
 							<RoiTableVisible>true</RoiTableVisible>
 						</DataModelImagingLayer>
+
 						
-		</ImageLayers>
+					</ImageLayers>
 <!-- ** Overlay Method ** -->
 					<ImageLayersComposeMethod>Overlay</ImageLayersComposeMethod>
 
@@ -1555,7 +1558,7 @@ FORTH ADDITIONAL PANEL (bottom right)
 						
 		<!-- ********** ICG ************* -->
 						<DataModelImagingLayer>
-							<ComponentTagIdentifier>Test1</ComponentTagIdentifier>
+							<ComponentTagIdentifier>ICG</ComponentTagIdentifier>
 							<Palette>
 								<PaletteType>Contrast</PaletteType>			<!-- Color Map, possible values: Gray, DarkBlue, Yellow, Contrast -->
 		<!--     Transparency Settings - Coordinates in Alpha Curve -->
@@ -1567,11 +1570,11 @@ FORTH ADDITIONAL PANEL (bottom right)
 							</Palette>
 					
 		<!--     Thresholds - Used when Autoscaling is off per default -->
-							<GainMax>-2.0</GainMax>
+							<GainMax>1.0</GainMax>
 							<GainMin>0.0</GainMin>
 					
 		<!--     Control Overlay and visibility -->
-							<Semitransparent>false</Semitransparent>		<!-- Transparency -->
+							<Semitransparent>true</Semitransparent>		<!-- Transparency -->
 							<Visible>false</Visible>							<!-- Hide Layer (equivalents eye symbol) -->
 							<Load>true</Load>								<!-- Hide the tab completely -->
 							<Flip>false</Flip>								<!-- Flip image Palette -->
@@ -1588,8 +1591,9 @@ FORTH ADDITIONAL PANEL (bottom right)
 		<!-- 	 Controls Expander State in the Roi Table - true meaning expanded -->
 							<RoiTableVisible>true</RoiTableVisible>
 						</DataModelImagingLayer>
+
 						
-		</ImageLayers>
+					</ImageLayers>
 <!-- ** Overlay Method ** -->
 					<ImageLayersComposeMethod>Overlay</ImageLayersComposeMethod>
 
