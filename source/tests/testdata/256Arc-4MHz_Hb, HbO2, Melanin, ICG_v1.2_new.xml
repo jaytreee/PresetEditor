@@ -620,7 +620,7 @@
 							<GainMin>0.0</GainMin>
 					
 		<!--     Control Overlay and visibility -->
-							<Semitransparent>true</Semitransparent>		<!-- Transparency -->
+							<Semitransparent>false</Semitransparent>		<!-- Transparency -->
 							<Visible>false</Visible>							<!-- Hide Layer (equivalents eye symbol) -->
 							<Load>true</Load>								<!-- Hide the tab completely -->
 							<Flip>false</Flip>								<!-- Flip image Palette -->
@@ -652,12 +652,12 @@
 							</Palette>
 					
 		<!--     Thresholds - Used when Autoscaling is off per default -->
-							<GainMax>3.0</GainMax>
-							<GainMin>0.0</GainMin>
+							<GainMax>2.0</GainMax>
+							<GainMin>-2.0</GainMin>
 					
 		<!--     Control Overlay and visibility -->
 							<Semitransparent>true</Semitransparent>		<!-- Transparency -->
-							<Visible>false</Visible>							<!-- Hide Layer (equivalents eye symbol) -->
+							<Visible>true</Visible>							<!-- Hide Layer (equivalents eye symbol) -->
 							<Load>true</Load>								<!-- Hide the tab completely -->
 							<Flip>false</Flip>								<!-- Flip image Palette -->
 							<LogarithmicScaling>false</LogarithmicScaling>	<!-- Enable Logarithmic Scaling -->
@@ -688,8 +688,8 @@
 							</Palette>
 					
 		<!--     Thresholds - Used when Autoscaling is off per default -->
-							<GainMax>0</GainMax>
-							<GainMin>0</GainMin>
+							<GainMax>0.0</GainMax>
+							<GainMin>2.0</GainMin>
 					
 		<!--     Control Overlay and visibility -->
 							<Semitransparent>false</Semitransparent>		<!-- Transparency -->
@@ -1567,8 +1567,8 @@ FORTH ADDITIONAL PANEL (bottom right)
 							</Palette>
 					
 		<!--     Thresholds - Used when Autoscaling is off per default -->
-							<GainMax>0</GainMax>
-							<GainMin>0</GainMin>
+							<GainMax>-2.0</GainMax>
+							<GainMin>0.0</GainMin>
 					
 		<!--     Control Overlay and visibility -->
 							<Semitransparent>false</Semitransparent>		<!-- Transparency -->

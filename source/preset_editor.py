@@ -334,11 +334,11 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.viewSpectraList.addItem(item.text())
         #pprint(item)
 
-        #add viewsettings object for the new spectrum
-        new = ViewSetting(item.text())
+        #add viewsettings object for the new spectrum for each view
+        new = [ViewSetting(item.text()),ViewSetting(item.text()),ViewSetting(item.text()),ViewSetting(item.text())]
 
         for i in range(0, len(self.settingslist)):
-            self.settingslist[i].append(new)
+            self.settingslist[i].append(new[i])
 
 
     def removespectra(self):
@@ -389,10 +389,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 print('View '+str(view))
                 print(self.settingslist[view][j])
                 break
-
-
-
-
+        
 
 
 
