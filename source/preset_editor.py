@@ -10,7 +10,7 @@ from copy import deepcopy
 #from pprint import pprint
 from xmlfileparser import XmlFileParser
 from lxml import etree
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
 #from PyQt5.QtWidgets import QFileDialog
 from preset_editor_gui import Ui_MainWindow
 from viewsetting import ViewSetting
@@ -27,7 +27,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
     defaultspectra = ['OPUS', 'Background']
 
-    allspectra = ['HbO2', 'Hb', 'Melanin', 'ICG', 'Test1', 'Test2']
+    allspectra = []
     """ all available spectra"""
 
     spectralist = []
@@ -36,7 +36,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     unselectedspectra = list(set(allspectra)-set(spectralist))
     """ unselected spectra at the start"""
 
-
+    fsf = 'C:\ProgramData\iThera\ViewMSOTc\Factory Spectra'
+    """factory spectra folder"""
 
     settingslist = [[], [], [], []]
     """dimensions = #views; containing corresponing viewsetting objects """
@@ -65,15 +66,42 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.minBox.editingFinished.connect(self.changeSettings)
         self.maxBox.editingFinished.connect(self.changeSettings)
 
-
-
-
         self.radioButtons = [self.view1Button, self.view2Button, self.view3Button, self.view4Button]
+
+        self.browseFactorySpectra.clicked.connect(self.changeFactorySpectra)
+
+        self.loadFactorySpectra()
+        self.unselectedspectra = list(set(self.allspectra)-set(self.spectralist))
 
         self.unselectedList.addItems(self.unselectedspectra)
         self.viewSpectraList.addItems(self.defaultspectra)
 
         #self.treeWidget.itemDoubleClicked.connect(self.setTreeItem)
+
+
+    def changeFactorySpectra(self):
+        """ opens Windows File Dialog, to select folder for the FactorySpectra"""
+        folder = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Select Directory", self.fsf))
+        if not os.path.isdir(folder):
+            return
+        self.loadFactorySpectra(folder)
+        self.unselectedspectra = list(set(self.allspectra)-set(self.spectralist))
+        self.unselectedList.clear()
+        self.unselectedList.addItems(self.unselectedspectra)
+        # TODO: clean gui, settingslist from old settings, that are not avaiable now?
+
+
+
+    def loadFactorySpectra(self, folder=fsf):
+        """load Factory Spectra from folder (default:  C:\ProgramData\iThera\ViewMSOTc\Factory Spectra) and cuts file 
+        extension. This is the allspectra list"""
+        self.allspectra = os.listdir(folder)
+        # cut fileextension
+        for i, s in enumerate(self.allspectra):
+            self.allspectra[i] = os.path.splitext(s)[0]
+
+        self.FactorySpectraTextBox.setPlainText(folder)
+
 
     def loadxmlFile(self):
         """ load xml File """
@@ -351,8 +379,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.unselectedList.addItem(item)
         self.spectralist.remove(item.text())
         self.unselectedspectra.append(item.text())
-        #the item to remove is 2 rows below, after OPUS and background """
-        self.viewSpectraList.takeItem(row+2)
+        # find Spectra to be removed in Spectralist and remove it
+        match = self.viewSpectraList.findItems(item.text(), QtCore.Qt.MatchExactly)
+        r = self.viewSpectraList.row(match[0])
+        self.viewSpectraList.takeItem(r)
 
         #remove settingsobject"
         for i in range(0, len(self.settingslist)):
