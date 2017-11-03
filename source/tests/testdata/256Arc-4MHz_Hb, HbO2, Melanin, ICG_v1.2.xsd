@@ -11,7 +11,7 @@
               <xsd:element name="Name" type="xsd:string" />
               <xsd:element name="PresetType" type="xsd:string" />
               <xsd:element name="IsDefaultPreset" type="xsd:boolean" />
-              <xsd:element name="PresetVersion" type="xsd:unsignedByte" />
+              <xsd:element name="PresetVersion" type="xsd:decimal" />
               <xsd:element name="MspPresets">
                 <xsd:complexType>
                   <xsd:sequence>

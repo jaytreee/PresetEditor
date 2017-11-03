@@ -152,7 +152,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.tree.xpath('./DataModelStudyPreset/Name')[0].text = self.nameBox.toPlainText()
         self.tree.xpath('./DataModelStudyPreset/CompatibleDetectorGUID')[0].text = self.detectorBox.toPlainText()
-
+        self.tree.xpath('./DataModelStudyPreset/PresetVersion')[0].text = self.versionTextBox.toPlainText()
         # write spectra/ first remove existing data in xml, write new list
         spectra = self.tree.find('.//UserSelectedSpectra')
 
@@ -239,6 +239,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     def displayTreetoGUI(self):
         """ Update the GUI  with the information in the xml file"""
         self.nameBox.setPlainText(self.tree.find('.//Name').text)
+        self.versionTextBox.setPlainText(self.tree.find('//PresetVersion').text)
         self.detectorBox.setPlainText(self.tree.find('.//CompatibleDetectorGUID').text)
         #add spectra to selectedList
         spectra = self.tree.find('.//UserSelectedSpectra')
