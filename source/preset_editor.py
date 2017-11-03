@@ -14,6 +14,7 @@ from PyQt5 import QtWidgets, QtCore
 #from PyQt5.QtWidgets import QFileDialog
 from preset_editor_gui import Ui_MainWindow
 from viewsetting import ViewSetting
+import uuid
 
 
 
@@ -58,6 +59,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.view4Button.clicked.connect(self.applySettings)
         self.viewSpectraList.clicked.connect(self.applySettings)
 
+        self.nameBox.textChanged.connect(self.generateGUID)
+
         self.addButton.clicked.connect(self.addspectra)
         self.deleteButton.clicked.connect(self.removespectra)
 
@@ -65,6 +68,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.transparentCheck.clicked.connect(self.changeSettings)
         self.minBox.editingFinished.connect(self.changeSettings)
         self.maxBox.editingFinished.connect(self.changeSettings)
+        
 
         self.radioButtons = [self.view1Button, self.view2Button, self.view3Button, self.view4Button]
 
@@ -102,6 +106,11 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.FactorySpectraTextBox.setPlainText(folder)
 
+
+    def generateGUID(self):
+        """gernerate GUID from the Preset Name"""
+        hash = uuid.uuid5(uuid.NAMESPACE_DNS,self.nameBox.toPlainText())
+        self.PresetIDTextBox.setPlainText(str(hash))
 
     def loadxmlFile(self):
         """ load xml File """
