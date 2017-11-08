@@ -159,6 +159,13 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.tree.find('.//USVisible').text = str(self.usvisibleBox.isChecked()).lower()
         self.tree.find('.//PreferredBackgroundWL').text = self.prefWLBox.currentText()
 
+        # ====== Processing Tab ==========
+        self.tree.find('.//UserSoundTrim').text = str(self.userSoundBox.value())
+        self.tree.find('.//FRAMECORRTHRES').text = str(self.SFAFrameThreshBox.value())
+        self.tree.find('.//BackgroundAbsorption').text = str(self.backgroundAbsorptionBox.value())
+        self.tree.find('.//BackgroundOxygenation').text = str(self.backgroundOxyBox.value())
+        
+        
         # Selected Wavlengeth List, delete all and and current
         wlset = self.tree.find('.//WavelengthSet/Items')
 
@@ -295,6 +302,15 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.prefWLBox.addItem(w)
             except ValueError:
                 pass
+
+        # ========= Processing Tab ===========
+        self.userSoundBox.setValue(int(self.tree.find('.//UserSoundTrim').text))
+        self.SFAFrameThreshBox.setValue(float(self.tree.find('.//FRAMECORRTHRES').text))
+        self.backgroundAbsorptionBox.setValue(float(self.tree.find('.//BackgroundAbsorption').text))
+        self.backgroundOxyBox.setValue(int(self.tree.find('.//BackgroundOxygenation').text))
+
+
+
 
         self.prefWLBox.setCurrentText(self.tree.find('.//PreferredBackgroundWL').text)
         # ==================================
