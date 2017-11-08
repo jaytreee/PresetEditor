@@ -6,6 +6,7 @@ qt designer test
 
 import sys
 import os
+import uuid
 from copy import deepcopy
 #from pprint import pprint
 from xmlfileparser import XmlFileParser
@@ -14,7 +15,8 @@ from PyQt5 import QtWidgets, QtCore
 #from PyQt5.QtWidgets import QFileDialog
 from preset_editor_gui import Ui_MainWindow
 from viewsetting import ViewSetting
-import uuid
+
+from addWavelengthDialog import Ui_AddWLDialog
 
 
 
@@ -50,7 +52,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         #self.addBtn.clicked.connect(self.addInputTextToListbox)
         self.loadButton.clicked.connect(self.loadxmlFile)
         self.saveAsButton.clicked.connect(self.writexmlFile)
+        
 
+        self.addWL.clicked.connect(self.addWavelength)
+        self.removeWL.clicked.connect(self.removeWavelength)
 
         self.tabWidget.tabBarClicked.connect(self.applySettings)
         self.view1Button.clicked.connect(self.applySettings)
@@ -149,10 +154,28 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         if path[0] == '':
             return
 
+        # ====== Acquisition Tab =======
+        self.tree.find('.//DisplayAllWavelengths').text = str(self.displayAllWLBox.isChecked()).lower()
+        self.tree.find('.//USVisible').text = str(self.usvisibleBox.isChecked()).lower()
+        self.tree.find('.//PreferredBackgroundWL').text = self.prefWLBox.currentText()
+
+        # Selected Wavlengeth List, delete all and and current
+        wlset = self.tree.find('.//WavelengthSet/Items')
+
+        for wl in wlset:
+            wl.getparent().remove(wl)
+        
+        for x in range(0, self.WLList.count()):
+            e = etree.Element('double')
+            e.text = self.WLList.item(x).text()
+            wlset.append(e)         
 
         self.tree.xpath('./DataModelStudyPreset/Name')[0].text = self.nameBox.toPlainText()
         self.tree.xpath('./DataModelStudyPreset/CompatibleDetectorGUID')[0].text = self.detectorBox.toPlainText()
         self.tree.xpath('./DataModelStudyPreset/PresetVersion')[0].text = self.versionTextBox.toPlainText()
+        
+        
+        
         # write spectra/ first remove existing data in xml, write new list
         spectra = self.tree.find('.//UserSelectedSpectra')
 
@@ -235,9 +258,46 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         XmlFileParser.write(self, self.tree, path)
 
 
+    def addWavelength(self):
+        """ add Wavelength to the Wavelength Set, opens a new Dialog"""
+        AddWLDialog = QtWidgets.QDialog()
+        ui = Ui_AddWLDialog()
+        ui.setupUi(AddWLDialog)
+        if AddWLDialog.exec():
+            v = str(ui.spinBox.value())
+            self.WLList.addItem(v)
+            self.prefWLBox.addItem(v)
+        # TODO: set spin box as selected, for easier keyboard input
+        # TODO: set sorting order numerically
+        
+    def removeWavelength(self):
+        """ remove selected Wavelength from the Wavelength Set and from the PrefferedWL Combobox"""
+        # 
+        try :
+            t = self.WLList.takeItem(self.WLList.currentRow()).text()
+            self.prefWLBox.removeItem(self.prefWLBox.findText(t))
+        except AttributeError:
+            # if there is no element in the list
+            pass
 
     def displayTreetoGUI(self):
         """ Update the GUI  with the information in the xml file"""
+        # TODO: sort after Tab?
+        # ======== Acquisition Tab ===========
+        self.displayAllWLBox.setChecked(self.tree.find('.//DisplayAllWavelengths').text == 'true')
+        self.usvisibleBox.setChecked(self.tree.find('.//USVisible').text == 'true')
+        wlset = self.tree.find('.//WavelengthSet/Items')
+        for wl in wlset:
+            # dont include comments
+            try:
+                w = (str(int(wl.text)))
+                self.WLList.addItem(w)
+                self.prefWLBox.addItem(w)
+            except ValueError:
+                pass
+
+        self.prefWLBox.setCurrentText(self.tree.find('.//PreferredBackgroundWL').text)
+        # ==================================
         self.nameBox.setPlainText(self.tree.find('.//Name').text)
         self.versionTextBox.setPlainText(self.tree.find('//PresetVersion').text)
         self.detectorBox.setPlainText(self.tree.find('.//CompatibleDetectorGUID').text)
@@ -261,6 +321,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.getViewingPresets()
 
         #self.applySettings()
+
+        
 
 
 
@@ -368,11 +430,11 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.selectedList.addItem(item)
         self.spectralist.append(item.text())
         self.unselectedspectra.remove(item.text())
-        #an item can only belong to one widget at a time
+        # an item can only belong to one widget at a time
         self.viewSpectraList.addItem(item.text())
-        #pprint(item)
+        # pprint(item)
 
-        #add viewsettings object for the new spectrum for each view
+        # add viewsettings object for the new spectrum for each view
         new = [ViewSetting(item.text()),ViewSetting(item.text()),ViewSetting(item.text()),ViewSetting(item.text())]
 
         for i in range(0, len(self.settingslist)):
@@ -394,7 +456,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         r = self.viewSpectraList.row(match[0])
         self.viewSpectraList.takeItem(r)
 
-        #remove settingsobject"
+        # remove settingsobject"
         for i in range(0, len(self.settingslist)):
             for j in range(0, len(self.settingslist[i])):
                 if self.settingslist[i][j].spectrum == item.text():

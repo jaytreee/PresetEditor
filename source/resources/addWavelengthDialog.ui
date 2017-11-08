@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddWLDialog</class>
+ <widget class="QDialog" name="AddWLDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>313</width>
+    <height>152</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Add Wavelength</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QPlainTextEdit {
+    font-family: &quot;Lucida Console&quot;,&quot;Courier&quot;;
+    font-size: 9pt; 
+    background-color: #262626;
+    selection-background-color: #2e5ea4;
+/*    color: #dddddd;  */
+}
+QWidget:focus {
+    border: 1px solid #2e5ea4;
+}
+
+QTapWidget{
+    border: 1px solid #2e5ea4;
+}
+QPushButton:pressed {
+    background-color: #2e5ea4; 
+    border: 1px solid #2e5ea4;
+    color: #ffffff;
+}
+/*QPushButton:flat {
+    background-color: #666666;
+    color: #ff0000;    
+    border: 1px solid #cccccc;
+}
+QPushButton:default {
+    background-color: #ff0000;
+    color: #ff0000;    
+    border: 1px solid #000000;
+}*/
+QPushButton {
+    color: #cccccc;    
+    border: 1px solid #888888;
+    background: #ff0000;
+    padding: 2px
+} 
+QWidget {
+    background: #222222;
+    color: #cccccc;
+}
+
+QTreeView::item:has-children {
+	font-weight: bold;
+}
+QTreeView::item:selected {
+     background-color: #2e5ea4;
+     color: #cccccc;
+	 font-weight: bold;
+}
+
+QTreeView::branch {
+    background-color: #222222;
+}
+
+QTabBar::tab {
+    background: #222222;   
+	border: 2px solid #cccccc;
+    border-bottom-color: #cccccc; /* same as the pane color */
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    min-width: 8ex;
+    padding: 2px;
+}
+
+QTabBar::tab:selected {
+    background: #2e5ea4
+    }
+</string>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>90</y>
+     <width>91</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>90</y>
+     <width>81</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="minimum">
+    <number>600</number>
+   </property>
+   <property name="maximum">
+    <number>1300</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>40</y>
+     <width>121</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Valid values: 600-1300</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>100</y>
+     <width>47</width>
+     <height>13</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>mm</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>AddWLDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>AddWLDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
