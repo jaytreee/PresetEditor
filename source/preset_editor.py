@@ -153,7 +153,9 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         if path[0] == '':
             return
-
+        # ====== General Information ===========
+        self.tree.find('.//PresetType').text = self.presetTypeBox.currentText()
+    
         # ====== Acquisition Tab =======
         self.tree.find('.//DisplayAllWavelengths').text = str(self.displayAllWLBox.isChecked()).lower()
         self.tree.find('.//USVisible').text = str(self.usvisibleBox.isChecked()).lower()
@@ -176,7 +178,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             e = etree.Element('double')
             e.text = self.WLList.item(x).text()
             wlset.append(e)         
-
+        wlset.text = None
         self.tree.xpath('./DataModelStudyPreset/Name')[0].text = self.nameBox.toPlainText()
         self.tree.xpath('./DataModelStudyPreset/CompatibleDetectorGUID')[0].text = self.detectorBox.toPlainText()
         self.tree.xpath('./DataModelStudyPreset/PresetVersion')[0].text = self.versionTextBox.toPlainText()
@@ -290,6 +292,13 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     def displayTreetoGUI(self):
         """ Update the GUI  with the information in the xml file"""
         # TODO: sort after Tab?
+
+        # ====== General Information =============
+        self.presetTypeBox.setCurrentText(self.tree.find('.//PresetType').text)
+
+
+
+
         # ======== Acquisition Tab ===========
         self.displayAllWLBox.setChecked(self.tree.find('.//DisplayAllWavelengths').text == 'true')
         self.usvisibleBox.setChecked(self.tree.find('.//USVisible').text == 'true')

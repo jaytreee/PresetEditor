@@ -19,7 +19,8 @@ class XmlFileParser:
             returns: lxml.etree 
         """
         print(path)
-        tree = etree.parse(path)
+        parser = etree.XMLParser(remove_blank_text=True)
+        tree = etree.parse(path, parser)
 
         # get first xsd file in directory
         # xsdpath = (os.path.splitext(path)[0]+'.xsd')
@@ -74,6 +75,7 @@ class XmlFileParser:
 
     def write(self, settings, path):
         """ write the Settings to an xml file"""
+        # print(etree.tostring(settings, pretty_print=True))
         settings.write(path[0], pretty_print=True)
         msg = QtWidgets.QMessageBox()
         msg.setText('Saved')
