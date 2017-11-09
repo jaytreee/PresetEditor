@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+  <xsd:element name="ArrayOfDataModelStudyPreset">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DataModelStudyPreset">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="PresetIdentifier" type="xsd:string" />
+              <xsd:element name="CompatibleDetectorGUID" type="xsd:string" />
+              <xsd:element name="Name" type="xsd:string" />
+              <xsd:element name="PresetType" type="xsd:string" />
+              <xsd:element name="IsDefaultPreset" type="xsd:boolean" />
+              <xsd:element name="PresetVersion" type="xsd:decimal" />
+              <xsd:element name="MspPresets">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="DataModelMspPreset">
+                      <xsd:complexType>
+                        <xsd:sequence>
+                          <xsd:element name="Method" type="xsd:string" />
+                          <xsd:element name="DiscardNegativeValues" type="xsd:boolean" />
+                          <xsd:element name="UserSelectedSpectra">
+                            <xsd:complexType>
+                              <xsd:sequence>
+                                <xsd:element maxOccurs="unbounded" name="string" type="xsd:string" />
+                              </xsd:sequence>
+                            </xsd:complexType>
+                          </xsd:element>
+                          <xsd:element name="BgWavelength">
+                            <xsd:complexType>
+                              <xsd:simpleContent>
+                                <xsd:extension base="xsd:unsignedShort">
+                                  <xsd:attribute name="unit" type="xsd:string" use="required" />
+                                  <xsd:attribute name="unit-modifier" type="xsd:string" use="required" />
+                                  <xsd:attribute name="number" type="xsd:unsignedByte" use="required" />
+                                </xsd:extension>
+                              </xsd:simpleContent>
+                            </xsd:complexType>
+                          </xsd:element>
+                        </xsd:sequence>
+                      </xsd:complexType>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="ReconPresets">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="DataModelReconPreset">
+                      <xsd:complexType>
+                        <xsd:sequence>
+                          <xsd:element name="SystemReconPresetsVersion" type="xsd:unsignedByte" />
+                          <xsd:element name="Method" type="xsd:string" />
+                          <xsd:element name="SystemReconPresets">
+                            <xsd:complexType>
+                              <xsd:sequence>
+                                <xsd:element name="ReconstructionPreset">
+                                  <xsd:complexType>
+                                    <xsd:sequence>
+                                      <xsd:element name="Resolution" type="xsd:unsignedShort" />
+                                      <xsd:element name="Projections" type="xsd:unsignedShort" />
+                                      <xsd:element name="RoiLow" type="xsd:decimal" />
+                                      <xsd:element name="RoiHigh" type="xsd:decimal" />
+                                      <xsd:element name="UltraSoundPixelSize" type="xsd:decimal" />
+                                      <xsd:element name="ProdigyDataSet" type="xsd:string" />
+                                      <xsd:element name="ProdigyDaq" type="xsd:string" />
+                                      <xsd:element name="ProdigySubImageIncrement" type="xsd:unsignedByte" />
+                                      <xsd:element name="ProdigyInterpolation" type="xsd:unsignedByte" />
+                                      <xsd:element name="TimeRes" type="xsd:unsignedByte" />
+                                      <xsd:element name="FilterType" type="xsd:string" />
+                                      <xsd:element name="FilterLow" type="xsd:unsignedShort" />
+                                      <xsd:element name="FilterHigh" type="xsd:unsignedInt" />
+                                      <xsd:element name="Nz" type="xsd:unsignedByte" />
+                                      <xsd:element name="RoiZlow" type="xsd:decimal" />
+                                      <xsd:element name="RoiZhigh" type="xsd:decimal" />
+                                      <xsd:element name="MaxSupportedFrameRate" type="xsd:unsignedByte" />
+                                    </xsd:sequence>
+                                  </xsd:complexType>
+                                </xsd:element>
+                              </xsd:sequence>
+                            </xsd:complexType>
+                          </xsd:element>
+                          <xsd:element name="DisableLowPass" type="xsd:boolean" />
+                          <xsd:element name="ImpulseResponse" type="xsd:boolean" />
+                          <xsd:element name="DepthCorrection" type="xsd:boolean" />
+                          <xsd:element name="BackgroundAbsorption" type="xsd:decimal" />
+                          <xsd:element name="BackgroundOxygenation" type="xsd:unsignedByte" />
+                          <xsd:element name="SensitivityMap" type="xsd:boolean" />
+                          <xsd:element name="UserSoundTrim" type="xsd:unsignedByte" />
+                          <xsd:element name="ProdigyFrequency" type="xsd:unsignedByte" />
+                          <xsd:element name="ProdigyPower" type="xsd:string" />
+                          <xsd:element name="ProdigySV" type="xsd:unsignedShort" />
+                        </xsd:sequence>
+                      </xsd:complexType>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="ExprerimentPreset">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="IsMultipleMspLivePreviewEnabled" type="xsd:boolean" />
+                    <xsd:element name="DisplayAllWavelengths" type="xsd:boolean" />
+                    <xsd:element name="USVisible" type="xsd:boolean" />
+                    <xsd:element name="FramesPerWavelength" type="xsd:unsignedByte" />
+                    <xsd:element name="AverageFramesPerWavelength" type="xsd:boolean" />
+                    <xsd:element name="PreferredBackgroundWL" type="xsd:unsignedShort" />
+                    <xsd:element name="DefaultLaserTriggerRate" type="xsd:unsignedByte" />
+                    <xsd:element name="SelectiveFrameAveraging">
+                      <xsd:complexType>
+                        <xsd:sequence>
+                          <xsd:element name="REFWAVELENGTH" type="xsd:unsignedShort" />
+                          <xsd:element name="CORRTHRES" type="xsd:decimal" />
+                          <xsd:element name="MAXAVERAGES" type="xsd:unsignedByte" />
+                          <xsd:element name="FRAMECORRTHRES" type="xsd:decimal" />
+                          <xsd:element name="CONFLIMIT" type="xsd:decimal" />
+                        </xsd:sequence>
+                      </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="MAXPASTSWEEPS" type="xsd:unsignedByte" />
+                    <xsd:element name="WavelengthSet">
+                      <xsd:complexType>
+                        <xsd:sequence>
+                          <xsd:element name="Items">
+                            <xsd:complexType>
+                              <xsd:sequence>
+                                <xsd:element maxOccurs="unbounded" name="double" type="xsd:unsignedShort" />
+                              </xsd:sequence>
+                            </xsd:complexType>
+                          </xsd:element>
+                        </xsd:sequence>
+                      </xsd:complexType>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="ImagingSettingsPreset">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="AutoScaling" type="xsd:boolean" />
+                    <xsd:element name="ScalingMode" type="xsd:string" />
+                    <xsd:element name="Rotation">
+                      <xsd:complexType>
+                        <xsd:sequence>
+                          <xsd:element name="M11" type="xsd:unsignedByte" />
+                          <xsd:element name="M12" type="xsd:unsignedByte" />
+                          <xsd:element name="M21" type="xsd:unsignedByte" />
+                          <xsd:element name="M22" type="xsd:unsignedByte" />
+                          <xsd:element name="OffsetX" type="xsd:unsignedByte" />
+                          <xsd:element name="OffsetY" type="xsd:unsignedByte" />
+                        </xsd:sequence>
+                      </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="Zoom" type="xsd:unsignedByte" />
+                    <xsd:element name="ImageLayers">
+                      <xsd:complexType>
+                        <xsd:sequence>
+                          <xsd:element maxOccurs="unbounded" name="DataModelImagingLayer">
+                            <xsd:complexType>
+                              <xsd:sequence>
+                                <xsd:element name="ComponentTagIdentifier" type="xsd:string" />
+                                <xsd:element name="Palette">
+                                  <xsd:complexType>
+                                    <xsd:sequence>
+                                      <xsd:element name="PaletteType" type="xsd:string" />
+                                      <xsd:element minOccurs="0" name="AlphaGainCurveCP1">
+                                        <xsd:complexType>
+                                          <xsd:sequence>
+                                            <xsd:element name="X" type="xsd:decimal" />
+                                            <xsd:element name="Y" type="xsd:unsignedByte" />
+                                          </xsd:sequence>
+                                        </xsd:complexType>
+                                      </xsd:element>
+                                      <xsd:element minOccurs="0" name="AlphaGainCurveCP2">
+                                        <xsd:complexType>
+                                          <xsd:sequence>
+                                            <xsd:element name="X" type="xsd:decimal" />
+                                            <xsd:element name="Y" type="xsd:unsignedByte" />
+                                          </xsd:sequence>
+                                        </xsd:complexType>
+                                      </xsd:element>
+                                      <xsd:element minOccurs="0" name="UseAlphaCurve" type="xsd:boolean" />
+                                      <xsd:element minOccurs="0" name="AlphaLutCurveMap" type="xsd:string" />
+                                      <xsd:element minOccurs="0" name="ParabolicAlphaCurvePower" type="xsd:unsignedByte" />
+                                    </xsd:sequence>
+                                  </xsd:complexType>
+                                </xsd:element>
+                                <xsd:element name="GainMax" type="xsd:decimal" />
+                                <xsd:element name="GainMin" type="xsd:decimal" />
+                                <xsd:element name="Semitransparent" type="xsd:boolean" />
+                                <xsd:element name="Visible" type="xsd:boolean" />
+                                <xsd:element name="Load" type="xsd:boolean" />
+                                <xsd:element name="Flip" type="xsd:boolean" />
+                                <xsd:element name="LogarithmicScaling" type="xsd:boolean" />
+                                <xsd:element minOccurs="0" name="HbOxyMapThreshold" type="xsd:decimal" />
+                                <xsd:element minOccurs="0" name="HbO2OxyMapThreshold" type="xsd:decimal" />
+                                <xsd:element name="FilterSettings">
+                                  <xsd:complexType>
+                                    <xsd:sequence>
+                                      <xsd:element name="DataModelFrequencyFilterSetting">
+                                        <xsd:complexType>
+                                          <xsd:sequence>
+                                            <xsd:element name="HighFrequency" type="xsd:unsignedByte" />
+                                            <xsd:element name="LowFrequency" type="xsd:unsignedByte" />
+                                          </xsd:sequence>
+                                        </xsd:complexType>
+                                      </xsd:element>
+                                    </xsd:sequence>
+                                  </xsd:complexType>
+                                </xsd:element>
+                                <xsd:element name="RoiTableVisible" type="xsd:boolean" />
+                              </xsd:sequence>
+                            </xsd:complexType>
+                          </xsd:element>
+                        </xsd:sequence>
+                      </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="ImageLayersComposeMethod" type="xsd:string" />
+                    <xsd:element name="IsOxyMapsEnabled" type="xsd:boolean" />
+                    <xsd:element name="SelectedROIsStyle" type="xsd:string" />
+                    <xsd:element name="UltrasoundMinimumScaling" type="xsd:byte" />
+                    <xsd:element name="UltrasoundMaximumScaling" type="xsd:unsignedByte" />
+                    <xsd:element name="BackgroundMinimumScaling" type="xsd:decimal" />
+                    <xsd:element name="BackgroundMaximumScaling" type="xsd:decimal" />
+                    <xsd:element name="ForegroundMinimumScaling" type="xsd:byte" />
+                    <xsd:element name="ForegroundMaximumScaling" type="xsd:unsignedByte" />
+                    <xsd:element name="Visible3DGridPlanesTypes" type="xsd:string" />
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="ViewingPresets">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" name="DataModelViewingPreset">
+                      <xsd:complexType>
+                        <xsd:sequence>
+                          <xsd:element name="IsEnabled" type="xsd:boolean" />
+                          <xsd:element name="IsMaximized" type="xsd:boolean" />
+                          <xsd:element name="FrameAveragingThreshold" type="xsd:unsignedByte" />
+                          <xsd:element name="GridRow" type="xsd:unsignedByte" />
+                          <xsd:element name="GridColumn" type="xsd:unsignedByte" />
+                          <xsd:element name="ImagingSettingsPreset">
+                            <xsd:complexType>
+                              <xsd:sequence>
+                                <xsd:element name="AutoScaling" type="xsd:boolean" />
+                                <xsd:element name="ScalingMode" type="xsd:string" />
+                                <xsd:element name="Rotation">
+                                  <xsd:complexType>
+                                    <xsd:sequence>
+                                      <xsd:element name="M11" type="xsd:unsignedByte" />
+                                      <xsd:element name="M12" type="xsd:unsignedByte" />
+                                      <xsd:element name="M21" type="xsd:unsignedByte" />
+                                      <xsd:element name="M22" type="xsd:unsignedByte" />
+                                      <xsd:element name="OffsetX" type="xsd:unsignedByte" />
+                                      <xsd:element name="OffsetY" type="xsd:unsignedByte" />
+                                    </xsd:sequence>
+                                  </xsd:complexType>
+                                </xsd:element>
+                                <xsd:element name="Zoom" type="xsd:unsignedByte" />
+                                <xsd:element name="ImageLayers">
+                                  <xsd:complexType>
+                                    <xsd:sequence>
+                                      <xsd:element maxOccurs="unbounded" name="DataModelImagingLayer">
+                                        <xsd:complexType>
+                                          <xsd:sequence>
+                                            <xsd:element name="ComponentTagIdentifier" type="xsd:string" />
+                                            <xsd:element name="Palette">
+                                              <xsd:complexType>
+                                                <xsd:sequence>
+                                                  <xsd:element name="PaletteType" type="xsd:string" />
+                                                  <xsd:element minOccurs="0" name="AlphaGainCurveCP1">
+                                                    <xsd:complexType>
+                                                      <xsd:sequence>
+                                                        <xsd:element name="X" type="xsd:unsignedByte" />
+                                                        <xsd:element name="Y" type="xsd:unsignedByte" />
+                                                      </xsd:sequence>
+                                                    </xsd:complexType>
+                                                  </xsd:element>
+                                                  <xsd:element minOccurs="0" name="AlphaGainCurveCP2">
+                                                    <xsd:complexType>
+                                                      <xsd:sequence>
+                                                        <xsd:element name="X" type="xsd:unsignedByte" />
+                                                        <xsd:element name="Y" type="xsd:unsignedByte" />
+                                                      </xsd:sequence>
+                                                    </xsd:complexType>
+                                                  </xsd:element>
+                                                  <xsd:element minOccurs="0" name="UseAlphaCurve" type="xsd:boolean" />
+                                                  <xsd:element minOccurs="0" name="AlphaLutCurveMap" type="xsd:string" />
+                                                  <xsd:element minOccurs="0" name="ParabolicAlphaCurvePower" type="xsd:unsignedByte" />
+                                                </xsd:sequence>
+                                              </xsd:complexType>
+                                            </xsd:element>
+                                            <xsd:element name="GainMax" type="xsd:decimal" />
+                                            <xsd:element name="GainMin" type="xsd:decimal" />
+                                            <xsd:element name="Semitransparent" type="xsd:boolean" />
+                                            <xsd:element name="Visible" type="xsd:boolean" />
+                                            <xsd:element name="Load" type="xsd:boolean" />
+                                            <xsd:element name="Flip" type="xsd:boolean" />
+                                            <xsd:element name="LogarithmicScaling" type="xsd:boolean" />
+                                            <xsd:element minOccurs="0" name="HbOxyMapThreshold" type="xsd:decimal" />
+                                            <xsd:element minOccurs="0" name="HbO2OxyMapThreshold" type="xsd:decimal" />
+                                            <xsd:element name="FilterSettings">
+                                              <xsd:complexType>
+                                                <xsd:sequence>
+                                                  <xsd:element name="DataModelFrequencyFilterSetting">
+                                                    <xsd:complexType>
+                                                      <xsd:sequence>
+                                                        <xsd:element name="HighFrequency" type="xsd:unsignedByte" />
+                                                        <xsd:element name="LowFrequency" type="xsd:unsignedByte" />
+                                                      </xsd:sequence>
+                                                    </xsd:complexType>
+                                                  </xsd:element>
+                                                </xsd:sequence>
+                                              </xsd:complexType>
+                                            </xsd:element>
+                                            <xsd:element name="RoiTableVisible" type="xsd:boolean" />
+                                          </xsd:sequence>
+                                        </xsd:complexType>
+                                      </xsd:element>
+                                    </xsd:sequence>
+                                  </xsd:complexType>
+                                </xsd:element>
+                                <xsd:element name="ImageLayersComposeMethod" type="xsd:string" />
+                                <xsd:element name="IsOxyMapsEnabled" type="xsd:boolean" />
+                                <xsd:element name="SelectedROIsStyle" type="xsd:string" />
+                                <xsd:element name="UltrasoundMinimumScaling" type="xsd:byte" />
+                                <xsd:element name="UltrasoundMaximumScaling" type="xsd:unsignedByte" />
+                                <xsd:element name="BackgroundMinimumScaling" type="xsd:decimal" />
+                                <xsd:element name="BackgroundMaximumScaling" type="xsd:decimal" />
+                                <xsd:element name="ForegroundMinimumScaling" type="xsd:byte" />
+                                <xsd:element name="ForegroundMaximumScaling" type="xsd:unsignedByte" />
+                                <xsd:element name="Visible3DGridPlanesTypes" type="xsd:string" />
+                              </xsd:sequence>
+                            </xsd:complexType>
+                          </xsd:element>
+                        </xsd:sequence>
+                      </xsd:complexType>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xs:schema>

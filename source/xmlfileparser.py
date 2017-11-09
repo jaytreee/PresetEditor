@@ -4,7 +4,7 @@ XML/XSD  file parser, for Preset Editor GUI
 
 # pylint: disable=E1101
 
-import os, glob
+import os, glob, sys
 from lxml import etree
 from  PyQt5 import QtWidgets
 
@@ -36,17 +36,32 @@ class XmlFileParser:
                 print('valid schema')
             else:
                 print('invalid schema' )'''
-            try:
-                xmlschema.assertValid(tree)
-                print('valid schema')
-            except etree.DocumentInvalid as err:
-                print('Schema invalid: ' + str(err))
-
             
+
+        # when no Schema is in Directory of the xml File load it from internally    
         else:
+            print('could not find local schema \n using SchemaV1.0')
+            if hasattr(sys, "_MEIPASS"):
+                
+                
+                xmlschema = etree.XMLSchema(etree.parse(os.path.join(sys._MEIPASS, 'SchemaV1.0.xsd')))
+            
+            else:
+                xmlschema = etree.XMLSchema(etree.parse(r'H:\Code\com.itheramedical.PresetEditor\source\resources\SchemaV1.0.xsd'))
+                
+
+        try:
+            xmlschema.assertValid(tree)
+            print('valid schema')
+        except etree.DocumentInvalid as err:
+
+            print('Schema invalid: ' + str(err))
             msg = QtWidgets.QMessageBox()
-            msg.setText('XML Schema could not be found')
+            msg.setText('Schema invalid/ XML file is not supported')
             msg.exec()
+            sys.exit(-1)
+        
+         
 
 
 

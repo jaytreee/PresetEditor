@@ -346,6 +346,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     def cleanup(self):
         """ clean GUI, called before reading a new file"""
         self.selectedList.clear()
+        self.WLList.clear()
+        self.prefWLBox.clear()
         self.viewSpectraList.clear()
         self.viewSpectraList.addItems(self.defaultspectra)
         self.spectralist.clear()
@@ -356,9 +358,15 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     def getViewingPresets(self):
         """get the presets of the spectra for the four view panels"""
 
-        viewingpresets = self.tree.find('.//ViewingPresets')
-        #print(etree.tostring(viewingpresets))
-        views = viewingpresets.findall('.//DataModelViewingPreset')
+        try:
+            viewingpresets = self.tree.find('.//ViewingPresets')
+            #print(etree.tostring(viewingpresets))
+            views = viewingpresets.findall('.//DataModelViewingPreset')
+        except AttributeError:
+            msg = QtWidgets.QMessageBox()
+            msg.setText('Support only for Multipanel Views')
+            msg.exec_()
+            sys.exit(-1)
 
         #get all settings for all views
         for i in range(0, len(views)):
@@ -513,7 +521,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
 if __name__ == '__main__':
 
+    # sys.stdout = open('log.txt', 'w')
+
     app = QtWidgets.QApplication(sys.argv)
+
 
     ''' style = 'iLabs.css'
 
@@ -521,8 +532,15 @@ if __name__ == '__main__':
         app.setStyleSheet(ss.read()) '''
 
     window = QtWidgets.QMainWindow()
-
+    # f = open('log.txt', 'w')
+    
     prog = PresetEditor()
 
     window.show()
-    sys.exit(app.exec_())
+    
+
+    exitcode=app.exec_()
+    
+    #     f.write(e)
+    
+    sys.exit(exitcode)
