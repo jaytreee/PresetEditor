@@ -14,7 +14,7 @@ from lxml import etree
 from PyQt5 import QtWidgets, QtCore
 #from PyQt5.QtWidgets import QFileDialog
 from preset_editor_gui import Ui_MainWindow
-from viewsetting import ViewSetting
+from viewsetting import LayerSetting, ViewSettings
 
 from addWavelengthDialog import Ui_AddWLDialog
 
@@ -43,7 +43,11 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     """factory spectra folder"""
 
     settingslist = [[], [], [], []]
-    """dimensions = #views; containing corresponing viewsetting objects """
+    """dimensions = #views; containing corresponing layersetting objects """
+
+    viewsettings = []
+    """ settings for each view panel"""
+
 
     def __init__(self):
         super(PresetEditor, self).__init__()
@@ -71,10 +75,14 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.deleteButton.clicked.connect(self.removespectra)
 
         self.visibleCheck.clicked.connect(self.changeSettings)
+        self.loadCheck.clicked.connect(self.changeSettings)
+        self.logarithmicScalingCheck.clicked.connect(self.changeSettings)
+        self.paletteType.currentTextChanged.connect(self.changeSettings)
         self.transparentCheck.clicked.connect(self.changeSettings)
         self.minBox.editingFinished.connect(self.changeSettings)
         self.maxBox.editingFinished.connect(self.changeSettings)
         
+        self.enableMultiPanel.stateChanged.connect(self.toggleMultiPanel)
 
         self.radioButtons = [self.view1Button, self.view2Button, self.view3Button, self.view4Button]
 
@@ -86,6 +94,19 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.unselectedList.addItems(self.unselectedspectra)
         self.viewSpectraList.addItems(self.defaultspectra)
 
+        # ===== Processing========
+        
+
+        # ======== View Settings ===========
+        self.autoScalingCheck.clicked.connect(self.changeViewSettings)
+        self.usmin.selectionChanged.connect(self.changeViewSettings)
+        self.usmax.selectionChanged.connect(self.changeViewSettings)
+        self.bgmin.selectionChanged.connect(self.changeViewSettings)
+        self.bgmax.selectionChanged.connect(self.changeViewSettings)
+        self.fgmin.selectionChanged.connect(self.changeViewSettings)
+        self.fgmax.selectionChanged.connect(self.changeViewSettings)
+
+        # =========================================
         #self.treeWidget.itemDoubleClicked.connect(self.setTreeItem)
 
 
@@ -171,7 +192,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.tree.find('.//FRAMECORRTHRES').text = str(self.SFAFrameThreshBox.value())
         self.tree.find('.//BackgroundAbsorption').text = str(self.backgroundAbsorptionBox.value())
         self.tree.find('.//BackgroundOxygenation').text = str(self.backgroundOxyBox.value())
+        self.tree.find('.//BgWavelength').text = self.bgWL.currentText()
         
+        # ====== Visualization Tab =======
+        self.tree.find('.//IsMultipleMspLivePreviewEnabled').text = str(self.enableMultiPanel.isChecked()).lower()
         
         # Selected Wavlengeth List, delete all and and current
         wlset = self.tree.find('.//WavelengthSet/Items')
@@ -204,13 +228,32 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         #print(etree.tostring(viewingpresets))
         views = viewingpresets.findall('.//DataModelViewingPreset')
 
+        
+
         showedwarning = None
 
         #get all layers for all views
         for i in range(0, len(views)):
 
-            #get  for all layers
+            # ===== Write Settings of each View ===============
+            v = views[i]
+            s = self.viewsettings[i]
+            v.find('.//AutoScaling').text = str(s.autoscaling).lower()
+            v.find('.//UltrasoundMinimumScaling').text = str(s.usscalingmin)
+            v.find('.//UltrasoundMaximumScaling').text = str(s.usscalingmax)
+            v.find('.//BackgroundMinimumScaling').text = str(s.backgroundscalingmin)
+            v.find('.//BackgroundMaximumScaling').text = str(s.backgroundscalingmax)
+            v.find('.//ForegroundMinimumScaling').text = str(s.foregroundscalingmin)
+            v.find('.//ForegroundMaximumScaling').text = str(s.foregroundscalingmax)
+
+
+            # ===================================================
+
+            #get  layers for each view
             layers = views[i].findall('.//DataModelImagingLayer')
+
+            
+
             # set for spectra
             sset = set(self.spectralist)
             sset |= set(self.defaultspectra)
@@ -233,6 +276,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                         p.find('.//GainMin').text = str(s.minthresh)
                         p.find('.//Semitransparent').text = str(s.transparent).lower()
                         p.find('.//Visible').text = str(s.visible).lower()
+                        p.find('.//PaletteType').text = str(s.palette)
+                        p.find('.//LogarithmicScaling').text = str(s.logarithmic).lower()
+                        p.find('.//Load').text = str(s.load).lower()
+
 
                         if spectrum.text == 'Hb':
                             hbdummy = deepcopy(spectrum.getparent())
@@ -269,6 +316,22 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         XmlFileParser.write(self, self.tree, path)
 
+    def toggleMultiPanel(self):
+        """ toggle Multipanel Option"""
+        if not self.enableMultiPanel.isChecked():
+            
+            self.radioButtons[0].setChecked(True)
+            self.radioButtons[1].setCheckable(False)
+            self.radioButtons[2].setCheckable(False)
+            self.radioButtons[3].setCheckable(False)
+            self.applySettings()
+
+        else:
+            self.radioButtons[1].setCheckable(True)
+            self.radioButtons[2].setCheckable(True)
+            self.radioButtons[3].setCheckable(True)
+            
+        
 
     def addWavelength(self):
         """ add Wavelength to the Wavelength Set, opens a new Dialog"""
@@ -282,6 +345,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             self.WLList.addItem(q)
             
             self.prefWLBox.addItem(str(ui.spinBox.value()))
+            self.bgWL.addItem(str(ui.spinBox.value()))
         # TODO: set spin box as selected, for easier keyboard input
         # TODO: set sorting order numerically
         
@@ -291,6 +355,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         try :
             t = self.WLList.takeItem(self.WLList.currentRow()).text()
             self.prefWLBox.removeItem(self.prefWLBox.findText(t))
+            self.bgWL.removeItem(self.prefWLBox.findText(t))
         except AttributeError:
             # if there is no element in the list
             pass
@@ -303,7 +368,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.presetTypeBox.setCurrentText(self.tree.find('.//PresetType').text)
 
 
-
+        
+        
 
         # ======== Acquisition Tab ===========
         self.displayAllWLBox.setChecked(self.tree.find('.//DisplayAllWavelengths').text == 'true')
@@ -317,6 +383,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 q.setData(0, int(w))
                 self.WLList.addItem(q)
                 self.prefWLBox.addItem(w)
+                self.bgWL.addItem(w)
             except ValueError:
                 pass
 
@@ -325,7 +392,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.SFAFrameThreshBox.setValue(float(self.tree.find('.//FRAMECORRTHRES').text))
         self.backgroundAbsorptionBox.setValue(float(self.tree.find('.//BackgroundAbsorption').text))
         self.backgroundOxyBox.setValue(int(self.tree.find('.//BackgroundOxygenation').text))
-
+        self.bgWL.setCurrentText(self.tree.find('.//BgWavelength').text)
 
 
 
@@ -364,6 +431,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         """ clean GUI, called before reading a new file"""
         self.selectedList.clear()
         self.WLList.clear()
+        self.bgWL.clear()
         self.prefWLBox.clear()
         self.viewSpectraList.clear()
         self.viewSpectraList.addItems(self.defaultspectra)
@@ -373,7 +441,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
     def getViewingPresets(self):
-        """get the presets of the spectra for the four view panels"""
+        """get the presets of the layer for each of the four view panels
+        and get the settings of each view"""
 
         try:
             viewingpresets = self.tree.find('.//ViewingPresets')
@@ -387,6 +456,22 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         #get all settings for all views
         for i in range(0, len(views)):
+            
+            # === get the Settings of each view panel =====
+            autosc = views[i].find('.//AutoScaling').text == 'true'
+            usmin = views[i].find('.//UltrasoundMinimumScaling').text
+            usmax = views[i].find('.//UltrasoundMaximumScaling').text
+            bgmin = views[i].find('.//BackgroundMinimumScaling').text
+            bgmax = views[i].find('.//BackgroundMaximumScaling').text
+            foremin = views[i].find('.//ForegroundMinimumScaling').text
+            foremax = views[i].find('.//ForegroundMaximumScaling').text
+
+            self.viewsettings.append(ViewSettings(autosc, usmin, usmax, bgmin, bgmax, foremin, foremax))
+            # print('View '+str(i)+'\n'+str(self.viewsettings[i])+'\n')
+
+
+
+
 
             settings = []
 
@@ -396,16 +481,18 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             for j in range(0, len(layers)):
 
                 spectrum = layers[j].find('.//ComponentTagIdentifier').text
+                colormap = layers[j].find('.//PaletteType').text
+                load = layers[j].find('.//Load').text == 'true'
+                lgsc = layers[j].find('.//LogarithmicScaling').text == 'true'
 
-                visible = True if(layers[j].find('.//Visible').text) == 'true' else False
+                visible = layers[j].find('.//Visible').text == 'true' 
 
                 #print(layers[j].find('.//Visible').text)
 
                 #print(layers[j].find('.//Semitransparent').text)
 
 
-                transparent = True if (layers[j].find(
-                    './Semitransparent').text) == 'true' else False
+                transparent = (layers[j].find('./Semitransparent').text) == 'true' 
 
                 mint = float(layers[j].find('.//GainMin').text)
 
@@ -413,7 +500,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
                 #add to settings of this view
-                settings.append(ViewSetting(spectrum, visible, transparent, mint, maxt))
+                settings.append(LayerSetting(spectrum, colormap,load,lgsc, visible, transparent, mint, maxt))
 
 
             # add the list of one view to the complete list
@@ -429,6 +516,17 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             if self.radioButtons[i].isChecked():
                 k = i
                 break
+
+        # apply current view settings
+        cv = self.viewsettings[k]
+        self.autoScalingCheck.setChecked(cv.autoscaling)
+        self.usmin.setText(cv.usscalingmin)
+        self.usmax.setText(cv.usscalingmax)
+        self.bgmin.setText(cv.backgroundscalingmin)
+        self.bgmax.setText(cv.backgroundscalingmax)
+        self.fgmin.setText(cv.foregroundscalingmin)
+        self.fgmax.setText(cv.foregroundscalingmax)
+
 
         # get selected spectrum
         if self.viewSpectraList.count() == 0:
@@ -449,11 +547,14 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         for i in range(0, len(settings)):
             #pprint(selected)
             if settings[i].spectrum == selected:
-
-                self.visibleCheck.setChecked(settings[i].visible)
-                self.transparentCheck.setChecked(settings[i].transparent)
-                self.minBox.setValue(settings[i].minthresh)
-                self.maxBox.setValue(settings[i].maxthresh)
+                s = settings[i]
+                self.paletteType.setCurrentText(s.palette)
+                self.loadCheck.setChecked(s.load)
+                self.logarithmicScalingCheck.setChecked(s.logarithmic)
+                self.visibleCheck.setChecked(s.visible)
+                self.transparentCheck.setChecked(s.transparent)
+                self.minBox.setValue(s.minthresh)
+                self.maxBox.setValue(s.maxthresh)
 
                 return
 
@@ -476,7 +577,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         # pprint(item)
 
         # add viewsettings object for the new spectrum for each view
-        new = [ViewSetting(item.text()),ViewSetting(item.text()),ViewSetting(item.text()),ViewSetting(item.text())]
+        new = [LayerSetting(item.text()),LayerSetting(item.text()),LayerSetting(item.text()),LayerSetting(item.text())]
 
         for i in range(0, len(self.settingslist)):
             self.settingslist[i].append(new[i])
@@ -503,10 +604,32 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 if self.settingslist[i][j].spectrum == item.text():
                     del self.settingslist[i][j]
                     break
+    
+    def changeViewSettings(self):
+        """ save changes to viewsettings object, called after modifying the the settings in the view settings box """
+        view = 0
+        for i in range(0, len(self.radioButtons)):
+            if self.radioButtons[i].isChecked():
+                view = i
+                break
 
+        v = self.viewsettings[view]
+
+        v.autoscaling = self.autoScalingCheck.isChecked()
+        v.backgroundscalingmin = self.bgmin.toPlainText()
+        v.backgroundscalingmax = self.bgmax.toPlainText()
+        v.usscalingmin = self.usmin.toPlainText()
+        v.usscalingmax = self.usmax.toPlainText()
+        v.foregroundscalingmin = self.fgmin.toPlainText()
+        v.foregroundscalingmax = self.fgmax.toPlainText()
+
+        print(v)
+        
+        
+        
 
     def changeSettings(self):
-        """ save the changes made in the gui to the ViewSettings object,
+        """ save the changes made in the gui to the LayerSettings object,
         called by clicking Visible/Transparent checkboxes
         and changing the threshold
         """
@@ -525,10 +648,14 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         for j in range(0, len(self.settingslist[view])):
             if self.settingslist[view][j].spectrum == item.text():
-                self.settingslist[view][j].visible = self.visibleCheck.isChecked()
-                self.settingslist[view][j].transparent = self.transparentCheck.isChecked()
-                self.settingslist[view][j].minthresh = self.minBox.value()
-                self.settingslist[view][j].maxthresh = self.maxBox.value()
+                s = self.settingslist[view][j]
+                s.visible = self.visibleCheck.isChecked()
+                s.transparent = self.transparentCheck.isChecked()
+                s.minthresh = self.minBox.value()
+                s.maxthresh = self.maxBox.value()
+                s.load = self.loadCheck.isChecked()
+                s.logarithmic = self.logarithmicScalingCheck.isChecked()
+                s.palette = self.paletteType.currentText()
                 print('View '+str(view))
                 print(self.settingslist[view][j])
                 break
