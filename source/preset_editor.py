@@ -53,6 +53,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.loadButton.clicked.connect(self.loadxmlFile)
         self.saveAsButton.clicked.connect(self.writexmlFile)
         
+        
 
         self.addWL.clicked.connect(self.addWavelength)
         self.removeWL.clicked.connect(self.removeWavelength)
@@ -155,6 +156,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             return
         # ====== General Information ===========
         self.tree.find('.//PresetType').text = self.presetTypeBox.currentText()
+        self.tree.xpath('./DataModelStudyPreset/Name')[0].text = self.nameBox.toPlainText()
+        self.tree.xpath('./DataModelStudyPreset/CompatibleDetectorGUID')[0].text = self.detectorBox.toPlainText()
+        self.tree.xpath('./DataModelStudyPreset/PresetVersion')[0].text = self.versionTextBox.toPlainText()
+      
     
         # ====== Acquisition Tab =======
         self.tree.find('.//DisplayAllWavelengths').text = str(self.displayAllWLBox.isChecked()).lower()
@@ -179,10 +184,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             e.text = self.WLList.item(x).text()
             wlset.append(e)         
         wlset.text = None
-        self.tree.xpath('./DataModelStudyPreset/Name')[0].text = self.nameBox.toPlainText()
-        self.tree.xpath('./DataModelStudyPreset/CompatibleDetectorGUID')[0].text = self.detectorBox.toPlainText()
-        self.tree.xpath('./DataModelStudyPreset/PresetVersion')[0].text = self.versionTextBox.toPlainText()
-        
+
+          
         
         
         # write spectra/ first remove existing data in xml, write new list
@@ -273,9 +276,12 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         ui = Ui_AddWLDialog()
         ui.setupUi(AddWLDialog)
         if AddWLDialog.exec():
-            v = str(ui.spinBox.value())
-            self.WLList.addItem(v)
-            self.prefWLBox.addItem(v)
+            
+            q = QtWidgets.QListWidgetItem()
+            q.setData(0, ui.spinBox.value())
+            self.WLList.addItem(q)
+            
+            self.prefWLBox.addItem(str(ui.spinBox.value()))
         # TODO: set spin box as selected, for easier keyboard input
         # TODO: set sorting order numerically
         
@@ -304,10 +310,12 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.usvisibleBox.setChecked(self.tree.find('.//USVisible').text == 'true')
         wlset = self.tree.find('.//WavelengthSet/Items')
         for wl in wlset:
-            # dont include comments
+            # dont include comments by casting 
             try:
                 w = (str(int(wl.text)))
-                self.WLList.addItem(w)
+                q = QtWidgets.QListWidgetItem()
+                q.setData(0, int(w))
+                self.WLList.addItem(q)
                 self.prefWLBox.addItem(w)
             except ValueError:
                 pass

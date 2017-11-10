@@ -19,8 +19,11 @@ class XmlFileParser:
             returns: lxml.etree 
         """
         print(path)
-        parser = etree.XMLParser(remove_blank_text=True)
-        tree = etree.parse(path, parser)
+        # TODO: remove comment to remove whitespace to add linebreaks
+        
+        # parser = etree.XMLParser(remove_blank_text=True)
+        # tree = etree.parse(path, parser)
+        tree = etree.parse(path)
 
         # get first xsd file in directory
         # xsdpath = (os.path.splitext(path)[0]+'.xsd')
