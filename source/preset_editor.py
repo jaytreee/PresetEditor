@@ -111,6 +111,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         # =========================================
         #self.treeWidget.itemDoubleClicked.connect(self.setTreeItem)
 
+        self.loadxmlFile()
+
 
     def changeFactorySpectra(self):
         """ opens Windows File Dialog, to select folder for the FactorySpectra"""
@@ -151,7 +153,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.cleanup()
 
         if True:
-            path = QtWidgets.QFileDialog.getOpenFileName(self, filter='XML Files (*.xml)')
+            path = QtWidgets.QFileDialog.getOpenFileName(self,caption='Select a preset.xml file to modify', filter='XML Files (*.xml)')
             if not os.path.isfile(path[0]):
                 return
 
@@ -170,6 +172,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.loadeddata = True
 
         self.displayTreetoGUI()
+
 
         #pprint(self.settingslist)
 
