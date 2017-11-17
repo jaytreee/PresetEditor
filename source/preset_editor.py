@@ -126,6 +126,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     def loadFactorySpectra(self, folder=fsf):
         """load Factory Spectra from folder (default:  C:\ProgramData\iThera\ViewMSOTc\Factory Spectra) and cuts file 
         extension. This is the allspectra list"""
+        if not os.path.isdir(folder):
+            self.FactorySpectraTextBox.setPlainText('No Factory Preset Folder Found')
+            return
+        
         self.allspectra = os.listdir(folder)
         # cut fileextension
         for i, s in enumerate(self.allspectra):
@@ -192,7 +196,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.tree.find('.//FRAMECORRTHRES').text = str(self.SFAFrameThreshBox.value())
         self.tree.find('.//BackgroundAbsorption').text = str(self.backgroundAbsorptionBox.value())
         self.tree.find('.//BackgroundOxygenation').text = str(self.backgroundOxyBox.value())
-        self.tree.find('.//BgWavelength').text = self.bgWL.currentText()
+        # self.tree.find('.//BgWavelength').text = self.bgWL.currentText()
         
         # ====== Visualization Tab =======
         self.tree.find('.//IsMultipleMspLivePreviewEnabled').text = str(self.enableMultiPanel.isChecked()).lower()
@@ -345,7 +349,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             self.WLList.addItem(q)
             
             self.prefWLBox.addItem(str(ui.spinBox.value()))
-            self.bgWL.addItem(str(ui.spinBox.value()))
+            # self.bgWL.addItem(str(ui.spinBox.value()))
         # TODO: set spin box as selected, for easier keyboard input
         # TODO: set sorting order numerically
         
@@ -355,7 +359,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         try :
             t = self.WLList.takeItem(self.WLList.currentRow()).text()
             self.prefWLBox.removeItem(self.prefWLBox.findText(t))
-            self.bgWL.removeItem(self.prefWLBox.findText(t))
+            # self.bgWL.removeItem(self.prefWLBox.findText(t))
         except AttributeError:
             # if there is no element in the list
             pass
@@ -383,7 +387,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 q.setData(0, int(w))
                 self.WLList.addItem(q)
                 self.prefWLBox.addItem(w)
-                self.bgWL.addItem(w)
+                # self.bgWL.addItem(w)
             except ValueError:
                 pass
 
@@ -392,7 +396,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.SFAFrameThreshBox.setValue(float(self.tree.find('.//FRAMECORRTHRES').text))
         self.backgroundAbsorptionBox.setValue(float(self.tree.find('.//BackgroundAbsorption').text))
         self.backgroundOxyBox.setValue(int(self.tree.find('.//BackgroundOxygenation').text))
-        self.bgWL.setCurrentText(self.tree.find('.//BgWavelength').text)
+        # self.bgWL.setCurrentText(self.tree.find('.//BgWavelength').text)
 
 
 
@@ -431,7 +435,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         """ clean GUI, called before reading a new file"""
         self.selectedList.clear()
         self.WLList.clear()
-        self.bgWL.clear()
+        # self.bgWL.clear()
         self.prefWLBox.clear()
         self.viewSpectraList.clear()
         self.viewSpectraList.addItems(self.defaultspectra)

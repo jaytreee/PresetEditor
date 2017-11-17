@@ -61,9 +61,10 @@ class XmlFileParser:
 
             print('Schema invalid: ' + str(err))
             msg = QtWidgets.QMessageBox()
-            msg.setText('Schema invalid/ XML file is not supported')
+            msg.setText('Schema invalid/ XML file is not supported\n'+
+            str(err))
             msg.exec()
-            sys.exit(-1)
+            # sys.exit(-1)
         
          
 
