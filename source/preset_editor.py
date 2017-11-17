@@ -69,7 +69,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.view2Button.clicked.connect(self.applySettings)
         self.view3Button.clicked.connect(self.applySettings)
         self.view4Button.clicked.connect(self.applySettings)
-        self.viewSpectraList.clicked.connect(self.applySettings)
+        self.viewSpectraList.currentItemChanged.connect(self.applySettings)
 
         self.nameBox.textChanged.connect(self.generateGUID)
 
@@ -79,7 +79,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.visibleCheck.clicked.connect(self.changeSettings)
         self.loadCheck.clicked.connect(self.changeSettings)
         self.logarithmicScalingCheck.clicked.connect(self.changeSettings)
-        self.paletteType.currentTextChanged.connect(self.changeSettings)
+        self.paletteType.editTextChanged.connect(self.changeSettings)
         self.transparentCheck.clicked.connect(self.changeSettings)
         self.minBox.editingFinished.connect(self.changeSettings)
         self.maxBox.editingFinished.connect(self.changeSettings)
@@ -342,11 +342,11 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         else:
             self.radioButtons[1].setCheckable(True)
-            self.radioButtons[1].setStyleSheet('color: rgb(255, 255, 255)')
+            self.radioButtons[1].setStyleSheet('color: #cccccc')
             self.radioButtons[2].setCheckable(True)
-            self.radioButtons[2].setStyleSheet('color: rgb(255, 255, 255)')
+            self.radioButtons[2].setStyleSheet('color: #cccccc')
             self.radioButtons[3].setCheckable(True)
-            self.radioButtons[3].setStyleSheet('color: rgb(255, 255, 255)')
+            self.radioButtons[3].setStyleSheet('color: #cccccc')
             
         
 
@@ -576,7 +576,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.transparentCheck.setChecked(s.transparent)
                 self.minBox.setValue(s.minthresh)
                 self.maxBox.setValue(s.maxthresh)
-
+                print(s)
                 return
 
     def addspectra(self):
@@ -643,6 +643,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         v.usscalingmax = self.usmax.toPlainText()
         v.foregroundscalingmin = self.fgmin.toPlainText()
         v.foregroundscalingmax = self.fgmax.toPlainText()
+
+
 
         print(v)
         
