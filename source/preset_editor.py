@@ -48,6 +48,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     viewsettings = []
     """ settings for each view panel"""
 
+    loadeddata = False
+
 
     def __init__(self):
         super(PresetEditor, self).__init__()
@@ -129,7 +131,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         if not os.path.isdir(folder):
             self.FactorySpectraTextBox.setPlainText('No Factory Preset Folder Found')
             return
-        
+
         self.allspectra = os.listdir(folder)
         # cut fileextension
         for i, s in enumerate(self.allspectra):
@@ -164,6 +166,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         print(test.text)
         print(etree.tostring(test))
         print(test.tag) '''
+
+        self.loadeddata = True
 
         self.displayTreetoGUI()
 
@@ -515,6 +519,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     def applySettings(self):
         """update gui with settings according to the current selected item"""
         # get selected view
+
+        if not self.loadeddata:
+            return
+
         k = 0
         for i in range(0, len(self.radioButtons)):
             if self.radioButtons[i].isChecked():
