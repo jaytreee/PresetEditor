@@ -31,6 +31,10 @@ QWidget:focus {
     border: 1px solid #2e5ea4;
 }
 
+QListWidget:item:selected{
+background: #2e5ea4
+}
+
 QTapWidget{
     border: 1px solid #2e5ea4;
 }
@@ -213,7 +217,7 @@ QTabBar::tab:selected {
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
@@ -1370,18 +1374,6 @@ QTabBar::tab:selected {
          <string>Load</string>
         </property>
        </widget>
-       <zorder>visibleCheck</zorder>
-       <zorder>transparentCheck</zorder>
-       <zorder>minBox</zorder>
-       <zorder>maxBox</zorder>
-       <zorder>minLabel</zorder>
-       <zorder>maxLabel</zorder>
-       <zorder>groupBox_4</zorder>
-       <zorder>groupBox_4</zorder>
-       <zorder>paletteType</zorder>
-       <zorder>label_6</zorder>
-       <zorder>logarithmicScalingCheck</zorder>
-       <zorder>loadCheck</zorder>
       </widget>
       <widget class="QListWidget" name="viewSpectraList">
        <property name="geometry">

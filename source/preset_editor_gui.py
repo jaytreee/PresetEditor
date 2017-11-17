@@ -27,6 +27,10 @@ class Ui_MainWindow(object):
 "    border: 1px solid #2e5ea4;\n"
 "}\n"
 "\n"
+"QListWidget:item:selected{\n"
+"background: #2e5ea4\n"
+"}\n"
+"\n"
 "QTapWidget{\n"
 "    border: 1px solid #2e5ea4;\n"
 "}\n"
@@ -513,18 +517,6 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.loadCheck.setFont(font)
         self.loadCheck.setObjectName("loadCheck")
-        self.visibleCheck.raise_()
-        self.transparentCheck.raise_()
-        self.minBox.raise_()
-        self.maxBox.raise_()
-        self.minLabel.raise_()
-        self.maxLabel.raise_()
-        self.groupBox_4.raise_()
-        self.groupBox_4.raise_()
-        self.paletteType.raise_()
-        self.label_6.raise_()
-        self.logarithmicScalingCheck.raise_()
-        self.loadCheck.raise_()
         self.viewSpectraList = QtWidgets.QListWidget(self.groupBox_4)
         self.viewSpectraList.setGeometry(QtCore.QRect(30, 40, 131, 211))
         self.viewSpectraList.setObjectName("viewSpectraList")
@@ -594,7 +586,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
