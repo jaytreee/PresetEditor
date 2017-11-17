@@ -79,7 +79,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.visibleCheck.clicked.connect(self.changeSettings)
         self.loadCheck.clicked.connect(self.changeSettings)
         self.logarithmicScalingCheck.clicked.connect(self.changeSettings)
-        self.paletteType.editTextChanged.connect(self.changeSettings)
+        self.paletteType.activated.connect(self.changeSettings)
         self.transparentCheck.clicked.connect(self.changeSettings)
         self.minBox.editingFinished.connect(self.changeSettings)
         self.maxBox.editingFinished.connect(self.changeSettings)
@@ -561,6 +561,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         else:
             selected = self.viewSpectraList.item(0).text()
+            self.viewSpectraList.setCurrentRow(0)
 
         #print('View:'+ str(i)+ selected)
         settings = self.settingslist[k]
@@ -578,6 +579,9 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.maxBox.setValue(s.maxthresh)
                 print(s)
                 return
+
+        # when no panel is selected (first call) select the first index
+        
 
     def addspectra(self):
         """called when addButton is clicked; removes selected spectrum 
