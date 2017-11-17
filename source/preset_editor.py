@@ -333,14 +333,20 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             
             self.radioButtons[0].setChecked(True)
             self.radioButtons[1].setCheckable(False)
+            self.radioButtons[1].setStyleSheet('color : rgb(120, 120, 120)')
             self.radioButtons[2].setCheckable(False)
+            self.radioButtons[2].setStyleSheet('color : rgb(120, 120, 120)')
             self.radioButtons[3].setCheckable(False)
+            self.radioButtons[3].setStyleSheet('color : rgb(120, 120, 120)')
             self.applySettings()
 
         else:
             self.radioButtons[1].setCheckable(True)
+            self.radioButtons[1].setStyleSheet('color: rgb(255, 255, 255)')
             self.radioButtons[2].setCheckable(True)
+            self.radioButtons[2].setStyleSheet('color: rgb(255, 255, 255)')
             self.radioButtons[3].setCheckable(True)
+            self.radioButtons[3].setStyleSheet('color: rgb(255, 255, 255)')
             
         
 

@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_AddWLDialog(object):
     def setupUi(self, AddWLDialog):
         AddWLDialog.setObjectName("AddWLDialog")
-        AddWLDialog.resize(313, 152)
+        AddWLDialog.resize(276, 131)
         AddWLDialog.setStyleSheet("QPlainTextEdit {\n"
 "    font-family: \"Lucida Console\",\"Courier\";\n"
 "    font-size: 9pt; \n"
@@ -80,7 +80,7 @@ class Ui_AddWLDialog(object):
 "    }\n"
 "")
         self.buttonBox = QtWidgets.QDialogButtonBox(AddWLDialog)
-        self.buttonBox.setGeometry(QtCore.QRect(180, 90, 91, 32))
+        self.buttonBox.setGeometry(QtCore.QRect(160, 70, 91, 32))
         font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
@@ -89,19 +89,19 @@ class Ui_AddWLDialog(object):
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
         self.spinBox = QtWidgets.QSpinBox(AddWLDialog)
-        self.spinBox.setGeometry(QtCore.QRect(40, 90, 81, 22))
+        self.spinBox.setGeometry(QtCore.QRect(30, 70, 81, 22))
         self.spinBox.setMinimum(600)
         self.spinBox.setMaximum(1300)
         self.spinBox.setObjectName("spinBox")
         self.label = QtWidgets.QLabel(AddWLDialog)
-        self.label.setGeometry(QtCore.QRect(100, 40, 141, 16))
+        self.label.setGeometry(QtCore.QRect(50, 30, 141, 16))
         font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(AddWLDialog)
-        self.label_2.setGeometry(QtCore.QRect(130, 100, 47, 13))
+        self.label_2.setGeometry(QtCore.QRect(120, 80, 47, 13))
         font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
