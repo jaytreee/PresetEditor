@@ -1231,7 +1231,7 @@ QTabBar::tab:selected {
         </property>
         <item>
          <property name="text">
-          <string>Blue</string>
+          <string>DarkBlue</string>
          </property>
         </item>
         <item>
@@ -1256,7 +1256,7 @@ QTabBar::tab:selected {
         </item>
         <item>
          <property name="text">
-          <string>Green</string>
+          <string>DarkGreen</string>
          </property>
         </item>
         <item>
@@ -1266,7 +1266,7 @@ QTabBar::tab:selected {
         </item>
         <item>
          <property name="text">
-          <string>HSB_HSL</string>
+          <string>Hue</string>
          </property>
         </item>
         <item>
@@ -1276,17 +1276,17 @@ QTabBar::tab:selected {
         </item>
         <item>
          <property name="text">
-          <string>Light-Blue</string>
+          <string>LightBlue</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Light-Green</string>
+          <string>LightGreen</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Light-Red</string>
+          <string>LightRed</string>
          </property>
         </item>
         <item>
@@ -1296,17 +1296,17 @@ QTabBar::tab:selected {
         </item>
         <item>
          <property name="text">
-          <string>Red</string>
+          <string>DarkRed</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>RedBlueBlack</string>
+          <string>RdBuBl</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Union Jack</string>
+          <string>UnionJack</string>
          </property>
         </item>
         <item>
