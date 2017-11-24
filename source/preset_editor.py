@@ -189,6 +189,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         # ====== General Information ===========
         self.tree.find('.//PresetType').text = self.presetTypeBox.currentText()
         self.tree.xpath('./DataModelStudyPreset/Name')[0].text = self.nameBox.toPlainText()
+        self.tree.xpath('./DataModelStudyPreset/PresetIdentifier')[0].text = self.presetIDBox.toPlainText()
         self.tree.xpath('./DataModelStudyPreset/CompatibleDetectorGUID')[0].text = self.detectorBox.toPlainText()
         self.tree.xpath('./DataModelStudyPreset/PresetVersion')[0].text = self.versionTextBox.toPlainText()
       
@@ -416,6 +417,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.prefWLBox.setCurrentText(self.tree.find('.//PreferredBackgroundWL').text)
         # ==================================
         self.nameBox.setPlainText(self.tree.find('.//Name').text)
+        self.presetIDBox.setPlainText(self.tree.find('.//PresetIdentifier').text)
         self.versionTextBox.setPlainText(self.tree.find('//PresetVersion').text)
         self.detectorBox.setPlainText(self.tree.find('.//CompatibleDetectorGUID').text)
         #add spectra to selectedList
@@ -555,6 +557,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         selected = self.viewSpectraList.currentItem()
 
+        # when no panel is selected (first call) select the first index
         if selected is not None:
             #pprint(selected.text())
             selected = selected.text()
@@ -580,7 +583,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 print(s)
                 return
 
-        # when no panel is selected (first call) select the first index
+        
         
 
     def addspectra(self):

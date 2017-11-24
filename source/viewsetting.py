@@ -32,7 +32,7 @@ class ViewSettings:
         out += 'Bg min: '+str(self.backgroundscalingmin)+'\n'
         out += 'Bg max: '+str(self.backgroundscalingmax)+'\n'
         out += 'Foreground min: '+str(self.foregroundscalingmin)+'\n'
-        out += 'Foreground max: '+str(self.foregroundscalingmax)
+        out += 'Foreground max: '+str(self.foregroundscalingmax)+'\n'
         return out
 
 
@@ -76,6 +76,6 @@ class LayerSetting:
         out += 'Logarithmic Scaling: '+str(self.logarithmic)+'\n'
         out += 'Transparent: '+str(self.transparent)+'\n'
         out += 'Min Tresh: '+str(self.minthresh)+'\n'
-        out += 'Max Thresh: '+str(self.maxthresh)
+        out += 'Max Thresh: '+str(self.maxthresh)+'\n'
         return out
     
