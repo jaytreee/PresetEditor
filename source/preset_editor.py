@@ -61,7 +61,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.connectGUItoFunctionalty()
 
         self.schemamanager = iXMLSchemaManager()
-        self.schemamanager.writeSchema()
+        self.schemamanager.main()
 
         self.loadxmlFile()
 
