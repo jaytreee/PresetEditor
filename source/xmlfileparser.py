@@ -29,8 +29,8 @@ class XmlFileParser:
         # xsdpath = (os.path.splitext(path)[0]+'.xsd')
         
         # use schema saved under %appdata%/...
-
-        xmlschema = etree.XMLSchema(etree.parse(r'C:\Users\thomas.hartmann\AppData\Roaming\iThera\Schemata\Types.xsd'))
+        folder = os.path.join(os.environ['APPDATA'], 'iThera\\Schemata')
+        xmlschema = etree.XMLSchema(etree.parse(folder+'/'+'ArrayOfDataModelStudyPreset.xsd'))
 
 
         try:

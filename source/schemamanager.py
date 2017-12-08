@@ -1,7 +1,7 @@
 import os
 import sys
 from shutil import copyfile
-from urllib import request
+from urllib import request, error
 import ssl
 import hashlib
 
@@ -13,14 +13,15 @@ class iXMLSchemaManager:
     """
     
     folder = os.path.join(os.environ['APPDATA'], 'iThera\\Schemata')
+    md5sumurl = 'https://dist.ithera-medical.com/pydist/schemata/md5sums'
     md5sums = None
 
-    def writeSchema(self):
+    def writeSchema(self, file):
         """ write the packaged schema to APPDATA\iThera\Schemata"""
         if  hasattr(sys, "_MEIPASS"): # TMP folder in exceutable
-            src =  os.path.join(sys._MEIPASS, 'SchemaV1.0.xsd')
+            src =  os.path.join(sys._MEIPASS, file)
         else:
-            src = r'H:\Code\com.itheramedical.PresetEditor\source\resources\SchemaV1.0.xsd'
+            src = 'H:\\Code\\com.itheramedical.PresetEditor\\source\\resources\\'+file
         
         dest = self.folder
         if not os.path.isfile(dest+'\Types.xsd'):
@@ -32,11 +33,10 @@ class iXMLSchemaManager:
     def getmd5sums(self):
         """ get current md5sums, indicator for new version"""
         ssl._create_default_https_context = ssl._create_unverified_context
-        response = request.urlopen('https://dist.ithera-medical.com/pydist/schemata/md5sums')
+        response = request.urlopen(self.md5sumurl)
         string = response.read().decode('utf8')
         string = string[:-1]
         self.md5sums = dict(item.split('  ')[::-1] for item in string.split('\n'))
-
 
     def comparemd5sums(self):
         """ compare md5 sums of (existing) files, if not the same, donwload new version"""
@@ -46,8 +46,9 @@ class iXMLSchemaManager:
                 if self.md5(f) == self.md5sums[key]:
                     continue
             # otherwise download file
-            request.urlretrieve('https://dist.ithera-medical.com/pydist/schemata/'+key,self.folder+'/'+key)
-            print('Downloaded new version of: '+key)
+                request.urlretrieve('https://dist.ithera-medical.com/pydist/schemata/'+key,self.folder+'/'+key)
+                print('Downloaded new version of: '+key)
+        print('Schema up to date')
 
     def md5(self, fname):
         """ calculate md5 checksum for a file"""
@@ -58,6 +59,10 @@ class iXMLSchemaManager:
         return hash_md5.hexdigest()
 
     def main(self):
-        self.writeSchema()
-        self.getmd5sums()
-        self.comparemd5sums()
+        self.writeSchema('SchemaV1.0.xsd')
+        self.writeSchema('ArrayOfDataModelStudyPreset.xsd')
+        try:
+            self.getmd5sums()
+            self.comparemd5sums()
+        except error.URLError as e:
+            print(e)
