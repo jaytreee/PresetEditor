@@ -24,10 +24,10 @@ class iXMLSchemaManager:
             src = 'H:\\Code\\com.itheramedical.PresetEditor\\source\\resources\\'+file
         
         dest = self.folder
-        if not os.path.isfile(dest+'\Types.xsd'):
+        if not os.path.isfile(dest+'/'+file):
             if not os.path.exists(dest):
                 os.makedirs(dest)
-            copyfile(src, dest+'\Types.xsd')
+            copyfile(src, dest+'/'+file)
         
 
     def getmd5sums(self):
@@ -46,8 +46,8 @@ class iXMLSchemaManager:
                 if self.md5(f) == self.md5sums[key]:
                     continue
             # otherwise download file
-                request.urlretrieve('https://dist.ithera-medical.com/pydist/schemata/'+key,self.folder+'/'+key)
-                print('Downloaded new version of: '+key)
+            request.urlretrieve('https://dist.ithera-medical.com/pydist/schemata/'+key,self.folder+'/'+key)
+            print('Downloaded new version of: '+key)
         print('Schema up to date')
 
     def md5(self, fname):
@@ -59,7 +59,7 @@ class iXMLSchemaManager:
         return hash_md5.hexdigest()
 
     def main(self):
-        self.writeSchema('SchemaV1.0.xsd')
+        self.writeSchema('Types.xsd')
         self.writeSchema('ArrayOfDataModelStudyPreset.xsd')
         try:
             self.getmd5sums()
