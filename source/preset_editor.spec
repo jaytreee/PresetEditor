@@ -2,6 +2,32 @@
 
 block_cipher = None
 
+import subprocess, re, sys
+
+# Detect debugging mode to generate debug exe (not distributed)
+DEBUG = False
+if '--debug' in sys.argv:
+    DEBUG = True
+
+# Get version 
+with open('version.txt','r') as f:
+    VERSION = str(f.read()).strip()
+    
+# Get output
+hgoutput = subprocess.run(['hg','id','-n'], stdout=subprocess.PIPE)
+hgoutput = hgoutput.stdout.decode('utf-8').strip()
+match = re.search('^([0-9]+)(\+)?$', hgoutput)
+
+# Check that directory is clean
+if match.group(2) and not DEBUG:
+    print('Cannot build with modifications in working directory')
+    sys.exit(1)
+    
+REVISION = match.group(1)
+OUTNAME = 'PresetEditor_v' + VERSION + '-rev' + '{:04d}'.format(int(REVISION))
+
+if DEBUG:
+    OUTNAME += '_DEBUG'
 
 a = Analysis(['preset_editor.py'],
              pathex=['H:\\Code\\com.itheramedical.PresetEditor'],
@@ -21,9 +47,9 @@ exe = EXE(pyz,
           a.binaries,
           a.zipfiles,
           a.datas,
-          name='preset_editor',
-          debug=False,
+          name=OUTNAME,
+          debug=DEBUG,
           strip=False,
           upx=True,
           runtime_tmpdir=None,
-          console=True )
+          console=DEBUG )
