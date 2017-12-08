@@ -210,6 +210,9 @@ QTabBar::tab:selected {
     </property>
    </widget>
    <widget class="QTabWidget" name="tabWidget">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -657,35 +660,6 @@ QTabBar::tab:selected {
       </property>
       <property name="text">
        <string>%</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_12">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>440</y>
-        <width>151</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Background Wavelength</string>
-      </property>
-     </widget>
-     <widget class="QComboBox" name="bgWL">
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>440</y>
-        <width>101</width>
-        <height>22</height>
-       </rect>
       </property>
      </widget>
     </widget>
