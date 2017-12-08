@@ -17,6 +17,7 @@ from preset_editor_gui import Ui_MainWindow
 from viewsetting import LayerSetting, ViewSettings
 
 from addWavelengthDialog import Ui_AddWLDialog
+from schemamanager import iXMLSchemaManager
 
 
 
@@ -49,13 +50,25 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     """ settings for each view panel"""
 
     loadeddata = False
+    """ was data loaded (for saving and displaying gui)"""
+
 
 
     def __init__(self):
         super(PresetEditor, self).__init__()
         self.setupUi(window)
 
-        #self.addBtn.clicked.connect(self.addInputTextToListbox)
+        self.connectGUItoFunctionalty()
+
+        self.schemamanager = iXMLSchemaManager()
+        self.schemamanager.writeSchema()
+
+        self.loadxmlFile()
+
+
+    def connectGUItoFunctionalty(self):
+        """add Signals to Functions"""
+                #self.addBtn.clicked.connect(self.addInputTextToListbox)
         self.loadButton.clicked.connect(self.loadxmlFile)
         self.saveAsButton.clicked.connect(self.writexmlFile)
         
@@ -111,7 +124,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         # =========================================
         #self.treeWidget.itemDoubleClicked.connect(self.setTreeItem)
 
-        self.loadxmlFile()
+
 
 
     def changeFactorySpectra(self):

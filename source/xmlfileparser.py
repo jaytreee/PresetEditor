@@ -27,32 +27,11 @@ class XmlFileParser:
 
         # get first xsd file in directory
         # xsdpath = (os.path.splitext(path)[0]+'.xsd')
-        direc = os.path.dirname(path)
-        oldpath = os.getcwd()
-        os.chdir(direc)
-        xsdfile = glob.glob('*.xsd')
-        if xsdfile:
-            #schema_doc = etree.parse((os.path.splitext(path)[0]+'.xsd'))
-            schema_doc = etree.parse(direc+'/'+xsdfile[0])
-            xmlschema = etree.XMLSchema(schema_doc)
-            #Validate
-            '''   if xmlschema.validate(tree):
-                print('valid schema')
-            else:
-                print('invalid schema' )'''
-            
+        
+        # use schema saved under %appdata%/...
 
-        # when no Schema is in Directory of the xml File load it from internally    
-        else:
-            print('could not find local schema \n using SchemaV1.0')
-            if hasattr(sys, "_MEIPASS"):
-                
-                
-                xmlschema = etree.XMLSchema(etree.parse(os.path.join(sys._MEIPASS, 'SchemaV1.0.xsd')))
-            
-            else:
-                xmlschema = etree.XMLSchema(etree.parse(r'H:\Code\com.itheramedical.PresetEditor\source\resources\SchemaV1.0.xsd'))
-                
+        xmlschema = etree.XMLSchema(etree.parse(r'C:\Users\thomas.hartmann\AppData\Roaming\iThera\Schemata\Types.xsd'))
+
 
         try:
             xmlschema.assertValid(tree)
@@ -66,13 +45,7 @@ class XmlFileParser:
             msg.exec()
             # sys.exit(-1)
         
-         
 
-
-
-
-        #print(etree.tostring(tree, pretty_print=False))
-        os.chdir(oldpath)
         return tree
 
 
