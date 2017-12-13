@@ -15,6 +15,8 @@ from PyQt5 import QtWidgets, QtCore
 #from PyQt5.QtWidgets import QFileDialog
 from preset_editor_gui import Ui_MainWindow
 from viewsetting import LayerSetting, ViewSettings
+from typechecker import ScalingValidator
+from functools import partial
 
 from addWavelengthDialog import Ui_AddWLDialog
 from schemamanager import iXMLSchemaManager
@@ -62,6 +64,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.schemamanager = iXMLSchemaManager()
         self.schemamanager.main()
+
+        self.typechecker = ScalingValidator(0, 1, 5, None, -1)
 
         self.loadxmlFile()
 
@@ -114,12 +118,12 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # ======== View Settings ===========
         self.autoScalingCheck.clicked.connect(self.changeViewSettings)
-        self.usmin.selectionChanged.connect(self.changeViewSettings)
-        self.usmax.selectionChanged.connect(self.changeViewSettings)
-        self.bgmin.selectionChanged.connect(self.changeViewSettings)
-        self.bgmax.selectionChanged.connect(self.changeViewSettings)
-        self.fgmin.selectionChanged.connect(self.changeViewSettings)
-        self.fgmax.selectionChanged.connect(self.changeViewSettings)
+        self.usmin.editingFinished.connect(partial(self.scalingTypeCheck, self.usmin))
+        self.usmax.editingFinished.connect(partial(self.scalingTypeCheck, self.usmax))
+        self.bgmin.editingFinished.connect(partial(self.scalingTypeCheck, self.bgmin))
+        self.bgmax.editingFinished.connect(partial(self.scalingTypeCheck, self.bgmax))
+        self.fgmin.editingFinished.connect(partial(self.scalingTypeCheck, self.fgmin))
+        self.fgmax.editingFinished.connect(partial(self.scalingTypeCheck, self.fgmax))
 
         # =========================================
         #self.treeWidget.itemDoubleClicked.connect(self.setTreeItem)
@@ -137,6 +141,12 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.unselectedList.clear()
         self.unselectedList.addItems(self.unselectedspectra)
         # TODO: clean gui, settingslist from old settings, that are not avaiable now?
+
+    def scalingTypeCheck(self, field):
+        """set Validator for TextInputs"""
+        str = field.text()
+        field.setText(self.typechecker.fixup(str))
+        self.changeViewSettings()
 
 
 
@@ -657,12 +667,12 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         v = self.viewsettings[view]
 
         v.autoscaling = self.autoScalingCheck.isChecked()
-        v.backgroundscalingmin = self.bgmin.toPlainText()
-        v.backgroundscalingmax = self.bgmax.toPlainText()
-        v.usscalingmin = self.usmin.toPlainText()
-        v.usscalingmax = self.usmax.toPlainText()
-        v.foregroundscalingmin = self.fgmin.toPlainText()
-        v.foregroundscalingmax = self.fgmax.toPlainText()
+        v.backgroundscalingmin = self.bgmin.text()
+        v.backgroundscalingmax = self.bgmax.text()
+        v.usscalingmin = self.usmin.text()
+        v.usscalingmax = self.usmax.text()
+        v.foregroundscalingmin = self.fgmin.text()
+        v.foregroundscalingmax = self.fgmax.text()
 
 
 

@@ -845,44 +845,6 @@ QTabBar::tab:selected {
         <string>Auto Scaling</string>
        </property>
       </widget>
-      <widget class="QTextEdit" name="usmax">
-       <property name="geometry">
-        <rect>
-         <x>250</x>
-         <y>60</y>
-         <width>41</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;-1 = Minimum of Image&lt;/p&gt;&lt;p&gt;1 = Maximum of Image&lt;/p&gt;&lt;p&gt;0 = Scale from Zero&lt;/p&gt;&lt;p&gt;decimal value = Histogram Threshold&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="verticalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-       <property name="horizontalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-      </widget>
-      <widget class="QTextEdit" name="usmin">
-       <property name="geometry">
-        <rect>
-         <x>170</x>
-         <y>60</y>
-         <width>41</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;-1 = Minimum of Image&lt;/p&gt;&lt;p&gt;1 = Maximum of Image&lt;/p&gt;&lt;p&gt;0 = Scale from Zero&lt;/p&gt;&lt;p&gt;decimal value = Histogram Threshold&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="verticalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-       <property name="horizontalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_7">
        <property name="geometry">
         <rect>
@@ -940,82 +902,6 @@ QTabBar::tab:selected {
         <string>max</string>
        </property>
       </widget>
-      <widget class="QTextEdit" name="bgmin">
-       <property name="geometry">
-        <rect>
-         <x>170</x>
-         <y>90</y>
-         <width>41</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;-1 = Minimum of Image&lt;/p&gt;&lt;p&gt;1 = Maximum of Image&lt;/p&gt;&lt;p&gt;0 = Scale from Zero&lt;/p&gt;&lt;p&gt;decimal value = Histogram Threshold&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="verticalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-       <property name="horizontalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-      </widget>
-      <widget class="QTextEdit" name="fgmin">
-       <property name="geometry">
-        <rect>
-         <x>170</x>
-         <y>120</y>
-         <width>41</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;-1 = Minimum of Image&lt;/p&gt;&lt;p&gt;1 = Maximum of Image&lt;/p&gt;&lt;p&gt;0 = Scale from Zero&lt;/p&gt;&lt;p&gt;decimal value = Histogram Threshold&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="verticalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-       <property name="horizontalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-      </widget>
-      <widget class="QTextEdit" name="bgmax">
-       <property name="geometry">
-        <rect>
-         <x>250</x>
-         <y>90</y>
-         <width>41</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;-1 = Minimum of Image&lt;/p&gt;&lt;p&gt;1 = Maximum of Image&lt;/p&gt;&lt;p&gt;0 = Scale from Zero&lt;/p&gt;&lt;p&gt;decimal value = Histogram Threshold&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="verticalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-       <property name="horizontalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-      </widget>
-      <widget class="QTextEdit" name="fgmax">
-       <property name="geometry">
-        <rect>
-         <x>250</x>
-         <y>120</y>
-         <width>41</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;-1 = Minimum of Image&lt;/p&gt;&lt;p&gt;1 = Maximum of Image&lt;/p&gt;&lt;p&gt;0 = Scale from Zero&lt;/p&gt;&lt;p&gt;decimal value = Histogram Threshold&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="verticalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-       <property name="horizontalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_10">
        <property name="geometry">
         <rect>
@@ -1052,6 +938,84 @@ QTabBar::tab:selected {
        </property>
        <property name="text">
         <string>Foreground Scaling</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="usmin">
+       <property name="geometry">
+        <rect>
+         <x>170</x>
+         <y>60</y>
+         <width>41</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="usmax">
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>60</y>
+         <width>41</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="bgmin">
+       <property name="geometry">
+        <rect>
+         <x>170</x>
+         <y>90</y>
+         <width>41</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="bgmax">
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>90</y>
+         <width>41</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="fgmin">
+       <property name="geometry">
+        <rect>
+         <x>170</x>
+         <y>120</y>
+         <width>41</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="fgmax">
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>120</y>
+         <width>41</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </widget>
