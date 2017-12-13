@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>650</width>
-    <height>838</height>
+    <width>609</width>
+    <height>844</height>
    </rect>
   </property>
   <property name="font">
@@ -134,90 +134,15 @@ QTabBar::tab:selected {
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="nameLabel">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>80</y>
-      <width>47</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Name</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="detektorLabel">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>180</y>
-      <width>81</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Detector</string>
-    </property>
-   </widget>
-   <widget class="QPlainTextEdit" name="nameBox">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>70</y>
-      <width>211</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
-    </property>
-    <property name="horizontalScrollBarPolicy">
-     <enum>Qt::ScrollBarAsNeeded</enum>
-    </property>
-    <property name="lineWrapMode">
-     <enum>QPlainTextEdit::NoWrap</enum>
-    </property>
-    <property name="plainText">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPlainTextEdit" name="detectorBox">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>170</y>
-      <width>211</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="plainText">
-     <string/>
-    </property>
-   </widget>
    <widget class="QTabWidget" name="tabWidget">
     <property name="enabled">
      <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>240</y>
-      <width>541</width>
+      <x>30</x>
+      <y>230</y>
+      <width>564</width>
       <height>551</height>
      </rect>
     </property>
@@ -675,8 +600,8 @@ QTabBar::tab:selected {
        <rect>
         <x>30</x>
         <y>60</y>
-        <width>141</width>
-        <height>111</height>
+        <width>131</width>
+        <height>121</height>
        </rect>
       </property>
       <property name="font">
@@ -688,100 +613,78 @@ QTabBar::tab:selected {
       <property name="title">
        <string>View Selection</string>
       </property>
-      <widget class="QRadioButton" name="view1Button">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>71</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Top Left</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-       <attribute name="buttonGroup">
-        <string notr="true">buttonGroup</string>
-       </attribute>
-      </widget>
-      <widget class="QRadioButton" name="view2Button">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>40</y>
-         <width>91</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Top Right</string>
-       </property>
-       <attribute name="buttonGroup">
-        <string notr="true">buttonGroup</string>
-       </attribute>
-      </widget>
-      <widget class="QRadioButton" name="view3Button">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>60</y>
-         <width>101</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Bottom Left</string>
-       </property>
-       <attribute name="buttonGroup">
-        <string notr="true">buttonGroup</string>
-       </attribute>
-      </widget>
-      <widget class="QRadioButton" name="view4Button">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>80</y>
-         <width>111</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Bottom Right</string>
-       </property>
-       <attribute name="buttonGroup">
-        <string notr="true">buttonGroup</string>
-       </attribute>
-      </widget>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QRadioButton" name="view1Button">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Top Left</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QRadioButton" name="view2Button">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Top Right</string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QRadioButton" name="view3Button">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Bottom Left</string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QRadioButton" name="view4Button">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Bottom Right</string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroup</string>
+         </attribute>
+        </widget>
+       </item>
+      </layout>
      </widget>
      <widget class="QCheckBox" name="enableMultiPanel">
       <property name="enabled">
@@ -811,10 +714,10 @@ QTabBar::tab:selected {
      <widget class="QGroupBox" name="groupBox">
       <property name="geometry">
        <rect>
-        <x>210</x>
-        <y>10</y>
-        <width>311</width>
-        <height>161</height>
+        <x>170</x>
+        <y>60</y>
+        <width>351</width>
+        <height>121</height>
        </rect>
       </property>
       <property name="font">
@@ -829,9 +732,9 @@ QTabBar::tab:selected {
       <widget class="QCheckBox" name="autoScalingCheck">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>30</y>
-         <width>111</width>
+         <x>11</x>
+         <y>24</y>
+         <width>93</width>
          <height>17</height>
         </rect>
        </property>
@@ -845,30 +748,11 @@ QTabBar::tab:selected {
         <string>Auto Scaling</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_7">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>60</y>
-         <width>111</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Ultrasound Scaling</string>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_8">
        <property name="geometry">
         <rect>
-         <x>180</x>
-         <y>30</y>
+         <x>127</x>
+         <y>24</y>
          <width>21</width>
          <height>16</height>
         </rect>
@@ -886,9 +770,9 @@ QTabBar::tab:selected {
       <widget class="QLabel" name="label_9">
        <property name="geometry">
         <rect>
-         <x>260</x>
-         <y>30</y>
-         <width>31</width>
+         <x>231</x>
+         <y>24</y>
+         <width>25</width>
          <height>16</height>
         </rect>
        </property>
@@ -902,12 +786,57 @@ QTabBar::tab:selected {
         <string>max</string>
        </property>
       </widget>
+      <widget class="QLabel" name="label_7">
+       <property name="geometry">
+        <rect>
+         <x>11</x>
+         <y>47</y>
+         <width>105</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Ultrasound Scaling</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="usmin">
+       <property name="geometry">
+        <rect>
+         <x>127</x>
+         <y>47</y>
+         <width>98</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="usmax">
+       <property name="geometry">
+        <rect>
+         <x>231</x>
+         <y>47</y>
+         <width>99</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
       <widget class="QLabel" name="label_10">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>90</y>
-         <width>111</width>
+         <x>11</x>
+         <y>70</y>
+         <width>110</width>
          <height>16</height>
         </rect>
        </property>
@@ -921,12 +850,38 @@ QTabBar::tab:selected {
         <string>Background Scaling</string>
        </property>
       </widget>
+      <widget class="QLineEdit" name="bgmin">
+       <property name="geometry">
+        <rect>
+         <x>127</x>
+         <y>70</y>
+         <width>98</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="bgmax">
+       <property name="geometry">
+        <rect>
+         <x>231</x>
+         <y>70</y>
+         <width>99</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
       <widget class="QLabel" name="label_11">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>120</y>
-         <width>111</width>
+         <x>11</x>
+         <y>93</y>
+         <width>108</width>
          <height>16</height>
         </rect>
        </property>
@@ -940,65 +895,13 @@ QTabBar::tab:selected {
         <string>Foreground Scaling</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="usmin">
-       <property name="geometry">
-        <rect>
-         <x>170</x>
-         <y>60</y>
-         <width>41</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="usmax">
-       <property name="geometry">
-        <rect>
-         <x>250</x>
-         <y>60</y>
-         <width>41</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="bgmin">
-       <property name="geometry">
-        <rect>
-         <x>170</x>
-         <y>90</y>
-         <width>41</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="bgmax">
-       <property name="geometry">
-        <rect>
-         <x>250</x>
-         <y>90</y>
-         <width>41</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
       <widget class="QLineEdit" name="fgmin">
        <property name="geometry">
         <rect>
-         <x>170</x>
-         <y>120</y>
-         <width>41</width>
-         <height>20</height>
+         <x>127</x>
+         <y>93</y>
+         <width>98</width>
+         <height>17</height>
         </rect>
        </property>
        <property name="toolTip">
@@ -1008,16 +911,18 @@ QTabBar::tab:selected {
       <widget class="QLineEdit" name="fgmax">
        <property name="geometry">
         <rect>
-         <x>250</x>
-         <y>120</y>
-         <width>41</width>
-         <height>20</height>
+         <x>231</x>
+         <y>93</y>
+         <width>99</width>
+         <height>17</height>
         </rect>
        </property>
        <property name="toolTip">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
+      <zorder>gridLayoutWidget_2</zorder>
+      <zorder>groupBox_5</zorder>
      </widget>
      <widget class="QGroupBox" name="groupBox_4">
       <property name="geometry">
@@ -1042,8 +947,8 @@ QTabBar::tab:selected {
         <rect>
          <x>210</x>
          <y>30</y>
-         <width>261</width>
-         <height>241</height>
+         <width>251</width>
+         <height>171</height>
         </rect>
        </property>
        <property name="font">
@@ -1055,299 +960,241 @@ QTabBar::tab:selected {
        <property name="title">
         <string>Layer Settings</string>
        </property>
-       <widget class="QDoubleSpinBox" name="minBox">
-        <property name="geometry">
-         <rect>
-          <x>170</x>
-          <y>100</y>
-          <width>61</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="locale">
-         <locale language="English" country="UnitedStates"/>
-        </property>
-        <property name="decimals">
-         <number>3</number>
-        </property>
-        <property name="minimum">
-         <double>-5000000.000000000000000</double>
-        </property>
-        <property name="maximum">
-         <double>50000000.000000000000000</double>
-        </property>
-       </widget>
-       <widget class="QDoubleSpinBox" name="maxBox">
-        <property name="geometry">
-         <rect>
-          <x>170</x>
-          <y>140</y>
-          <width>61</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="locale">
-         <locale language="English" country="UnitedStates"/>
-        </property>
-        <property name="prefix">
-         <string/>
-        </property>
-        <property name="decimals">
-         <number>3</number>
-        </property>
-        <property name="minimum">
-         <double>-5000000.000000000000000</double>
-        </property>
-        <property name="maximum">
-         <double>500000.989999999990687</double>
-        </property>
-       </widget>
-       <widget class="QLabel" name="minLabel">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>100</y>
-          <width>111</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Lower Threshold</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="maxLabel">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>140</y>
-          <width>111</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Upper Threshold</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="paletteType">
-        <property name="geometry">
-         <rect>
-          <x>130</x>
-          <y>60</y>
-          <width>111</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <item>
-         <property name="text">
-          <string>DarkBlue</string>
-         </property>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_6">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Palette Type</string>
+          </property>
+         </widget>
         </item>
-        <item>
-         <property name="text">
-          <string>Bone</string>
-         </property>
+        <item row="1" column="2">
+         <widget class="QComboBox" name="paletteType">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <item>
+           <property name="text">
+            <string>DarkBlue</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Bone</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Contrast</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Cyan</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Gray</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>DarkGreen</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Hot</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Hue</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Jet</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>LightBlue</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>LightGreen</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>LightRed</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Magenta</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>DarkRed</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>RdBuBl</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>UnionJack</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Yellow</string>
+           </property>
+          </item>
+         </widget>
         </item>
-        <item>
-         <property name="text">
-          <string>Contrast</string>
-         </property>
+        <item row="0" column="2">
+         <widget class="QCheckBox" name="transparentCheck">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Transparency</string>
+          </property>
+         </widget>
         </item>
-        <item>
-         <property name="text">
-          <string>Cyan</string>
-         </property>
+        <item row="2" column="2">
+         <widget class="QDoubleSpinBox" name="minBox">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="locale">
+           <locale language="English" country="UnitedStates"/>
+          </property>
+          <property name="decimals">
+           <number>3</number>
+          </property>
+          <property name="minimum">
+           <double>-5000000.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>50000000.000000000000000</double>
+          </property>
+         </widget>
         </item>
-        <item>
-         <property name="text">
-          <string>Gray</string>
-         </property>
+        <item row="2" column="0" colspan="2">
+         <widget class="QLabel" name="minLabel">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Lower Threshold</string>
+          </property>
+         </widget>
         </item>
-        <item>
-         <property name="text">
-          <string>DarkGreen</string>
-         </property>
+        <item row="3" column="0" colspan="2">
+         <widget class="QLabel" name="maxLabel">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Upper Threshold</string>
+          </property>
+         </widget>
         </item>
-        <item>
-         <property name="text">
-          <string>Hot</string>
-         </property>
+        <item row="3" column="2">
+         <widget class="QDoubleSpinBox" name="maxBox">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="locale">
+           <locale language="English" country="UnitedStates"/>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>3</number>
+          </property>
+          <property name="minimum">
+           <double>-5000000.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>500000.989999999990687</double>
+          </property>
+         </widget>
         </item>
-        <item>
-         <property name="text">
-          <string>Hue</string>
-         </property>
+        <item row="0" column="0">
+         <widget class="QCheckBox" name="visibleCheck">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Visible</string>
+          </property>
+         </widget>
         </item>
-        <item>
-         <property name="text">
-          <string>Jet</string>
-         </property>
+        <item row="4" column="2">
+         <widget class="QCheckBox" name="logarithmicScalingCheck">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Logarithmic Scaling</string>
+          </property>
+         </widget>
         </item>
-        <item>
-         <property name="text">
-          <string>LightBlue</string>
-         </property>
+        <item row="4" column="0">
+         <widget class="QCheckBox" name="loadCheck">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Load</string>
+          </property>
+         </widget>
         </item>
-        <item>
-         <property name="text">
-          <string>LightGreen</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>LightRed</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Magenta</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>DarkRed</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>RdBuBl</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>UnionJack</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Yellow</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QLabel" name="label_6">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>60</y>
-          <width>81</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Palette Type</string>
-        </property>
-       </widget>
-       <widget class="QCheckBox" name="logarithmicScalingCheck">
-        <property name="geometry">
-         <rect>
-          <x>110</x>
-          <y>180</y>
-          <width>131</width>
-          <height>17</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Logarithmic Scaling</string>
-        </property>
-       </widget>
-       <widget class="QCheckBox" name="loadCheck">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>180</y>
-          <width>70</width>
-          <height>17</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Load</string>
-        </property>
-       </widget>
-       <widget class="QCheckBox" name="visibleCheck">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>30</y>
-          <width>70</width>
-          <height>17</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Visible</string>
-        </property>
-       </widget>
-       <widget class="QCheckBox" name="transparentCheck">
-        <property name="geometry">
-         <rect>
-          <x>140</x>
-          <y>30</y>
-          <width>111</width>
-          <height>17</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Transparency</string>
-        </property>
-       </widget>
+       </layout>
       </widget>
       <widget class="QListWidget" name="viewSpectraList">
        <property name="geometry">
@@ -1406,176 +1253,205 @@ QTabBar::tab:selected {
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="PresetIDLabel">
+   <widget class="QGroupBox" name="groupBox_5">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>130</y>
-      <width>71</width>
-      <height>16</height>
+      <x>30</x>
+      <y>60</y>
+      <width>561</width>
+      <height>161</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
+      <kerning>true</kerning>
      </font>
     </property>
-    <property name="toolTip">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Preset Identifier&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <property name="title">
+     <string>General</string>
     </property>
-    <property name="text">
-     <string>Preset ID</string>
-    </property>
-   </widget>
-   <widget class="QPlainTextEdit" name="PresetIDTextBox">
-    <property name="geometry">
-     <rect>
-      <x>440</x>
-      <y>70</y>
-      <width>141</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="lineWrapMode">
-     <enum>QPlainTextEdit::NoWrap</enum>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="versionLabel">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>180</y>
-      <width>61</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Version</string>
-    </property>
-   </widget>
-   <widget class="QPlainTextEdit" name="versionTextBox">
-    <property name="geometry">
-     <rect>
-      <x>450</x>
-      <y>170</y>
-      <width>81</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="lineWrapMode">
-     <enum>QPlainTextEdit::NoWrap</enum>
-    </property>
-    <property name="readOnly">
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="PresestTypeLabel">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>130</y>
-      <width>81</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Preset Identifier&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="text">
-     <string>Preset Type</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="presetTypeBox">
-    <property name="geometry">
-     <rect>
-      <x>450</x>
-      <y>130</y>
-      <width>91</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <item>
-     <property name="text">
-      <string>Factory</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Customer</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>User</string>
-     </property>
-    </item>
-   </widget>
-   <widget class="QLabel" name="UniqueID">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>80</y>
-      <width>71</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Preset Identifier&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="text">
-     <string>Unique ID</string>
-    </property>
-   </widget>
-   <widget class="QPlainTextEdit" name="presetIDBox">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>120</y>
-      <width>211</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
-    </property>
-    <property name="lineWrapMode">
-     <enum>QPlainTextEdit::NoWrap</enum>
-    </property>
-    <property name="plainText">
-     <string/>
-    </property>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="2">
+      <widget class="QLabel" name="UniqueID">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Preset Identifier&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Unique ID</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QPlainTextEdit" name="PresetIDTextBox">
+       <property name="lineWrapMode">
+        <enum>QPlainTextEdit::NoWrap</enum>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="nameLabel">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Name</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPlainTextEdit" name="nameBox">
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAsNeeded</enum>
+       </property>
+       <property name="lineWrapMode">
+        <enum>QPlainTextEdit::NoWrap</enum>
+       </property>
+       <property name="plainText">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="PresetIDLabel">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Preset Identifier&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Preset ID</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPlainTextEdit" name="presetIDBox">
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="lineWrapMode">
+        <enum>QPlainTextEdit::NoWrap</enum>
+       </property>
+       <property name="plainText">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="detektorLabel">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Detector</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPlainTextEdit" name="detectorBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="plainText">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QLabel" name="versionLabel">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Version</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QPlainTextEdit" name="versionTextBox">
+       <property name="lineWrapMode">
+        <enum>QPlainTextEdit::NoWrap</enum>
+       </property>
+       <property name="readOnly">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLabel" name="PresestTypeLabel">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Preset Identifier&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Preset Type</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QComboBox" name="presetTypeBox">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <item>
+        <property name="text">
+         <string>Factory</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Customer</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>User</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -1583,7 +1459,7 @@ QTabBar::tab:selected {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>650</width>
+     <width>609</width>
      <height>21</height>
     </rect>
    </property>
