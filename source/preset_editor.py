@@ -54,6 +54,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     loadeddata = False
     """ was data loaded (for saving and displaying gui)"""
 
+    xmlfp = XmlFileParser()
+
 
 
     def __init__(self):
@@ -185,7 +187,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             path[0] = ('C:/Users/thomas.hartmann/Desktop/xml files/'
                        '256Arc-4MHz_Hb, HbO2, Melanin, ICG_v1.2.xml')
         #self.nameBox.setText(path[0])
-        self.tree = XmlFileParser.read(self, path[0])
+        self.tree = self.xmlfp.read(path[0])
 
         '''  test = self.tree.find('.//CompatibleDetectorGUID')
         print(test.text)
@@ -349,7 +351,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
 
-        XmlFileParser.write(self, self.tree, path)
+        self.xmlfp.write(self.tree, path[0])
 
     def toggleMultiPanel(self):
         """ toggle Multipanel Option"""

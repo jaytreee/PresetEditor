@@ -11,7 +11,11 @@ from  PyQt5 import QtWidgets
 
 class XmlFileParser:
     """Class for Read and Write of XML files"""
-
+    def __init__(self):
+        # schema folder
+        self.sf  = os.path.join(os.environ['APPDATA'], 'iThera\\Schemata')
+        # schema name
+        self.sn = 'ArrayOfDataModelStudyPreset.xsd'
 
 
     def read(self, path):
@@ -29,8 +33,8 @@ class XmlFileParser:
         # xsdpath = (os.path.splitext(path)[0]+'.xsd')
         
         # use schema saved under %appdata%/...
-        folder = os.path.join(os.environ['APPDATA'], 'iThera\\Schemata')
-        xmlschema = etree.XMLSchema(etree.parse(folder+'/'+'ArrayOfDataModelStudyPreset.xsd'))
+        
+        xmlschema = etree.XMLSchema(etree.parse(self.sf+'/'+ self.sn))
 
 
         try:
@@ -50,10 +54,11 @@ class XmlFileParser:
 
 
 
-    def write(self, settings, path):
+    def write(self, settings, path, message=True):
         """ write the Settings to an xml file"""
         # print(etree.tostring(settings, pretty_print=True))
-        settings.write(path[0], pretty_print=True)
-        msg = QtWidgets.QMessageBox()
-        msg.setText('Saved')
-        msg.exec()
+        settings.write(path , pretty_print=True)
+        if message:
+            msg = QtWidgets.QMessageBox()
+            msg.setText('Saved')
+            msg.exec()
