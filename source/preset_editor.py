@@ -156,7 +156,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         """load Factory Spectra from folder (default:  C:\ProgramData\iThera\ViewMSOTc\Factory Spectra) and cuts file 
         extension. This is the allspectra list"""
         if not os.path.isdir(folder):
-            self.FactorySpectraTextBox.setPlainText('No Factory Preset Folder Found')
+            self.FactorySpectraTextBox.setText('No Factory Preset Folder Found')
             return
 
         self.allspectra = os.listdir(folder)
@@ -164,13 +164,13 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         for i, s in enumerate(self.allspectra):
             self.allspectra[i] = os.path.splitext(s)[0]
 
-        self.FactorySpectraTextBox.setPlainText(folder)
+        self.FactorySpectraTextBox.setText(folder)
 
 
     def generateGUID(self):
         """gernerate GUID from the Preset Name"""
-        hash = uuid.uuid5(uuid.NAMESPACE_DNS,self.nameBox.toPlainText())
-        self.PresetIDTextBox.setPlainText(str(hash))
+        hash = uuid.uuid5(uuid.NAMESPACE_DNS,self.nameBox.text())
+        self.PresetIDTextBox.setText(str(hash))
 
     def loadxmlFile(self):
         """ load xml File """
@@ -213,10 +213,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             return
         # ====== General Information ===========
         self.tree.find('.//PresetType').text = self.presetTypeBox.currentText()
-        self.tree.xpath('./DataModelStudyPreset/Name')[0].text = self.nameBox.toPlainText()
-        self.tree.xpath('./DataModelStudyPreset/PresetIdentifier')[0].text = self.presetIDBox.toPlainText()
-        self.tree.xpath('./DataModelStudyPreset/CompatibleDetectorGUID')[0].text = self.detectorBox.toPlainText()
-        self.tree.xpath('./DataModelStudyPreset/PresetVersion')[0].text = self.versionTextBox.toPlainText()
+        self.tree.xpath('./DataModelStudyPreset/Name')[0].text = self.nameBox.text()
+        self.tree.xpath('./DataModelStudyPreset/PresetIdentifier')[0].text = self.presetIDBox.text()
+        self.tree.xpath('./DataModelStudyPreset/CompatibleDetectorGUID')[0].text = self.detectorBox.text()
+        self.tree.xpath('./DataModelStudyPreset/PresetVersion')[0].text = self.versionTextBox.text()
       
     
         # ====== Acquisition Tab =======
@@ -441,10 +441,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.prefWLBox.setCurrentText(self.tree.find('.//PreferredBackgroundWL').text)
         # ==================================
-        self.nameBox.setPlainText(self.tree.find('.//Name').text)
-        self.presetIDBox.setPlainText(self.tree.find('.//PresetIdentifier').text)
-        self.versionTextBox.setPlainText(self.tree.find('//PresetVersion').text)
-        self.detectorBox.setPlainText(self.tree.find('.//CompatibleDetectorGUID').text)
+        self.nameBox.setText(self.tree.find('.//Name').text)
+        self.presetIDBox.setText(self.tree.find('.//PresetIdentifier').text)
+        self.versionTextBox.setText(self.tree.find('//PresetVersion').text)
+        self.detectorBox.setText(self.tree.find('.//CompatibleDetectorGUID').text)
         #add spectra to selectedList
         spectra = self.tree.find('.//UserSelectedSpectra')
         self.defaultspectra = ['OPUS', 'Background']
