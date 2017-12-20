@@ -10,6 +10,9 @@
     <height>131</height>
    </rect>
   </property>
+  <property name="focusPolicy">
+   <enum>Qt::StrongFocus</enum>
+  </property>
   <property name="windowTitle">
    <string>Add Wavelength</string>
   </property>
@@ -113,6 +116,9 @@ QTabBar::tab:selected {
      <height>22</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::TabFocus</enum>
+   </property>
    <property name="minimum">
     <number>600</number>
    </property>
@@ -158,7 +164,14 @@ QTabBar::tab:selected {
     <string>mm</string>
    </property>
   </widget>
+  <zorder>buttonBox</zorder>
+  <zorder>label</zorder>
+  <zorder>label_2</zorder>
+  <zorder>spinBox</zorder>
  </widget>
+ <tabstops>
+  <tabstop>spinBox</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

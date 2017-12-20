@@ -26,6 +26,9 @@ if match.group(2) and not DEBUG:
 REVISION = match.group(1)
 OUTNAME = 'PresetEditor_v' + VERSION + '-rev' + '{:04d}'.format(int(REVISION))
 
+with open('revision.txt','w') as f:
+	f.write(REVISION)
+
 if DEBUG:
     OUTNAME += '_DEBUG'
 
@@ -33,7 +36,9 @@ a = Analysis(['preset_editor.py'],
              pathex=['H:\\Code\\com.itheramedical.PresetEditor'],
              binaries=[],
              datas=[('resources/Types.xsd','.'),
-			 ('resources/ArrayOfDataModelStudyPreset.xsd','.')],
+			 ('resources/ArrayOfDataModelStudyPreset.xsd','.'),
+			 ('version.txt','.'),
+			 ('revision.txt', '.')],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],

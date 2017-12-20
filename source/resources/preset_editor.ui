@@ -1345,6 +1345,53 @@ QTabBar::tab:selected {
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>nameBox</tabstop>
+  <tabstop>PresetIDTextBox</tabstop>
+  <tabstop>presetIDBox</tabstop>
+  <tabstop>presetTypeBox</tabstop>
+  <tabstop>detectorBox</tabstop>
+  <tabstop>versionTextBox</tabstop>
+  <tabstop>loadButton</tabstop>
+  <tabstop>saveAsButton</tabstop>
+  <tabstop>browseFactorySpectra</tabstop>
+  <tabstop>FactorySpectraTextBox</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>displayAllWLBox</tabstop>
+  <tabstop>WLList</tabstop>
+  <tabstop>usvisibleBox</tabstop>
+  <tabstop>addWL</tabstop>
+  <tabstop>removeWL</tabstop>
+  <tabstop>prefWLBox</tabstop>
+  <tabstop>userSoundBox</tabstop>
+  <tabstop>unselectedList</tabstop>
+  <tabstop>selectedList</tabstop>
+  <tabstop>addButton</tabstop>
+  <tabstop>SFAFrameThreshBox</tabstop>
+  <tabstop>backgroundAbsorptionBox</tabstop>
+  <tabstop>backgroundOxyBox</tabstop>
+  <tabstop>deleteButton</tabstop>
+  <tabstop>enableMultiPanel</tabstop>
+  <tabstop>view1Button</tabstop>
+  <tabstop>view2Button</tabstop>
+  <tabstop>view3Button</tabstop>
+  <tabstop>view4Button</tabstop>
+  <tabstop>autoScalingCheck</tabstop>
+  <tabstop>usmax</tabstop>
+  <tabstop>bgmin</tabstop>
+  <tabstop>bgmax</tabstop>
+  <tabstop>fgmin</tabstop>
+  <tabstop>fgmax</tabstop>
+  <tabstop>usmin</tabstop>
+  <tabstop>viewSpectraList</tabstop>
+  <tabstop>paletteType</tabstop>
+  <tabstop>transparentCheck</tabstop>
+  <tabstop>minBox</tabstop>
+  <tabstop>maxBox</tabstop>
+  <tabstop>visibleCheck</tabstop>
+  <tabstop>logarithmicScalingCheck</tabstop>
+  <tabstop>loadCheck</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
  <buttongroups>

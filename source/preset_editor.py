@@ -5,8 +5,10 @@ qt designer test
 # pylint: disable=C0103
 
 import sys
+import datetime
 import os
 import uuid
+import subprocess, re
 from copy import deepcopy
 #from pprint import pprint
 from xmlfileparser import XmlFileParser
@@ -56,6 +58,9 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
     xmlfp = XmlFileParser()
 
+    version = ''
+    """current version, is shown in GUI statusbar and added as comment in resulting xml files"""
+
 
 
     def __init__(self):
@@ -70,6 +75,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.typechecker = ScalingValidator(0, 1, 5, None, -1)
 
         self.loadxmlFile()
+
+        self.displayVersion()
 
 
     def connectGUItoFunctionalty(self):
@@ -131,7 +138,28 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         #self.treeWidget.itemDoubleClicked.connect(self.setTreeItem)
 
 
+    def displayVersion(self):
+        # if exe
+        if hasattr(sys, "_MEIPASS"):
+            vf = os.path.join(sys._MEIPASS, 'version.txt')
+            with open(vf,'r') as f:
+                v = f.read()
+            revf = os.path.join(sys._MEIPASS, 'revision.txt')
+            with open(revf,'r') as f:
+                rev = f.read()    
+        else:
 
+            with open('source/version.txt') as f:
+                v = str(f.read()).strip()
+
+            hgoutput = subprocess.run(['hg','id','-n'], stdout=subprocess.PIPE)
+            hgoutput = hgoutput.stdout.decode('utf-8').strip()
+            match = re.search('^([0-9]+)(\+)?$', hgoutput)
+
+            rev = match.group(1)
+
+        self.version = 'v'+v+ '-rev'+rev
+        self.statusbar.showMessage(self.version)
 
     def changeFactorySpectra(self):
         """ opens Windows File Dialog, to select folder for the FactorySpectra"""
@@ -348,10 +376,12 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                             hbdummy = deepcopy(hbdummy)
 
 
+        c = 'Created with PresetEditor '+self.version
+        date = datetime.datetime.now()
+        c += ' on '+str(date.year)+'-'+str(date.month)+'-'+str(date.day)+'-'+str(date.hour)+'-'+str(date.minute)+'-'+str(date.second)
 
-
-
-        self.xmlfp.write(self.tree, path[0])
+        
+        self.xmlfp.write(self.tree, path[0], comment=c)
 
     def toggleMultiPanel(self):
         """ toggle Multipanel Option"""

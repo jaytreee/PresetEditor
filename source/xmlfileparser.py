@@ -54,9 +54,17 @@ class XmlFileParser:
 
 
 
-    def write(self, settings, path, message=True):
-        """ write the Settings to an xml file"""
+    def write(self, settings, path, message=True, comment=''):
+        """ write the Settings to an xml file and add comment to the top of the file"""
         # print(etree.tostring(settings, pretty_print=True))
+        # add comment about version and date if the comment has a previous change the existing
+        # comment text
+        root =settings.getroot()
+        p = root.getprevious()
+        if not p is None:
+            p.text = comment #change text of existing comment
+        else :
+            root.addprevious(etree.Comment(comment))
         settings.write(path , pretty_print=True)
         if message:
             msg = QtWidgets.QMessageBox()
