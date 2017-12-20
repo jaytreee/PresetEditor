@@ -111,21 +111,8 @@ QTabBar::tab:selected {
        <string>General</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="2" column="2">
-        <spacer name="horizontalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="1" column="3">
-        <widget class="QLabel" name="UniqueID">
+       <item row="4" column="0">
+        <widget class="QLabel" name="detektorLabel">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -139,16 +126,16 @@ QTabBar::tab:selected {
            <bold>true</bold>
           </font>
          </property>
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Preset Identifier&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
          <property name="text">
-          <string>Unique ID</string>
+          <string>Detector</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0" rowspan="2">
-        <widget class="QLabel" name="PresetIDLabel">
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="nameBox"/>
+       </item>
+       <item row="4" column="3">
+        <widget class="QLabel" name="versionLabel">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -162,11 +149,8 @@ QTabBar::tab:selected {
            <bold>true</bold>
           </font>
          </property>
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Preset Identifier&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
          <property name="text">
-          <string>Preset ID</string>
+          <string>Version</string>
          </property>
         </widget>
        </item>
@@ -196,8 +180,27 @@ QTabBar::tab:selected {
          </property>
         </widget>
        </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="detektorLabel">
+       <item row="2" column="2">
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="presetIDBox"/>
+       </item>
+       <item row="4" column="4">
+        <widget class="QLineEdit" name="versionTextBox"/>
+       </item>
+       <item row="2" column="0" rowspan="2">
+        <widget class="QLabel" name="PresetIDLabel">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -211,8 +214,41 @@ QTabBar::tab:selected {
            <bold>true</bold>
           </font>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Preset Identifier&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="text">
-          <string>Detector</string>
+          <string>Preset ID</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4">
+        <widget class="QLineEdit" name="PresetIDTextBox">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QLabel" name="UniqueID">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Preset Identifier&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>Unique ID</string>
          </property>
         </widget>
        </item>
@@ -235,42 +271,6 @@ QTabBar::tab:selected {
           <string>Name</string>
          </property>
         </widget>
-       </item>
-       <item row="4" column="3">
-        <widget class="QLabel" name="versionLabel">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Version</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="nameBox"/>
-       </item>
-       <item row="1" column="4">
-        <widget class="QLineEdit" name="PresetIDTextBox">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="presetIDBox"/>
-       </item>
-       <item row="4" column="4">
-        <widget class="QLineEdit" name="versionTextBox"/>
        </item>
        <item row="2" column="4" rowspan="2">
         <widget class="QComboBox" name="presetTypeBox">
@@ -394,32 +394,25 @@ QTabBar::tab:selected {
           </property>
          </widget>
         </item>
-        <item row="1" column="0" rowspan="5" colspan="2">
-         <widget class="QListWidget" name="WLList">
+        <item row="1" column="3">
+         <widget class="QLabel" name="prefWLLabel">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="sortingEnabled">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="3">
-         <widget class="QCheckBox" name="usvisibleBox">
           <property name="font">
            <font>
             <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ultrasound visible&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
           <property name="text">
-           <string>Show Ultrasound</string>
+           <string>Preferred Wavelength</string>
+          </property>
+          <property name="buddy">
+           <cstring>prefWLBox</cstring>
           </property>
          </widget>
         </item>
@@ -439,16 +432,48 @@ QTabBar::tab:selected {
           </property>
          </spacer>
         </item>
-        <item row="8" column="1">
-         <widget class="QPushButton" name="addWL">
+        <item row="2" column="3">
+         <widget class="QComboBox" name="prefWLBox"/>
+        </item>
+        <item row="12" column="2">
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="3" column="3">
+         <widget class="QCheckBox" name="usvisibleBox">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ultrasound visible&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>Show Ultrasound</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" rowspan="5" colspan="2">
+         <widget class="QListWidget" name="WLList">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="text">
-           <string>+</string>
+          <property name="sortingEnabled">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -474,7 +499,20 @@ QTabBar::tab:selected {
           </property>
          </widget>
         </item>
-        <item row="8" column="0">
+        <item row="6" column="0">
+         <widget class="QPushButton" name="addWL">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>+</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
          <widget class="QPushButton" name="removeWL">
           <property name="sizePolicy">
            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
@@ -486,44 +524,6 @@ QTabBar::tab:selected {
            <string>-</string>
           </property>
          </widget>
-        </item>
-        <item row="2" column="3">
-         <widget class="QComboBox" name="prefWLBox"/>
-        </item>
-        <item row="1" column="3">
-         <widget class="QLabel" name="prefWLLabel">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Preferred Wavelength</string>
-          </property>
-          <property name="buddy">
-           <cstring>prefWLBox</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="9" column="2">
-         <spacer name="verticalSpacer_3">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
         </item>
        </layout>
       </widget>
@@ -1360,8 +1360,6 @@ QTabBar::tab:selected {
   <tabstop>displayAllWLBox</tabstop>
   <tabstop>WLList</tabstop>
   <tabstop>usvisibleBox</tabstop>
-  <tabstop>addWL</tabstop>
-  <tabstop>removeWL</tabstop>
   <tabstop>prefWLBox</tabstop>
   <tabstop>userSoundBox</tabstop>
   <tabstop>unselectedList</tabstop>

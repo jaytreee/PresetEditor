@@ -12,6 +12,7 @@ class Ui_AddWLDialog(object):
     def setupUi(self, AddWLDialog):
         AddWLDialog.setObjectName("AddWLDialog")
         AddWLDialog.resize(276, 131)
+        AddWLDialog.setFocusPolicy(QtCore.Qt.StrongFocus)
         AddWLDialog.setStyleSheet("QPlainTextEdit {\n"
 "    font-family: \"Lucida Console\",\"Courier\";\n"
 "    font-size: 9pt; \n"
@@ -90,6 +91,7 @@ class Ui_AddWLDialog(object):
         self.buttonBox.setObjectName("buttonBox")
         self.spinBox = QtWidgets.QSpinBox(AddWLDialog)
         self.spinBox.setGeometry(QtCore.QRect(30, 70, 81, 22))
+        self.spinBox.setFocusPolicy(QtCore.Qt.TabFocus)
         self.spinBox.setMinimum(600)
         self.spinBox.setMaximum(1300)
         self.spinBox.setObjectName("spinBox")
@@ -107,6 +109,10 @@ class Ui_AddWLDialog(object):
         font.setWeight(75)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
+        self.buttonBox.raise_()
+        self.label.raise_()
+        self.label_2.raise_()
+        self.spinBox.raise_()
 
         self.retranslateUi(AddWLDialog)
         self.buttonBox.accepted.connect(AddWLDialog.accept)
