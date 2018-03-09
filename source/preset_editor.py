@@ -257,6 +257,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.tree.find('.//FRAMECORRTHRES').text = str(self.SFAFrameThreshBox.value())
         self.tree.find('.//BackgroundAbsorption').text = str(self.backgroundAbsorptionBox.value())
         self.tree.find('.//BackgroundOxygenation').text = str(self.backgroundOxyBox.value())
+        self.tree.find('.//MAXAVERAGES').text = str(self.maxavgframes.value())
         # self.tree.find('.//BgWavelength').text = self.bgWL.currentText()
         
         # ====== Visualization Tab =======
@@ -465,6 +466,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.SFAFrameThreshBox.setValue(float(self.tree.find('.//FRAMECORRTHRES').text))
         self.backgroundAbsorptionBox.setValue(float(self.tree.find('.//BackgroundAbsorption').text))
         self.backgroundOxyBox.setValue(int(self.tree.find('.//BackgroundOxygenation').text))
+        self.maxavgframes.setValue(int(self.tree.find('.//MAXAVERAGES').text))
         # self.bgWL.setCurrentText(self.tree.find('.//BgWavelength').text)
 
 
