@@ -41,14 +41,14 @@ class LayerSetting:
 
     spectrum = ''
     palette = ''
-    load = False
+    load = True
     logarithmic = False
     visible = False
     transparent = False
     minthresh = 0
     maxthresh = 0
 
-    def __init__(self, spectrum, palette='Blue', load=False, logarithmic=False, visible=False, transparent=False, minthresh=0, maxthresh=0):
+    def __init__(self, spectrum, palette='Blue', load=True, logarithmic=False, visible=False, transparent=False, minthresh=0, maxthresh=0):
         self.spectrum = spectrum
         self.palette = palette
         self.load = load
