@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'preset_editor.ui'
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -326,6 +326,7 @@ class Ui_MainWindow(object):
         self.label.setObjectName("label")
         self.gridLayout_8.addWidget(self.label, 0, 0, 1, 1)
         self.userSoundBox = QtWidgets.QSpinBox(self.tab)
+        self.userSoundBox.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.userSoundBox.setMinimum(-150)
         self.userSoundBox.setMaximum(150)
         self.userSoundBox.setObjectName("userSoundBox")
@@ -374,11 +375,13 @@ class Ui_MainWindow(object):
         font.setBold(False)
         font.setWeight(50)
         self.SFAFrameThreshBox.setFont(font)
+        self.SFAFrameThreshBox.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.SFAFrameThreshBox.setMaximum(1.0)
         self.SFAFrameThreshBox.setSingleStep(0.01)
         self.SFAFrameThreshBox.setObjectName("SFAFrameThreshBox")
         self.gridLayout_8.addWidget(self.SFAFrameThreshBox, 0, 5, 1, 1)
         self.backgroundAbsorptionBox = QtWidgets.QDoubleSpinBox(self.tab)
+        self.backgroundAbsorptionBox.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.backgroundAbsorptionBox.setDecimals(3)
         self.backgroundAbsorptionBox.setMaximum(0.1)
         self.backgroundAbsorptionBox.setSingleStep(0.001)
@@ -392,6 +395,7 @@ class Ui_MainWindow(object):
         self.label_3.setObjectName("label_3")
         self.gridLayout_8.addWidget(self.label_3, 1, 0, 1, 1)
         self.backgroundOxyBox = QtWidgets.QSpinBox(self.tab)
+        self.backgroundOxyBox.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.backgroundOxyBox.setMaximum(100)
         self.backgroundOxyBox.setObjectName("backgroundOxyBox")
         self.gridLayout_8.addWidget(self.backgroundOxyBox, 1, 5, 1, 1)

@@ -579,6 +579,9 @@ QTabBar::tab:selected {
         </item>
         <item row="0" column="1">
          <widget class="QSpinBox" name="userSoundBox">
+          <property name="focusPolicy">
+           <enum>Qt::StrongFocus</enum>
+          </property>
           <property name="minimum">
            <number>-150</number>
           </property>
@@ -681,6 +684,9 @@ QTabBar::tab:selected {
             <bold>false</bold>
            </font>
           </property>
+          <property name="focusPolicy">
+           <enum>Qt::StrongFocus</enum>
+          </property>
           <property name="maximum">
            <double>1.000000000000000</double>
           </property>
@@ -691,6 +697,9 @@ QTabBar::tab:selected {
         </item>
         <item row="1" column="1">
          <widget class="QDoubleSpinBox" name="backgroundAbsorptionBox">
+          <property name="focusPolicy">
+           <enum>Qt::StrongFocus</enum>
+          </property>
           <property name="decimals">
            <number>3</number>
           </property>
@@ -720,6 +729,9 @@ QTabBar::tab:selected {
         </item>
         <item row="1" column="5">
          <widget class="QSpinBox" name="backgroundOxyBox">
+          <property name="focusPolicy">
+           <enum>Qt::StrongFocus</enum>
+          </property>
           <property name="maximum">
            <number>100</number>
           </property>

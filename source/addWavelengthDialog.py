@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'addWavelengthDialog.ui'
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -91,7 +91,9 @@ class Ui_AddWLDialog(object):
         self.buttonBox.setObjectName("buttonBox")
         self.spinBox = QtWidgets.QSpinBox(AddWLDialog)
         self.spinBox.setGeometry(QtCore.QRect(30, 70, 81, 22))
-        self.spinBox.setFocusPolicy(QtCore.Qt.TabFocus)
+        self.spinBox.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.spinBox.setAccelerated(True)
+        self.spinBox.setCorrectionMode(QtWidgets.QAbstractSpinBox.CorrectToNearestValue)
         self.spinBox.setMinimum(600)
         self.spinBox.setMaximum(1300)
         self.spinBox.setObjectName("spinBox")
