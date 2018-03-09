@@ -94,7 +94,7 @@ class Ui_AddWLDialog(object):
         self.spinBox.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.spinBox.setAccelerated(True)
         self.spinBox.setCorrectionMode(QtWidgets.QAbstractSpinBox.CorrectToNearestValue)
-        self.spinBox.setMinimum(600)
+        self.spinBox.setMinimum(660)
         self.spinBox.setMaximum(1300)
         self.spinBox.setObjectName("spinBox")
         self.label = QtWidgets.QLabel(AddWLDialog)
@@ -124,7 +124,7 @@ class Ui_AddWLDialog(object):
     def retranslateUi(self, AddWLDialog):
         _translate = QtCore.QCoreApplication.translate
         AddWLDialog.setWindowTitle(_translate("AddWLDialog", "Add Wavelength"))
-        self.label.setText(_translate("AddWLDialog", "Valid values: 600-1300"))
+        self.label.setText(_translate("AddWLDialog", "Valid values: 660-1300"))
         self.label_2.setText(_translate("AddWLDialog", "mm"))
 
 

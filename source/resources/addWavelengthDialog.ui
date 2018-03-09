@@ -126,7 +126,7 @@ QTabBar::tab:selected {
     <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
    </property>
    <property name="minimum">
-    <number>600</number>
+    <number>660</number>
    </property>
    <property name="maximum">
     <number>1300</number>
@@ -148,7 +148,7 @@ QTabBar::tab:selected {
     </font>
    </property>
    <property name="text">
-    <string>Valid values: 600-1300</string>
+    <string>Valid values: 660-1300</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
