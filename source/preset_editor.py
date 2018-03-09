@@ -235,7 +235,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.tree is None:
             return
 
-        path = QtWidgets.QFileDialog.getSaveFileName(self, filter='XML Files (*.xml)')
+        path = QtWidgets.QFileDialog.getSaveFileName(self,directory=self.nameBox.text(), filter='XML Files (*.xml)')
 
         if path[0] == '':
             return
