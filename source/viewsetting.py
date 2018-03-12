@@ -13,10 +13,11 @@ class ViewSettings:
     backgroundscalingmax = 0
     foregroundscalingmin = 0
     foregroundscalingmax = 0
+    bgWL = 0
 
 
     def __init__(self, autoScaling, usScalingmin, usScalingmax, backgroundScalingmin,
-                 backgroundScalingmax, foregroundScalingmin, foregroundScalingmax):
+                 backgroundScalingmax, foregroundScalingmin, foregroundScalingmax, bgWL):
         self.autoscaling = autoScaling
         self.usscalingmin = usScalingmin
         self.usscalingmax = usScalingmax
@@ -24,6 +25,7 @@ class ViewSettings:
         self.backgroundscalingmax = backgroundScalingmax
         self.foregroundscalingmin = foregroundScalingmin
         self.foregroundscalingmax = foregroundScalingmax
+        self.bgWL = bgWL
 
     def __str__(self):
         out = 'AutoScaling: '+str(self.autoscaling)+'\n'
@@ -33,6 +35,7 @@ class ViewSettings:
         out += 'Bg max: '+str(self.backgroundscalingmax)+'\n'
         out += 'Foreground min: '+str(self.foregroundscalingmin)+'\n'
         out += 'Foreground max: '+str(self.foregroundscalingmax)+'\n'
+        out += 'Background Wavelength: '+str(self.bgWL)+'\n'
         return out
 
 

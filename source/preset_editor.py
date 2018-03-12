@@ -127,6 +127,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # ======== View Settings ===========
         self.autoScalingCheck.clicked.connect(self.changeViewSettings)
+        self.bgWavelength.activated.connect(self.changeViewSettings)
         self.usmin.editingFinished.connect(partial(self.scalingTypeCheck, self.usmin))
         self.usmax.editingFinished.connect(partial(self.scalingTypeCheck, self.usmax))
         self.bgmin.editingFinished.connect(partial(self.scalingTypeCheck, self.bgmin))
@@ -263,7 +264,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         # ====== Visualization Tab =======
         self.tree.find('.//IsMultipleMspLivePreviewEnabled').text = str(self.enableMultiPanel.isChecked()).lower()
         
-        # Selected Wavlengeth List, delete all and and current
+        # Selected Wavlengeth List, delete all and current
         wlset = self.tree.find('.//WavelengthSet/Items')
 
         for wl in wlset:
@@ -311,6 +312,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             v.find('.//BackgroundMaximumScaling').text = str(s.backgroundscalingmax)
             v.find('.//ForegroundMinimumScaling').text = str(s.foregroundscalingmin)
             v.find('.//ForegroundMaximumScaling').text = str(s.foregroundscalingmax)
+            v.find('.//BgWavelength').text = str(s.bgWL)
 
 
             # ===================================================
@@ -419,6 +421,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             self.WLList.addItem(q)
             
             self.prefWLBox.addItem(str(ui.spinBox.value()))
+            self.bgWavelength.addItem(str(ui.spinBox.value()))
             # self.bgWL.addItem(str(ui.spinBox.value()))
         # TODO: set spin box as selected, for easier keyboard input
         # TODO: set sorting order numerically
@@ -429,6 +432,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         try :
             t = self.WLList.takeItem(self.WLList.currentRow()).text()
             self.prefWLBox.removeItem(self.prefWLBox.findText(t))
+            self.bgWavelength.removeItem(self.bgWavelength.findText(t))
             # self.bgWL.removeItem(self.prefWLBox.findText(t))
         except AttributeError:
             # if there is no element in the list
@@ -457,6 +461,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 q.setData(0, int(w))
                 self.WLList.addItem(q)
                 self.prefWLBox.addItem(w)
+                self.bgWavelength.addItem(w)
                 # self.bgWL.addItem(w)
             except ValueError:
                 pass
@@ -509,6 +514,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.WLList.clear()
         # self.bgWL.clear()
         self.prefWLBox.clear()
+        self.bgWavelength.clear()
         self.viewSpectraList.clear()
         self.viewSpectraList.addItems(self.defaultspectra)
         self.spectralist.clear()
@@ -541,8 +547,9 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             bgmax = views[i].find('.//BackgroundMaximumScaling').text
             foremin = views[i].find('.//ForegroundMinimumScaling').text
             foremax = views[i].find('.//ForegroundMaximumScaling').text
+            bgWl = views[i].find('.//BgWavelength').text
 
-            self.viewsettings.append(ViewSettings(autosc, usmin, usmax, bgmin, bgmax, foremin, foremax))
+            self.viewsettings.append(ViewSettings(autosc, usmin, usmax, bgmin, bgmax, foremin, foremax, bgWl))
             # print('View '+str(i)+'\n'+str(self.viewsettings[i])+'\n')
 
 
@@ -606,6 +613,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.bgmax.setText(cv.backgroundscalingmax)
         self.fgmin.setText(cv.foregroundscalingmin)
         self.fgmax.setText(cv.foregroundscalingmax)
+        self.bgWavelength.setCurrentText(cv.bgWL)
 
 
         # get selected spectrum
@@ -707,6 +715,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         v.usscalingmax = self.usmax.text()
         v.foregroundscalingmin = self.fgmin.text()
         v.foregroundscalingmax = self.fgmax.text()
+        v.bgWL = self.bgWavelength.currentText()
 
 
 

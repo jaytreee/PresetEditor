@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>520</width>
-    <height>636</height>
+    <height>658</height>
    </rect>
   </property>
   <property name="font">
@@ -131,9 +131,6 @@ QTabBar::tab:selected {
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="nameBox"/>
-       </item>
        <item row="4" column="3">
         <widget class="QLabel" name="versionLabel">
          <property name="sizePolicy">
@@ -179,19 +176,6 @@ QTabBar::tab:selected {
           <cstring>presetTypeBox</cstring>
          </property>
         </widget>
-       </item>
-       <item row="2" column="2">
-        <spacer name="horizontalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
        </item>
        <item row="2" column="1">
         <widget class="QLineEdit" name="presetIDBox"/>
@@ -299,6 +283,9 @@ QTabBar::tab:selected {
        </item>
        <item row="4" column="1">
         <widget class="QLineEdit" name="detectorBox"/>
+       </item>
+       <item row="1" column="1" colspan="2">
+        <widget class="QLineEdit" name="nameBox"/>
        </item>
       </layout>
      </widget>
@@ -978,19 +965,6 @@ QTabBar::tab:selected {
            <string>View Settings</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_9">
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="autoScalingCheck">
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Auto Scaling</string>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="1">
             <widget class="QLabel" name="label_8">
              <property name="font">
@@ -1001,19 +975,6 @@ QTabBar::tab:selected {
              </property>
              <property name="text">
               <string>min</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QLabel" name="label_9">
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>max</string>
              </property>
             </widget>
            </item>
@@ -1030,10 +991,16 @@ QTabBar::tab:selected {
              </property>
             </widget>
            </item>
-           <item row="1" column="2">
-            <widget class="QLineEdit" name="usmax">
-             <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="autoScalingCheck">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Auto Scaling</string>
              </property>
             </widget>
            </item>
@@ -1050,6 +1017,13 @@ QTabBar::tab:selected {
              </property>
             </widget>
            </item>
+           <item row="2" column="2">
+            <widget class="QLineEdit" name="bgmax">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
            <item row="2" column="1">
             <widget class="QLineEdit" name="bgmin">
              <property name="toolTip">
@@ -1057,8 +1031,8 @@ QTabBar::tab:selected {
              </property>
             </widget>
            </item>
-           <item row="2" column="2">
-            <widget class="QLineEdit" name="bgmax">
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="fgmin">
              <property name="toolTip">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
@@ -1077,17 +1051,17 @@ QTabBar::tab:selected {
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="QLineEdit" name="fgmin">
+           <item row="3" column="2">
+            <widget class="QLineEdit" name="fgmax">
              <property name="toolTip">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="2">
-            <widget class="QLineEdit" name="fgmax">
+           <item row="1" column="2">
+            <widget class="QLineEdit" name="usmax">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
             </widget>
            </item>
@@ -1097,6 +1071,35 @@ QTabBar::tab:selected {
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;-1 = Minimum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;1 = Maximum of Image&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;0 = Scale from Zero,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Verdana,sans-serif'; font-size:12px; font-style:italic; color:#333333; background-color:#ffffdd;&quot;&gt;decimal value = Histogram Threshold&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
             </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label_9">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>max</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_13">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Background Wavelength</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QComboBox" name="bgWavelength"/>
            </item>
           </layout>
          </widget>
