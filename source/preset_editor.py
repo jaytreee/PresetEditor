@@ -61,7 +61,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     version = ''
     """current version, is shown in GUI statusbar and added as comment in resulting xml files"""
 
-
+    bgfound = False
+    """ If the BGWavlength entry is found in preset"""
 
     def __init__(self):
         super(PresetEditor, self).__init__()
@@ -225,11 +226,34 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.loadeddata = True
 
+        #check for newest version, find fields
+        self.checkBGWLfield()
+
         self.displayTreetoGUI()
 
 
         #pprint(self.settingslist)
 
+    def checkBGWLfield(self):
+        """ check if the BGWavelength entry is found in xml file, disable gui element if not"""
+        f = self.tree.find('.//ViewingPresets//DataModelViewingPreset//BgWavelength')
+        if f is None:
+            self.bgfound = False
+            self.bgWavelength.setEnabled(False)
+            self.bgWavelength.addItem('Not defined')
+            self.bgWavelength.setCurrentText('Not defined')
+            self.bgWavelength.setToolTip('Was not found \ncan be set manually')
+            self.bgWavelength.setStyleSheet('color : rgb(120, 120, 120)')
+            self.bgwllabel.setStyleSheet('color : rgb(120, 120, 120)')
+        else:
+            self.bgfound = True
+            self.bgWavelength.setEnabled(True)
+            self.bgWavelength.removeItem(self.bgWavelength.findText('Not defined'))
+            self.bgWavelength.setToolTip('')
+            self.bgWavelength.setStyleSheet('color: #cccccc')
+            self.bgwllabel.setStyleSheet('color: #cccccc')
+        
+            
     def writexmlFile(self):
         """apply changes to lxml tree and then write it"""
 
@@ -312,7 +336,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             v.find('.//BackgroundMaximumScaling').text = str(s.backgroundscalingmax)
             v.find('.//ForegroundMinimumScaling').text = str(s.foregroundscalingmin)
             v.find('.//ForegroundMaximumScaling').text = str(s.foregroundscalingmax)
-            v.find('.//BgWavelength').text = str(s.bgWL)
+            if self.bgfound:
+                v.find('.//BgWavelength').text = str(s.bgWL)
 
 
             # ===================================================
@@ -547,8 +572,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             bgmax = views[i].find('.//BackgroundMaximumScaling').text
             foremin = views[i].find('.//ForegroundMinimumScaling').text
             foremax = views[i].find('.//ForegroundMaximumScaling').text
-            bgWl = views[i].find('.//BgWavelength').text
-
+            if self.bgfound:
+                bgWl = views[i].find('.//BgWavelength').text
+            else:
+                bgWl = 0
             self.viewsettings.append(ViewSettings(autosc, usmin, usmax, bgmin, bgmax, foremin, foremax, bgWl))
             # print('View '+str(i)+'\n'+str(self.viewsettings[i])+'\n')
 
@@ -613,7 +640,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.bgmax.setText(cv.backgroundscalingmax)
         self.fgmin.setText(cv.foregroundscalingmin)
         self.fgmax.setText(cv.foregroundscalingmax)
-        self.bgWavelength.setCurrentText(cv.bgWL)
+        if self.bgfound:
+            self.bgWavelength.setCurrentText(cv.bgWL)
 
 
         # get selected spectrum
@@ -715,7 +743,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         v.usscalingmax = self.usmax.text()
         v.foregroundscalingmin = self.fgmin.text()
         v.foregroundscalingmax = self.fgmax.text()
-        v.bgWL = self.bgWavelength.currentText()
+        if self.bgfound:
+            v.bgWL = self.bgWavelength.currentText()
 
 
 
