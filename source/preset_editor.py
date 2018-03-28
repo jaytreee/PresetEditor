@@ -108,6 +108,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.logarithmicScalingCheck.clicked.connect(self.changeSettings)
         self.paletteType.activated.connect(self.changeSettings)
         self.transparentCheck.clicked.connect(self.changeSettings)
+        self.Nz.editingFinished.connect(self.toggle3Dpreset)
         self.minBox.editingFinished.connect(self.changeSettings)
         self.maxBox.editingFinished.connect(self.changeSettings)
         
@@ -179,6 +180,24 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         str = field.text()
         field.setText(self.typechecker.fixup(str))
         self.changeViewSettings()
+
+
+    def toggle3Dpreset(self):
+        """ disable Multipanel if 3D is enabled == 3D depth is greater than 1"""
+        if self.Nz.value() > 1:
+            if self.enableMultiPanel.isChecked():
+                self.toggleMultiPanel()
+
+            self.enableMultiPanel.setStyleSheet('color : rgb(120, 120, 120)')
+            self.enableMultiPanel.setToolTip('Multipanel disabled when 3D Depth > 1 ')
+            self.enableMultiPanel.setEnabled(False)
+
+            
+
+        else:
+            self.enableMultiPanel.setEnabled(True)
+            self.enableMultiPanel.setToolTip('')
+            self.enableMultiPanel.setStyleSheet('color: #cccccc')
 
 
 
@@ -282,6 +301,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.tree.find('.//FRAMECORRTHRES').text = str(self.SFAFrameThreshBox.value())
         self.tree.find('.//BackgroundAbsorption').text = str(self.backgroundAbsorptionBox.value())
         self.tree.find('.//BackgroundOxygenation').text = str(self.backgroundOxyBox.value())
+        self.tree.find('.//Nz').text = str(self.Nz.value())
         self.tree.find('.//MAXAVERAGES').text = str(self.maxavgframes.value())
         # self.tree.find('.//BgWavelength').text = self.bgWL.currentText()
         
@@ -496,6 +516,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.SFAFrameThreshBox.setValue(float(self.tree.find('.//FRAMECORRTHRES').text))
         self.backgroundAbsorptionBox.setValue(float(self.tree.find('.//BackgroundAbsorption').text))
         self.backgroundOxyBox.setValue(int(self.tree.find('.//BackgroundOxygenation').text))
+        self.Nz.setValue(int(self.tree.find('.//Nz').text))
         self.maxavgframes.setValue(int(self.tree.find('.//MAXAVERAGES').text))
         # self.bgWL.setCurrentText(self.tree.find('.//BgWavelength').text)
 

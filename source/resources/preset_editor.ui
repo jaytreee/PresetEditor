@@ -687,9 +687,6 @@ QTabBar::tab:selected {
           <property name="focusPolicy">
            <enum>Qt::StrongFocus</enum>
           </property>
-          <property name="maximum">
-           <number>100</number>
-          </property>
          </widget>
         </item>
         <item row="5" column="5">
@@ -836,6 +833,29 @@ QTabBar::tab:selected {
           </property>
           <property name="value">
            <number>7</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QLabel" name="label_13">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>3D Depth</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="5">
+         <widget class="QSpinBox" name="Nz">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Parameter for 3D FoV&lt;/p&gt;&lt;p&gt;default 50&lt;/p&gt;&lt;p&gt;when not 1, multipanel view is disabled&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="maximum">
+           <number>9999</number>
           </property>
          </widget>
         </item>
