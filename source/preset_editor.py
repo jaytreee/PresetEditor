@@ -33,7 +33,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     """
     tree = None
 
-    defaultspectra = ['OPUS', 'Background']
+    # defaultspectra = ['OPUS', 'Background']
 
     allspectra = []
     """ all available spectra"""
@@ -121,7 +121,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.unselectedspectra = list(set(self.allspectra)-set(self.spectralist))
 
         self.unselectedList.addItems(self.unselectedspectra)
-        self.viewSpectraList.addItems(self.defaultspectra)
+        # self.viewSpectraList.addItems(self.defaultspectra)
 
         # ===== Processing========
         
@@ -349,7 +349,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
             # set for spectra
             sset = set(self.spectralist)
-            sset |= set(self.defaultspectra)
+            # sset |= set(self.defaultspectra)
             # Hb settings in this layer for blueprint of new layers
             hbdummy = None
 
@@ -512,14 +512,14 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         
         self.getViewingPresets()
         spectra = self.tree.find('.//UserSelectedSpectra')
-        self.defaultspectra = ['OPUS', 'Background']
+        # self.defaultspectra = ['OPUS', 'Background']
         #print(etree.tostring(spectra))
         for children in spectra:
             #print(children.text)
             self.spectralist.append(children.text)
 
         self.selectedList.addItems(self.spectralist)
-        self.viewSpectraList.addItems(self.spectralist)
+        self.addSpectratoViewPanel()
 
         self.unselectedspectra = list(set(self.allspectra)-set(self.spectralist))
         self.unselectedList.clear()
@@ -534,6 +534,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         #self.applySettings()
 
 
+    def addSpectratoViewPanel(self):
+        """ Add the spectra into the view panels in the visualization tab"""
+        for idx, val  in enumerate(self.settingslist[0]):
+            self.viewSpectraList.addItem(self.settingslist[0][idx].spectrum)
 
 
 
@@ -545,6 +549,11 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             self.enableMultiPanel.setStyleSheet('color : rgb(120, 120, 120)')
             self.enableMultiPanel.setToolTip('Multipanel disabled when 3D Depth > 1 ')
             self.enableMultiPanel.setEnabled(False)
+
+        else:
+            self.enableMultiPanel.setEnabled(True)
+            self.enableMultiPanel.setToolTip('')
+            self.enableMultiPanel.setStyleSheet('color: #cccccc')
 
 
 
@@ -561,7 +570,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.prefWLBox.clear()
         self.bgWavelength.clear()
         self.viewSpectraList.clear()
-        self.viewSpectraList.addItems(self.defaultspectra)
+        # self.viewSpectraList.addItems(self.defaultspectra)
         self.spectralist.clear()
         self.unselectedspectra = self.allspectra
         self.settingslist.clear()
