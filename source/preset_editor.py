@@ -33,6 +33,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     """
     tree = None
 
+    originalSpectra = []
     # defaultspectra = ['OPUS', 'Background']
 
     allspectra = []
@@ -347,8 +348,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             
 
             # set for spectra
-            sset = set(self.spectralist)
-            # sset |= set(self.defaultspectra)
+            sset = set(self.spectralist)  # set to determine new layers
+            sset |= set(self.originalSpectra)
             # Hb settings in this layer for blueprint of new layers
             hbdummy = None
 
@@ -535,8 +536,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def addSpectratoViewPanel(self):
         """ Add the spectra into the view panels in the visualization tab"""
+        
         for idx, val  in enumerate(self.settingslist[0]):
             self.viewSpectraList.addItem(self.settingslist[0][idx].spectrum)
+            self.originalSpectra = self.originalSpectra + [self.settingslist[0][idx].spectrum]
 
 
 
@@ -566,6 +569,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         """ clean GUI, called before reading a new file"""
         self.selectedList.clear()
         self.WLList.clear()
+        
         # self.bgWL.clear()
         self.prefWLBox.clear()
         self.bgWavelength.clear()
@@ -574,6 +578,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.spectralist.clear()
         self.unselectedspectra = self.allspectra
         self.settingslist.clear()
+        self.originalSpectra = []
 
 
     def getViewingPresets(self):
