@@ -111,7 +111,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.minBox.editingFinished.connect(self.changeSettings)
         self.maxBox.editingFinished.connect(self.changeSettings)
         
-        self.enableMultiPanel.stateChanged.connect(self.toggleMultiPanel)
+        self.enableMultiPanel.toggled.connect(self.toggleMultiPanel)
 
         self.radioButtons = [self.view1Button, self.view2Button, self.view3Button, self.view4Button]
 
@@ -411,8 +411,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         
         self.xmlfp.write(self.tree, path[0], comment=c)
 
-    def toggleMultiPanel(self):
-        """ toggle Multipanel Option"""
+    def toggleMultiPanel(self, **kwargs):
+        """ toggle Multipanel Option to state(True, False)"""
+        if 'state' in kwargs: 
+            self.enableMultiPanel.setChecked(kwargs['state'])
         if not self.enableMultiPanel.isChecked():
             
             self.radioButtons[0].setChecked(True)
@@ -469,7 +471,11 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # ====== General Information =============
         self.presetTypeBox.setCurrentText(self.tree.find('.//PresetType').text)
-
+        self.nameBox.setText(self.tree.find('.//Name').text)
+        self.presetIDBox.setText(self.tree.find('.//PresetIdentifier').text)
+        self.versionTextBox.setText(self.tree.find('//PresetVersion').text)
+        self.detectorBox.setText(self.tree.find('.//CompatibleDetectorGUID').text)
+    
 
         
         
@@ -502,12 +508,9 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
         self.prefWLBox.setCurrentText(self.tree.find('.//PreferredBackgroundWL').text)
-        # ==================================
-        self.nameBox.setText(self.tree.find('.//Name').text)
-        self.presetIDBox.setText(self.tree.find('.//PresetIdentifier').text)
-        self.versionTextBox.setText(self.tree.find('//PresetVersion').text)
-        self.detectorBox.setText(self.tree.find('.//CompatibleDetectorGUID').text)
-        #add spectra to selectedList
+        # ===============Visualization Tab==================
+        
+        self.getViewingPresets()
         spectra = self.tree.find('.//UserSelectedSpectra')
         self.defaultspectra = ['OPUS', 'Background']
         #print(etree.tostring(spectra))
@@ -524,9 +527,26 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         #self.viewSpectraList.SelectItems(0)
 
-        self.getViewingPresets()
+        self.enableMultiPanel.setChecked(self.tree.find('.//IsMultipleMspLivePreviewEnabled').text =='true')
+
+        self.disableMultipanel()  # disable multipanel if preset is 3D
 
         #self.applySettings()
+
+
+
+
+
+
+    def disableMultipanel(self):
+        """ disable Multipanel if 3D is enabled == 3D depth is greater than 1"""
+        if int(self.tree.find('.//Nz').text) > 1:
+
+            self.enableMultiPanel.setStyleSheet('color : rgb(120, 120, 120)')
+            self.enableMultiPanel.setToolTip('Multipanel disabled when 3D Depth > 1 ')
+            self.enableMultiPanel.setEnabled(False)
+
+
 
         
 
@@ -641,7 +661,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.fgmin.setText(cv.foregroundscalingmin)
         self.fgmax.setText(cv.foregroundscalingmax)
         if self.bgfound:
-            self.bgWavelength.setCurrentText(cv.bgWL)
+            self.bgWavelength.setCurrentText(str(cv.bgWL))
 
 
         # get selected spectrum
