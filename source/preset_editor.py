@@ -172,8 +172,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.unselectedspectra = list(set(self.allspectra)-set(self.spectralist))
         self.unselectedList.clear()
         self.unselectedList.addItems(self.unselectedspectra)
-        # TODO: clean gui, settingslist from old settings, that are not avaiable now?
-
+        
     def scalingTypeCheck(self, field):
         """set Validator for TextInputs"""
         str = field.text()
@@ -413,6 +412,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def toggleMultiPanel(self, **kwargs):
         """ toggle Multipanel Option to state(True, False)"""
+
         if 'state' in kwargs: 
             self.enableMultiPanel.setChecked(kwargs['state'])
         if not self.enableMultiPanel.isChecked():
@@ -450,8 +450,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             self.prefWLBox.addItem(str(ui.spinBox.value()))
             self.bgWavelength.addItem(str(ui.spinBox.value()))
             # self.bgWL.addItem(str(ui.spinBox.value()))
-        # TODO: set spin box as selected, for easier keyboard input
-        # TODO: set sorting order numerically
+
         
     def removeWavelength(self):
         """ remove selected Wavelength from the Wavelength Set and from the PrefferedWL Combobox"""
@@ -467,7 +466,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def displayTreetoGUI(self):
         """ Update the GUI  with the information in the xml file"""
-        # TODO: sort after Tab?
+
 
         # ====== General Information =============
         self.presetTypeBox.setCurrentText(self.tree.find('.//PresetType').text)
@@ -544,6 +543,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def disableMultipanel(self):
         """ disable Multipanel if 3D is enabled == 3D depth is greater than 1"""
+        
         if int(self.tree.find('.//Nz').text) > 1:
 
             self.enableMultiPanel.setStyleSheet('color : rgb(120, 120, 120)')
