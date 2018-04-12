@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(520, 658)
+        MainWindow.resize(520, 660)
         font = QtGui.QFont()
         font.setBold(False)
         font.setWeight(50)
@@ -439,7 +439,7 @@ class Ui_MainWindow(object):
         self.maxavgframes = QtWidgets.QSpinBox(self.tab)
         self.maxavgframes.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.maxavgframes.setMinimum(1)
-        self.maxavgframes.setMaximum(10)
+        self.maxavgframes.setMaximum(99)
         self.maxavgframes.setProperty("value", 7)
         self.maxavgframes.setObjectName("maxavgframes")
         self.gridLayout_8.addWidget(self.maxavgframes, 2, 1, 1, 1)
