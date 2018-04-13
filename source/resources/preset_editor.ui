@@ -236,7 +236,11 @@ QTabBar::tab:selected {
         </widget>
        </item>
        <item row="0" column="1" colspan="3">
-        <widget class="QLineEdit" name="presetIDBox"/>
+        <widget class="QLineEdit" name="presetIDBox">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+        </widget>
        </item>
        <item row="5" column="1">
         <widget class="QLineEdit" name="detectorBox"/>

@@ -140,6 +140,13 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         # =========================================
         #self.treeWidget.itemDoubleClicked.connect(self.setTreeItem)
 
+        # ===== GeneratePresetID =========
+        self.detectorBox.editingFinished.connect(self.generatePresetID)
+        self.nameBox.editingFinished.connect(self.generatePresetID)
+        self.loadCheck.clicked.connect(self.generatePresetID)
+
+
+
 
     def displayVersion(self):
         # if exe
@@ -255,7 +262,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         
             
     def writexmlFile(self):
-        """apply changes to lxml tree and then write it"""
+        """apply changes to lxml tree and then write it""" 
+
 
         if self.tree is None:
             return
@@ -435,6 +443,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             self.radioButtons[2].setStyleSheet('color: #cccccc')
             self.radioButtons[3].setCheckable(True)
             self.radioButtons[3].setStyleSheet('color: #cccccc')
+
+        self.generatePresetID()
             
         
 
@@ -535,6 +545,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         #self.applySettings()
 
+        self.generatePresetID()
+
 
     def addSpectratoViewPanel(self):
         """ Add the spectra into the view panels in the visualization tab"""
@@ -563,6 +575,28 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
         
+    def generatePresetID(self):
+        """ auto generate PresetID """
+        text = self.detectorBox.text()
+        text += '_' + self.nameBox.text()
+
+        for s in self.spectralist:
+            text += '_' + s
+
+        for s in self.settingslist[0]:
+            if s.spectrum == 'OPUS':
+                if s.load:
+                    text += '_' + 'US'
+                break
+
+
+        if self.enableMultiPanel.isChecked():
+            text += '_' + 'MP'
+        else:
+            text += '_' + 'SP'
+        
+
+        self.presetIDBox.setText(text)
 
 
 
@@ -710,6 +744,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.minBox.setValue(s.minthresh)
                 self.maxBox.setValue(s.maxthresh)
                 print(s)
+
+                # self.generatePresetID()
                 return
 
         
@@ -739,6 +775,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         for i in range(0, len(self.settingslist)):
             self.settingslist[i].append(new[i])
 
+        self.generatePresetID()
 
     def removespectra(self):
         """remove item from selected list and add it to unselected list,
@@ -761,6 +798,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 if self.settingslist[i][j].spectrum == item.text():
                     del self.settingslist[i][j]
                     break
+
+        self.generatePresetID()
     
     def changeViewSettings(self):
         """ save changes to viewsettings object, called after modifying the the settings in the view settings box """

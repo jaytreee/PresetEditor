@@ -175,6 +175,7 @@ class Ui_MainWindow(object):
         self.PresetIDTextBox.setObjectName("PresetIDTextBox")
         self.gridLayout_2.addWidget(self.PresetIDTextBox, 5, 3, 1, 1)
         self.presetIDBox = QtWidgets.QLineEdit(self.groupBox_5)
+        self.presetIDBox.setEnabled(False)
         self.presetIDBox.setObjectName("presetIDBox")
         self.gridLayout_2.addWidget(self.presetIDBox, 0, 1, 1, 3)
         self.detectorBox = QtWidgets.QLineEdit(self.groupBox_5)

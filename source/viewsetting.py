@@ -80,5 +80,6 @@ class LayerSetting:
         out += 'Transparent: '+str(self.transparent)+'\n'
         out += 'Min Tresh: '+str(self.minthresh)+'\n'
         out += 'Max Thresh: '+str(self.maxthresh)+'\n'
+        out += 'Load: '+str(self.load)+'\n'
         return out
     
