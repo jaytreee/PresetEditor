@@ -267,11 +267,33 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         if self.tree is None:
             return
-
-        path = QtWidgets.QFileDialog.getSaveFileName(self,directory=self.presetIDBox.text(), filter='XML Files (*.xml)')
-
-        if path[0] == '':
+        
+        if self.appscientistname.text() =='':
+            msg = QtWidgets.QMessageBox()
+            msg.setText('Insert the Application Scientist Name')
+            msg.exec()
             return
+        # path = QtWidgets.QFileDialog.getSaveFileName(self,directory=self.presetIDBox.text(), filter='XML Files (*.xml)')
+        path = QtWidgets.QFileDialog.getExistingDirectory(self)
+        if path == '':
+            return
+        # === Construct the filename
+        path += '/' + self.presetIDBox.text()
+        path +='_v1'
+
+        date = datetime.datetime.now()
+        c = str(date.year)+str(date.month)+str(date.day)
+
+        path += '_' +c
+        path += '_' + self.appscientistname.text()
+        path += '.xml'
+
+        # ====== Warning for Overwriting =========
+        if os.path.isfile(path):
+            qm = QtWidgets.QMessageBox
+            ret = qm.question(self,'', "File already exists \n Overwrite?", qm.Yes | qm.No)
+            if ret == qm.No:
+                return
         # ====== General Information ===========
         self.tree.find('.//PresetType').text = self.PresetType.text()
         self.tree.xpath('./DataModelStudyPreset/Name')[0].text = self.nameBox.text()
@@ -418,7 +440,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         c += ' on '+str(date.year)+'-'+str(date.month)+'-'+str(date.day)+'-'+str(date.hour)+'-'+str(date.minute)+'-'+str(date.second)
 
         
-        self.xmlfp.write(self.tree, path[0], comment=c)
+        self.xmlfp.write(self.tree, path, comment=c)
 
     def toggleMultiPanel(self, **kwargs):
         """ toggle Multipanel Option to state(True, False)"""
