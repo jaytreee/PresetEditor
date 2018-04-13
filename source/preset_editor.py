@@ -265,7 +265,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         if path[0] == '':
             return
         # ====== General Information ===========
-        self.tree.find('.//PresetType').text = self.presetTypeBox.currentText()
+        self.tree.find('.//PresetType').text = self.PresetType.text()
         self.tree.xpath('./DataModelStudyPreset/Name')[0].text = self.nameBox.text()
         self.tree.xpath('./DataModelStudyPreset/PresetIdentifier')[0].text = self.presetIDBox.text()
         self.tree.xpath('./DataModelStudyPreset/CompatibleDetectorGUID')[0].text = self.detectorBox.text()
@@ -471,7 +471,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
         # ====== General Information =============
-        self.presetTypeBox.setCurrentText(self.tree.find('.//PresetType').text)
+        self.PresetType.setText(self.tree.find('.//PresetType').text)
         self.nameBox.setText(self.tree.find('.//Name').text)
         self.presetIDBox.setText(self.tree.find('.//PresetIdentifier').text)
         self.versionTextBox.setText(self.tree.find('//PresetVersion').text)
