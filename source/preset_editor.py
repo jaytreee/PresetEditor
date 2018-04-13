@@ -282,8 +282,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         path +='_v1'
 
         date = datetime.datetime.now()
-        c = str(date.year)+str(date.month)+str(date.day)
-
+        
+        c ='{:04d}{:02d}{:02d}'.format(date.year, date.month, date.day) 
         path += '_' +c
         path += '_' + self.appscientistname.text()
         path += '.xml'
