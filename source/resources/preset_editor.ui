@@ -491,7 +491,11 @@ QTabBar::tab:selected {
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="QComboBox" name="prefWLBox"/>
+         <widget class="QComboBox" name="prefWLBox">
+          <property name="insertPolicy">
+           <enum>QComboBox::InsertAlphabetically</enum>
+          </property>
+         </widget>
         </item>
         <item row="6" column="0">
          <widget class="QPushButton" name="addWL">
@@ -1151,6 +1155,9 @@ QTabBar::tab:selected {
              </property>
              <property name="toolTip">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="insertPolicy">
+              <enum>QComboBox::InsertAlphabetically</enum>
              </property>
             </widget>
            </item>

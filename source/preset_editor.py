@@ -8,6 +8,7 @@ import sys
 import datetime
 import os
 import uuid
+import bisect
 import subprocess, re
 from copy import deepcopy
 #from pprint import pprint
@@ -64,6 +65,9 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
     bgfound = False
     """ If the BGWavlength entry is found in preset"""
+
+    sortedwvlist = []
+    """ sorted wavelength list"""
 
     def __init__(self):
         super(PresetEditor, self).__init__()
@@ -480,9 +484,14 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             q = QtWidgets.QListWidgetItem()
             q.setData(0, ui.spinBox.value())
             self.WLList.addItem(q)
+
+            p = bisect.bisect_left(self.sortedwvlist, ui.spinBox.value())
+            bisect.insort_left(self.sortedwvlist,ui.spinBox.value())
+
+
             
-            self.prefWLBox.addItem(str(ui.spinBox.value()))
-            self.bgWavelength.addItem(str(ui.spinBox.value()))
+            self.prefWLBox.insertItem(p, str(ui.spinBox.value()))
+            self.bgWavelength.insertItem(p, str(ui.spinBox.value()))
             # self.bgWL.addItem(str(ui.spinBox.value()))
 
         
@@ -493,6 +502,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             t = self.WLList.takeItem(self.WLList.currentRow()).text()
             self.prefWLBox.removeItem(self.prefWLBox.findText(t))
             self.bgWavelength.removeItem(self.bgWavelength.findText(t))
+            self.sortedwvlist.remove(int(t))
             # self.bgWL.removeItem(self.prefWLBox.findText(t))
         except AttributeError:
             # if there is no element in the list
@@ -523,6 +533,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 w = (str(int(wl.text)))
                 q = QtWidgets.QListWidgetItem()
                 q.setData(0, int(w))
+                p = bisect.bisect_left(self.sortedwvlist, int(w))
+                bisect.insort_left(self.sortedwvlist, int(w))
                 self.WLList.addItem(q)
                 self.prefWLBox.addItem(w)
                 self.bgWavelength.addItem(w)
