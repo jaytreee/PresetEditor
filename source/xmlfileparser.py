@@ -42,7 +42,7 @@ class XmlFileParser:
         # use schema saved under %appdata%/...
         
         
-            xmlschema = etree.XMLSchema(etree.parse(self.sf+'/'+ self.sn))
+        xmlschema = etree.XMLSchema(etree.parse(self.sf+'/'+ self.sn))
         
         try:
             xmlschema.assertValid(tree)
