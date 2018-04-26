@@ -27,16 +27,23 @@ class XmlFileParser:
         
         # parser = etree.XMLParser(remove_blank_text=True)
         # tree = etree.parse(path, parser)
-        tree = etree.parse(path)
-
+        try:
+            tree = etree.parse(path)
+        except etree.XMLSyntaxError as err:
+            print('File invalid: ' + str(err))
+            msg = QtWidgets.QMessageBox()
+            msg.setText('File invalid\n'+
+            str(err))
+            msg.exec()
+            sys.exit()
         # get first xsd file in directory
         # xsdpath = (os.path.splitext(path)[0]+'.xsd')
         
         # use schema saved under %appdata%/...
         
-        xmlschema = etree.XMLSchema(etree.parse(self.sf+'/'+ self.sn))
-
-
+        
+            xmlschema = etree.XMLSchema(etree.parse(self.sf+'/'+ self.sn))
+        
         try:
             xmlschema.assertValid(tree)
             print('valid schema')
