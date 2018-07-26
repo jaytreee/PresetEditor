@@ -717,6 +717,7 @@ class Ui_MainWindow(object):
         self.maxBox.setDecimals(3)
         self.maxBox.setMinimum(-5000000.0)
         self.maxBox.setMaximum(500000.99)
+        self.maxBox.setProperty("value", 0.5)
         self.maxBox.setObjectName("maxBox")
         self.gridLayout_3.addWidget(self.maxBox, 3, 2, 1, 1)
         self.visibleCheck = QtWidgets.QCheckBox(self.groupBox_2)
@@ -762,7 +763,7 @@ class Ui_MainWindow(object):
         self.label_3.setBuddy(self.backgroundAbsorptionBox)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.detectorBox, self.loadButton)
         MainWindow.setTabOrder(self.loadButton, self.saveAsButton)

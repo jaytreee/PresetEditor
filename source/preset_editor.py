@@ -113,8 +113,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.logarithmicScalingCheck.clicked.connect(self.changeSettings)
         self.paletteType.activated.connect(self.changeSettings)
         self.transparentCheck.clicked.connect(self.changeSettings)
-        self.minBox.editingFinished.connect(self.changeSettings)
-        self.maxBox.editingFinished.connect(self.changeSettings)
+        # self.minBox.editingFinished.connect(self.changeSettings)
+        # self.maxBox.editingFinished.connect(self.changeSettings)
+        self.maxBox.editingFinished.connect(partial(self.maxThreshCheck))
+        self.minBox.editingFinished.connect(partial(self.maxThreshCheck))
         
         self.enableMultiPanel.toggled.connect(self.toggleMultiPanel)
 
@@ -190,6 +192,13 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         str = field.text()
         field.setText(self.typechecker.fixup(str))
         self.changeViewSettings()
+
+    def maxThreshCheck(self):
+        """ set Validator for UpperThreshold (has to be higher than lower threshold)"""
+        if not self.maxBox.value() > self.minBox.value():
+            self.maxBox.setValue(self.minBox.value()+0.5)
+        self.changeSettings()
+
 
 
 
