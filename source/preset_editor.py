@@ -20,9 +20,11 @@ from preset_editor_gui import Ui_MainWindow
 from viewsetting import LayerSetting, ViewSettings
 from typechecker import ScalingValidator
 from functools import partial
+from excelExporter import ExcelExporter
 
 from addWavelengthDialog import Ui_AddWLDialog
 from schemamanager import iXMLSchemaManager
+from viewEnum import ViewEnum
 
 
 
@@ -280,12 +282,18 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         if self.tree is None:
             return
+
+        excel_dict = dict()
+        """Dictionary for easier excel export"""
         
         if self.appscientistname.text() =='':
             msg = QtWidgets.QMessageBox()
             msg.setText('Insert the Application Scientist Name')
             msg.exec()
             return
+        
+        excel_dict.update({'Scientist': self.appscientistname.text()})
+
         # path = QtWidgets.QFileDialog.getSaveFileName(self,directory=self.presetIDBox.text(), filter='XML Files (*.xml)')
         path = QtWidgets.QFileDialog.getExistingDirectory(self)
         if path == '':
@@ -309,42 +317,58 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 return
         # ====== General Information ===========
         self.tree.find('.//PresetType').text = self.PresetType.text()
+        excel_dict.update({'PresetType': self.PresetType.text()})
         self.tree.xpath('./DataModelStudyPreset/Name')[0].text = self.nameBox.text()
+        excel_dict.update({'Name in ViewMSOTc': self.nameBox.text()})
         self.tree.xpath('./DataModelStudyPreset/PresetIdentifier')[0].text = self.presetIDBox.text()
+        excel_dict.update({'Preset ID': self.presetIDBox.text()})
         self.tree.xpath('./DataModelStudyPreset/CompatibleDetectorGUID')[0].text = self.detectorBox.text()
+        excel_dict.update({'Detector': self.detectorBox.text()})
         self.tree.xpath('./DataModelStudyPreset/PresetVersion')[0].text = self.versionTextBox.text()
-      
+        excel_dict.update({'PresetVersion':  self.versionTextBox.text()})
     
         # ====== Acquisition Tab =======
         self.tree.find('.//DisplayAllWavelengths').text = str(self.displayAllWLBox.isChecked()).lower()
+        excel_dict.update({'Cycle Wavelengths':  str(self.displayAllWLBox.isChecked()).lower()})
         self.tree.find('.//USVisible').text = str(self.usvisibleBox.isChecked()).lower()
+        excel_dict.update({'Show Ultrasound':  str(self.usvisibleBox.isChecked()).lower()})
         self.tree.find('.//PreferredBackgroundWL').text = self.prefWLBox.currentText()
+        excel_dict.update({'Preferred Wavelength':  self.prefWLBox.currentText()})
 
         # ====== Processing Tab ==========
         self.tree.find('.//UserSoundTrim').text = str(self.userSoundBox.value())
+        excel_dict.update({'Speed of Sound':  str(self.userSoundBox.value())})
         self.tree.find('.//FRAMECORRTHRES').text = str(self.SFAFrameThreshBox.value())
+        excel_dict.update({'SFA Frame Threshold':  str(self.SFAFrameThreshBox.value())})
         self.tree.find('.//BackgroundAbsorption').text = str(self.backgroundAbsorptionBox.value())
+        excel_dict.update({'BackgroundAbsorption':  str(self.backgroundAbsorptionBox.value())})
         self.tree.find('.//BackgroundOxygenation').text = str(self.backgroundOxyBox.value())
+        excel_dict.update({'BackgroundOxygenation':  str(self.backgroundOxyBox.value())})
         self.tree.find('.//MAXAVERAGES').text = str(self.maxavgframes.value())
+        excel_dict.update({'Max Averaged Frames':  str(self.maxavgframes.value())})
         self.tree.find('.//MAXPASTSWEEPS').text = str(self.sfabuffersize.value())
+        excel_dict.update({'SFA Buffer Size':  str(self.sfabuffersize.value())})
         # self.tree.find('.//BgWavelength').text = self.bgWL.currentText()
         
         # ====== Visualization Tab =======
         self.tree.find('.//IsMultipleMspLivePreviewEnabled').text = str(self.enableMultiPanel.isChecked()).lower()
-        
+        excel_dict.update({'enable MultiPanel':  str(self.enableMultiPanel.isChecked()).lower()})
+
         # Selected Wavlengeth List, delete all and current
         wlset = self.tree.find('.//WavelengthSet/Items')
 
         for wl in wlset:
             wl.getparent().remove(wl)
-        
+        wavelengths = ""
+
         for x in range(0, self.WLList.count()):
             e = etree.Element('double')
             e.text = self.WLList.item(x).text()
+            wavelengths +=  self.WLList.item(x).text() +', '
             wlset.append(e)         
         wlset.text = None
 
-          
+        excel_dict.update({'Wavelengths':  wavelengths})  
         
         
         # write spectra/ first remove existing data in xml, write new list
@@ -353,10 +377,15 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         for child in spectra:
             child.getparent().remove(child)
 
+        spectraString = ""
+
         for s in self.spectralist:
             e = etree.Element('string')
             e.text = s
+            spectraString += s + ", "
             spectra.append(e)
+
+        excel_dict.update({'Spectra':  spectraString})  
 
         # change view settings
         viewingpresets = self.tree.find('.//ViewingPresets')
@@ -372,16 +401,25 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
             # ===== Write Settings of each View ===============
             v = views[i]
+            viewString = ViewEnum(i).name+' View'
             s = self.viewsettings[i]
             v.find('.//AutoScaling').text = str(s.autoscaling).lower()
+            excel_dict.update({viewString+' AutoScaling':  str(s.autoscaling).lower()})  
             v.find('.//UltrasoundMinimumScaling').text = str(s.usscalingmin)
+            excel_dict.update({viewString+' UltrasoundMinimumScaling':  str(s.usscalingmin)})  
             v.find('.//UltrasoundMaximumScaling').text = str(s.usscalingmax)
+            excel_dict.update({viewString+' UltrasoundMaximumScaling':  str(s.usscalingmax)})  
             v.find('.//BackgroundMinimumScaling').text = str(s.backgroundscalingmin)
+            excel_dict.update({viewString+' BackgroundMinimumScaling':  str(s.backgroundscalingmin)})  
             v.find('.//BackgroundMaximumScaling').text = str(s.backgroundscalingmax)
+            excel_dict.update({viewString+' BackgroundMaximumScaling':  str(s.backgroundscalingmax)})  
             v.find('.//ForegroundMinimumScaling').text = str(s.foregroundscalingmin)
+            excel_dict.update({viewString+' ForegroundMinimumScaling':  str(s.foregroundscalingmin)})  
             v.find('.//ForegroundMaximumScaling').text = str(s.foregroundscalingmax)
+            excel_dict.update({viewString+' ForegroundMaximumScaling':  str(s.foregroundscalingmax)})  
             if self.bgfound:
                 v.find('.//BgWavelength').text = str(s.bgWL)
+                excel_dict.update({viewString+' BgWavelength':  str(s.bgWL)})  
 
 
             # ===================================================
@@ -397,6 +435,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             # Hb settings in this layer for blueprint of new layers
             hbdummy = None
 
+            panelString =''
+
             for j in range(0, len(layers)):
 
                 spectrum = layers[j].find('.//ComponentTagIdentifier')
@@ -405,17 +445,25 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
                 for k in range(0, len(self.settingslist[i])):
                     if self.settingslist[i][k].spectrum == spectrum.text:
+                        panelString = spectrum.text
                         found = True
                         sset.remove(spectrum.text)
                         s = self.settingslist[i][k]
                         p = spectrum.getparent()
                         p.find('.//GainMax').text = str(s.maxthresh)
+                        excel_dict.update({viewString+' '+ panelString+ ' '+ 'Upper Threshold':  str(s.maxthresh)}) 
                         p.find('.//GainMin').text = str(s.minthresh)
+                        excel_dict.update({viewString+' '+ panelString+ ' '+ 'Lower Threshold':  str(s.minthresh)})
                         p.find('.//Semitransparent').text = str(s.transparent).lower()
+                        excel_dict.update({viewString+' '+ panelString+ ' '+ 'Transparency':  str(s.transparent).lower()})
                         p.find('.//Visible').text = str(s.visible).lower()
+                        excel_dict.update({viewString+' '+ panelString+ ' '+ 'Visible':  str(s.visible).lower()})
                         p.find('.//PaletteType').text = str(s.palette)
+                        excel_dict.update({viewString+' '+ panelString+ ' '+ 'PaletteType':  str(s.palette)})
                         p.find('.//LogarithmicScaling').text = str(s.logarithmic).lower()
+                        excel_dict.update({viewString+' '+ panelString+ ' '+ 'LogarithmicScaling':  str(s.logarithmic).lower()})
                         p.find('.//Load').text = str(s.load).lower()
+                        excel_dict.update({viewString+' '+ panelString+ ' '+ 'Load':  str(s.load).lower()})
 
 
                         if spectrum.text == 'Hb':
@@ -439,11 +487,18 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                     for k in range(0, len(self.settingslist[i])):
                         if self.settingslist[i][k].spectrum == item:
                             s = self.settingslist[i][k]
+                            panelString = item
+                            # TODO: Why is here no load, or pallette type, logrithmicscaling?
                             hbdummy.find('.//ComponentTagIdentifier').text = item
+                            excel_dict.update({viewString+' '+ panelString+' '+ 'ComponentTagIdentifier':  item}) 
                             hbdummy.find('.//GainMax').text = str(s.maxthresh)
+                            excel_dict.update({viewString+' '+ panelString+' '+  'Upper Threshold':  str(s.minthresh)})
                             hbdummy.find('.//GainMin').text = str(s.minthresh)
+                            excel_dict.update({viewString+' '+ panelString+ ' '+ 'Lower Threshold':  str(s.minthresh)})
                             hbdummy.find('.//Semitransparent').text = str(s.transparent).lower()
+                            excel_dict.update({viewString+' '+ panelString+ ' '+ 'Transparency':  str(s.transparent).lower()})
                             hbdummy.find('.//Visible').text = str(s.visible).lower()
+                            excel_dict.update({viewString+' '+ panelString+ ' '+ 'Visible':  str(s.visible).lower()})
                             layers[0].getparent().append(hbdummy)
                             hbdummy = deepcopy(hbdummy)
 
@@ -452,8 +507,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         date = datetime.datetime.now()
         c += ' on '+str(date.year)+'-'+str(date.month)+'-'+str(date.day)+'-'+str(date.hour)+'-'+str(date.minute)+'-'+str(date.second)
 
-        
+        ExcelExporter.writeToExcel(path, excel_dict)
         self.xmlfp.write(self.tree, path, comment=c)
+
+
 
     def toggleMultiPanel(self, **kwargs):
         """ toggle Multipanel Option to state(True, False)"""
