@@ -326,6 +326,9 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         excel_dict.update({'Detector': self.detectorBox.text()})
         self.tree.xpath('./DataModelStudyPreset/PresetVersion')[0].text = self.versionTextBox.text()
         excel_dict.update({'PresetVersion':  self.versionTextBox.text()})
+        
+        excel_dict.update({'Hash':  self.PresetIDTextBox.text()})
+
     
         # ====== Acquisition Tab =======
         self.tree.find('.//DisplayAllWavelengths').text = str(self.displayAllWLBox.isChecked()).lower()

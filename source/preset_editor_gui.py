@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'preset_editor.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -763,7 +763,7 @@ class Ui_MainWindow(object):
         self.label_3.setBuddy(self.backgroundAbsorptionBox)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.detectorBox, self.loadButton)
         MainWindow.setTabOrder(self.loadButton, self.saveAsButton)
