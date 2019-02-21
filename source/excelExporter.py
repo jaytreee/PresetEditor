@@ -1,5 +1,7 @@
 import os
 import xlsxwriter    
+from Colors import Colors
+from difflib import SequenceMatcher
 class ExcelExporter():
 
     @staticmethod
@@ -37,13 +39,41 @@ class ExcelExporter():
         filename =  os.path.splitext(filename)[0]+ ".xlsx"
         workbook = xlsxwriter.Workbook(filename)
         worksheet = workbook.add_worksheet()
+        cell_format = workbook.add_format()
 
         row = 0
         col = 0
+        # current_substr = "TOP_LEFT"
+        # color_nr = -1
 
+        # colors = [
+        # "#FFFFFF", # white 
+        # "#0000FF", # blue
+        # "#800000",# brown
+        # "#00FFFF",# cyan
+        # "#808080", # gray
+        # "#FF6600",# orange
+    	# "#008000",# green
+    	# "#FF0000"# red
+        # ]
+        ratio = 0.6
+        previoskey = ""
         for key, value in dictionary.items():
-            worksheet.write(row, col, key)
-            worksheet.write(row, col +1, value)
+            # Colorcode #
+            #if not current_substr in key and ' View ' in key:
+            if SequenceMatcher(None, key, previoskey).ratio() < ratio and ' View ' in key:
+                #color_nr = color_nr + 1
+                row += 1
+                #cell_format.set_bg_color(colors[(color_nr+1)%len(colors)])
+                # splitkey = key.split(" ")
+                # current_substr = " ".join(splitkey[0:-1])
+
+
+                
+            previoskey = key
+
+            worksheet.write(row, col, key, cell_format)
+            worksheet.write(row, col +1, value, cell_format)
             row += 1
 
         workbook.close()
