@@ -352,6 +352,22 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.tree.find('.//MAXPASTSWEEPS').text = str(self.sfabuffersize.value())
         excel_dict.update({'SFA Buffer Size':  str(self.sfabuffersize.value())})
         # self.tree.find('.//BgWavelength').text = self.bgWL.currentText()
+
+        # ======= Main Panel =========
+        mainPanelNodes = self.tree.findall('.//ImageLayers//DataModelImagingLayer')
+        
+        mainPanelNodes[0].find('.//Palette//Brightness').text = str(self.mainPanelOPUSBrightnessDoubleSpinBox.value())
+        excel_dict.update({'MainPanel OPUS Brightness':  str(self.mainPanelOPUSBrightnessDoubleSpinBox.value())})
+        mainPanelNodes[0].find('.//Palette//Contrast').text = str(self.mainPanelOPUSContrastDoubleSpinBox.value())
+        excel_dict.update({'MainPanel OPUS Contrast':   str(self.mainPanelOPUSContrastDoubleSpinBox.value())})
+
+        mainPanelNodes[1].find('.//Palette//Brightness').text = str(self.mainPanelBrightnessDoubleSpinBox.value())
+        excel_dict.update({'MainPanel Background Brightness':  str(self.mainPanelBrightnessDoubleSpinBox.value())})
+        mainPanelNodes[1].find('.//Palette//Contrast').text = str(self.mainPanelContrastDoubleSpinBox.value())
+        excel_dict.update({'MainPanel Background Contrast':  str(self.mainPanelContrastDoubleSpinBox.value())})
+        mainPanelNodes[1].find('.//Palette//PaletteType').text = str(self.mainPanelPaletteType.currentText())
+        excel_dict.update({'MainPanel Background PaletteType':  str(self.mainPanelPaletteType.currentText())})
+
         
         # ====== Visualization Tab =======
         self.tree.find('.//IsMultipleMspLivePreviewEnabled').text = str(self.enableMultiPanel.isChecked()).lower()
@@ -619,10 +635,20 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.maxavgframes.setValue(int(self.tree.find('.//MAXAVERAGES').text))
         self.sfabuffersize.setValue(int(self.tree.find('.//MAXPASTSWEEPS').text))
         # self.bgWL.setCurrentText(self.tree.find('.//BgWavelength').text)
-
-
-
         self.prefWLBox.setCurrentText(self.tree.find('.//PreferredBackgroundWL').text)
+
+
+        # ======= Main Panel =================
+        # should find 2 DataModelImagingLayer (first Opus and then Background)
+        mainPanelNodes = self.tree.findall('.//ImageLayers//DataModelImagingLayer')
+        self.mainPanelOPUSBrightnessDoubleSpinBox.setValue(float(mainPanelNodes[0].find('.//Palette//Brightness').text))
+        self.mainPanelOPUSContrastDoubleSpinBox.setValue(float(mainPanelNodes[0].find('.//Palette//Contrast').text))
+
+        self.mainPanelPaletteType.setCurrentText(mainPanelNodes[1].find('.//Palette//PaletteType').text)
+        self.mainPanelBrightnessDoubleSpinBox.setValue(float(mainPanelNodes[1].find('.//Palette//Brightness').text))
+        self.mainPanelContrastDoubleSpinBox.setValue(float(mainPanelNodes[1].find('.//Palette//Contrast').text))
+
+
         # ===============Visualization Tab==================
         
         self.getViewingPresets()
