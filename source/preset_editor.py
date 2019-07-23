@@ -10,6 +10,8 @@ import os
 import uuid
 import bisect
 import subprocess, re
+import logging
+import logging.handlers
 from copy import deepcopy
 #from pprint import pprint
 from xmlfileparser import XmlFileParser
@@ -20,6 +22,7 @@ from preset_editor_gui import Ui_MainWindow
 from viewsetting import LayerSetting, ViewSettings
 from typechecker import ScalingValidator
 from functools import partial
+from errorhandler import ErrorLogHandler
 from excelExporter import ExcelExporter
 
 from addWavelengthDialog import Ui_AddWLDialog
@@ -82,9 +85,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.typechecker = ScalingValidator(0, 1, 5, None, -1)
 
+        self.displayVersion()
+
         self.loadxmlFile()
 
-        self.displayVersion()
 
 
     def connectGUItoFunctionalty(self):
@@ -154,8 +158,6 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.loadCheck.clicked.connect(self.generatePresetID)
 
 
-
-
     def displayVersion(self):
         # if exe
         if hasattr(sys, "_MEIPASS"):
@@ -177,6 +179,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.version = 'v'+v+ '-rev'+rev
         self.statusbar.showMessage(self.version)
+        logging.info('PresetEditor started ({})'.format(self.version))
 
     def changeFactorySpectra(self):
         """ opens Windows File Dialog, to select folder for the FactorySpectra"""
@@ -966,6 +969,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         
 
 
+def handle_error(exctype, val, trace):
+    logging.debug('Critical Error Occurred', exc_info=(exctype, val, trace))
+    logging.critical(str(val), exc_info=(exctype, val, trace))
+    sys.exit(1)
 
 if __name__ == '__main__':
 
@@ -973,6 +980,42 @@ if __name__ == '__main__':
 
     app = QtWidgets.QApplication(sys.argv)
 
+    # Log to console with debug level - largely for debugging
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+
+    consolehandler = logging.StreamHandler(sys.stdout)
+    consolehandler.setLevel(logging.DEBUG)
+    consolehandler.setFormatter(formatter)
+    logger.addHandler(consolehandler)
+
+    # Always log to file with DEBUG level
+    logdir = os.path.join(
+        os.environ['APPDATA'], 
+        'iThera', 
+        'PresetEditor'
+    )
+    if not os.path.isdir(logdir):
+        os.mkdir(logdir)
+    logfn = os.path.join(
+        logdir,
+        'log_' + QtCore.QDateTime(datetime.datetime.now()).toString("yyyy-MM-dd_HH-mm-ss") + '.log'
+    )
+    logging.info('Logging to {}'.format(logfn))
+    filehandler = logging.FileHandler(logfn)
+    filehandler.setLevel(logging.DEBUG)
+    filehandler.setFormatter(formatter)
+    logger.addHandler(filehandler)
+
+    # Log to UI for warnings and errors
+    hand = ErrorLogHandler()
+    formatter2 = logging.Formatter('%(levelname)s - %(message)s')
+    hand.setFormatter(formatter2)
+    logger.addHandler(hand)
+
+    # Exception handler
+    sys.excepthook = handle_error
 
     ''' style = 'iLabs.css'
 
@@ -983,10 +1026,7 @@ if __name__ == '__main__':
     # f = open('log.txt', 'w')
     
     prog = PresetEditor()
-
     window.show()
-    
-
     exitcode=app.exec_()
     
     #     f.write(e)

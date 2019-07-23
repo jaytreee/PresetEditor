@@ -31,6 +31,7 @@ class XmlFileParser:
         try:
             tree = etree.parse(path)
         except etree.XMLSyntaxError as err:
+            logging.debug('Exception while parsing {}'.format(path), exc_info=err)
             logging.error('File invalid: ' + str(err))
             return None
         
@@ -44,6 +45,7 @@ class XmlFileParser:
         try:
             xmlschema.assertValid(tree)
         except etree.DocumentInvalid as err:
+            logging.debug('Exception while validating {}'.format(path), exc_info=err)
             logging.error('XML Schema validation error: ' + str(err))
             return None
             # sys.exit(-1)
