@@ -7,13 +7,16 @@ XML/XSD  file parser, for Preset Editor GUI
 import os, glob, sys
 from lxml import etree
 from  PyQt5 import QtWidgets
+import logging
 
 
 class XmlFileParser:
     """Class for Read and Write of XML files"""
     def __init__(self):
         # schema folder
-        self.sf  = os.path.join(os.environ['APPDATA'], 'iThera\\Schemata')
+        self.sf  = 'schemata'
+        if hasattr(sys, '_MEIPASS'):
+            self.sf = os.path.join(sys._MEIPASS, self.sf)
         # schema name
         self.sn = 'ArrayOfDataModelStudyPreset.xsd'
 
@@ -25,38 +28,27 @@ class XmlFileParser:
         print(path)
         # TODO: remove comment to remove whitespace to add linebreaks
         
-        # parser = etree.XMLParser(remove_blank_text=True)
-        # tree = etree.parse(path, parser)
         try:
             tree = etree.parse(path)
         except etree.XMLSyntaxError as err:
-            print('File invalid: ' + str(err))
-            msg = QtWidgets.QMessageBox()
-            msg.setText('File invalid\n'+
-            str(err))
-            msg.exec()
-            sys.exit()
-        # get first xsd file in directory
-        # xsdpath = (os.path.splitext(path)[0]+'.xsd')
+            logging.error('File invalid: ' + str(err))
+            return None
         
-        # use schema saved under %appdata%/...
-        
-        
-        xmlschema = etree.XMLSchema(etree.parse(self.sf+'/'+ self.sn))
+        schemafile = os.path.join(self.sf, self.sn)
+        if not os.path.isfile(schemafile):
+            logging.error('Schema file {} not found'.format(schemafile))
+            logging.debug('Current dir contains: {}'.format(','.join(glob.glob('*'))))
+            return None
+        xmlschema = etree.XMLSchema(etree.parse(schemafile))
         
         try:
             xmlschema.assertValid(tree)
-            print('valid schema')
         except etree.DocumentInvalid as err:
-
-            print('Schema invalid: ' + str(err))
-            msg = QtWidgets.QMessageBox()
-            msg.setText('Schema invalid/ XML file is not supported\n'+
-            str(err))
-            msg.exec()
+            logging.error('XML Schema validation error: ' + str(err))
+            return None
             # sys.exit(-1)
         
-
+        logging.info('Successfully parsed and validated file {}'.format(path))
         return tree
 
 

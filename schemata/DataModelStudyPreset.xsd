@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  attributeFormDefault="unqualified"
+  elementFormDefault="qualified"
+  >
+  <xsd:include schemaLocation="Types.xsd"/>
+  <xsd:element name="DataModelStudyPreset" type="DataModelStudyPreset"/>
+</xsd:schema>

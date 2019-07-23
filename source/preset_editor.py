@@ -23,7 +23,7 @@ from functools import partial
 from excelExporter import ExcelExporter
 
 from addWavelengthDialog import Ui_AddWLDialog
-from schemamanager import iXMLSchemaManager
+#from schemamanager import iXMLSchemaManager
 from viewEnum import ViewEnum
 
 
@@ -77,8 +77,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.connectGUItoFunctionalty()
 
-        self.schemamanager = iXMLSchemaManager()
-        self.schemamanager.main()
+        # self.schemamanager = iXMLSchemaManager()
+        # self.schemamanager.main()
 
         self.typechecker = ScalingValidator(0, 1, 5, None, -1)
 
@@ -166,8 +166,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             with open(revf,'r') as f:
                 rev = f.read()    
         else:
-
-            with open('source/version.txt') as f:
+            with open('version.txt') as f:
                 v = str(f.read()).strip()
 
             hgoutput = subprocess.run(['hg','id','-n'], stdout=subprocess.PIPE)
@@ -240,6 +239,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                        '256Arc-4MHz_Hb, HbO2, Melanin, ICG_v1.2.xml')
         #self.nameBox.setText(path[0])
         self.tree = self.xmlfp.read(path[0])
+        if self.tree is None:
+            return
 
         '''  test = self.tree.find('.//CompatibleDetectorGUID')
         print(test.text)

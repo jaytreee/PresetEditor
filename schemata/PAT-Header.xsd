@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema id="PAT-Header"
+    targetNamespace="Header_Schema"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:pat="Header_Schema"
+    elementFormDefault="qualified"
+    >
+  <xsd:import schemaLocation="Types.xsd"/>
+
+  <xsd:complexType name="PROJECTION-TYPE">
+    <xsd:sequence>
+      <xsd:element name="VALUE" minOccurs="3" maxOccurs="3">
+        <xsd:complexType>
+          <xsd:simpleContent>
+            <xsd:extension base="xsd:double">
+              <xsd:attribute name="axis-ref" type="xsd:int" use="required"/>
+            </xsd:extension>
+          </xsd:simpleContent>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="number" type="xsd:int" use="required"/>
+    <xsd:attribute name="wavelength-ref" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="EQUAL-TYPE">
+    <xsd:sequence>
+      <xsd:element name="START" type="xsd:double"/>
+      <xsd:element name="STEP" type="xsd:double"/>
+      <xsd:element name="END" type="xsd:double"/>
+      <xsd:element name="CONSTANT" minOccurs="2" maxOccurs="2">
+        <xsd:complexType>
+          <xsd:simpleContent>
+            <xsd:extension base="xsd:double">
+              <xsd:attribute name="axis-ref" type="xsd:int" use="required"/>
+            </xsd:extension>
+          </xsd:simpleContent>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="number" type="xsd:int" use="required"/>
+    <xsd:attribute name="axis-ref" type="xsd:int" use="required"/>
+    <xsd:attribute name="wavelength-ref" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <!--DataModelFieldOfView must re-declared in this namespace for xml validation-->
+  <xsd:complexType name="SizesXYZInt">
+    <xsd:all>
+      <xsd:element name="X" type="xsd:int" minOccurs="1"/>
+      <xsd:element name="Y" type="xsd:int" minOccurs="1"/>
+      <xsd:element name="Z" type="xsd:int" minOccurs="1"/>
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="SizesXYZDouble">
+    <xsd:all>
+      <xsd:element name="X" type="xsd:double" minOccurs="1"/>
+      <xsd:element name="Y" type="xsd:double" minOccurs="1"/>
+      <xsd:element name="Z" type="xsd:double" minOccurs="1"/>
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="DataModelFieldOfView">
+    <xsd:all>
+      <xsd:element name="PixelCount" type="pat:SizesXYZInt" minOccurs="1"/>
+      <xsd:element name="Extents" type="pat:SizesXYZDouble" minOccurs="1"/>
+      <xsd:element name="Center" type="pat:SizesXYZDouble" minOccurs="1"/>
+    </xsd:all>
+  </xsd:complexType>
+  <!--EOF DataModelFieldOfView must re-declaration-->
+  
+  <xsd:element name="HARDWARE-DESC">
+    <xsd:complexType>
+      <xsd:all>
+        <xsd:element name="AMPLIFICATION" minOccurs="0" type="xsd:int"/>
+        <xsd:element name="SAMPLING-FREQUENCY" type="PHYSICAL-VALUE"/>
+        <xsd:element name="AD-RANGE" type="PHYSICAL-VALUE"/>
+        <xsd:element name="LASER-CHANNEL-NUMBER" type="InnolasChannelSwitch" minOccurs="0"/>
+        <xsd:element name="GEOMETRY" type="GeometryType"/>
+        <xsd:element name="TRANSDUCER">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string"/>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="LASER-CALIBRATION-FILE-PATH" minOccurs="0" type="xsd:string"/>
+        <xsd:element name="POWER" type="PHYSICAL-VALUE"/>
+        <xsd:element name="SETUP-TYPE" type="xsd:string"/>
+        <xsd:element name="FRAME-DESC" minOccurs="0">
+          <xsd:complexType>
+            <xsd:choice>
+              <xsd:element name="PROJECTION" type="pat:PROJECTION-TYPE" maxOccurs="unbounded"/>
+              <xsd:element name="EQUAL" type="pat:EQUAL-TYPE"/>
+            </xsd:choice>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="AXIAL-OFFSET" type="xsd:double" minOccurs="0"/>
+        <xsd:element name="SPEED-OF-SOUND-BASE" type="xsd:double" minOccurs="0"/>
+        <xsd:element name="LIGHTSPOT-SIZE" type="xsd:double" minOccurs="0"/>
+        
+        <xsd:element name="BACKGROUND-ABSORPTION-UPPER-SLIDER-LIMIT" type="xsd:double" minOccurs="0"/>
+        <xsd:element name="BACKGROUND-ABSORPTION-LOWER-SLIDER-LIMIT" type="xsd:double" minOccurs="0"/>
+        <xsd:element name="BACKGROUND-OXYGENATION-UPPER-SLIDER-LIMIT" type="xsd:double" minOccurs="0"/>
+        <xsd:element name="BACKGROUND-OXYGENATION-LOWER-SLIDER-LIMIT" type="xsd:double" minOccurs="0"/>
+
+        <xsd:element name="SPEED-OF-SOUND-UPPER-SLIDER-LIMI." type="xsd:double" minOccurs="0"/>
+        <xsd:element name="SPEED-OF-SOUND-LOWER-SLIDER-LIMIT" type="xsd:double" minOccurs="0"/>        
+        <xsd:element name="COUPLANT-SPEED-OF-SOUND" type="xsd:double" minOccurs="0"/>
+        <xsd:element name="COUPLANT-CENTER-OF-ROTATION" type="xsd:double" minOccurs="0"/>
+        <xsd:element name="MIN-COUPLANT-CENTER-OF-ROTATION-OFFSET" type="xsd:double" minOccurs="0"/>
+        <xsd:element name="MAX-COUPLANT-CENTER-OF-ROTATION-OFFSET" type="xsd:double" minOccurs="0"/>
+        <xsd:element name="COUPLANT-CURVATURE-RADIUS" type="xsd:double" minOccurs="0"/>        
+        <xsd:element name="DAQFirmwareVersion" type="xsd:string" minOccurs="0"/>
+        <xsd:element name="DAQTriggerDelay" type="xsd:int" minOccurs="0"/>
+        <xsd:element name="DAQTriggerDelayStepSize" type="xsd:int" minOccurs="0"/>
+      </xsd:all>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="MEASUREMENT-DESC">
+    <xsd:complexType>
+      <xsd:all>
+        <xsd:element name="ULTRA-SOUND-PRESENT"  minOccurs="0" type="xsd:boolean"/>
+        <xsd:element name="ULTRA-SOUND-RESOLUTION"  minOccurs="0" type="xsd:int" />
+        <xsd:element name="ULTRA-SOUND-FIELD-OF-VIEW"  minOccurs="0" type="pat:DataModelFieldOfView"/>
+        <xsd:element name="INITIAL-ENERGY" minOccurs="0" type="PHYSICAL-VALUE"/>
+        <xsd:element name="VERTICAL-DEPTH" minOccurs="0" type="PHYSICAL-VALUE"/>
+        <xsd:element name="REPETITION-RATE" minOccurs="0" type="PHYSICAL-VALUE"/>
+        <xsd:element name="AVERAGES-PER-PROJECTION" minOccurs="0" type="xsd:int"/>
+        <xsd:element name="NUMBER-OF-FRAMES" type="xsd:int" />
+        <xsd:element name="RECORDED-LENGTH" type="xsd:int" />
+        <xsd:element name="TEMPERATURE" minOccurs="0" type="PHYSICAL-VALUE"/>
+        <xsd:element name="PROJECTIONS"/>
+        <xsd:element name="VERTICAL-STEPS" type="xsd:int"/>
+        <xsd:element name="PATH-LENGTH-IN-WATER" minOccurs="0" type="PHYSICAL-VALUE"/>
+        <xsd:element name="WATER-ABSORPTION-COEFFICIENTS">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="WATER-ABSORPTION-COEFFICIENT" type="WaterAbsorptionCoefficient" maxOccurs="unbounded" minOccurs="0"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="WATER-ABSORPTION-CALCULATION-FILE" type="xsd:string" minOccurs="0"/>        
+        <xsd:element name="AVERAGE-ENERGY-TABLE">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="AVRAGE-ENERGY" type="NUMBERED-PHYSICAL-VALUE" maxOccurs="unbounded" minOccurs="0"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="WAVELENGTHS">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="WAVELENGTH" type="NUMBERED-PHYSICAL-VALUE" maxOccurs="unbounded" minOccurs="0"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="COORDINATE-DEFINITION">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="AXIS" minOccurs="3" maxOccurs="3">
+                <xsd:complexType>
+                  <xsd:simpleContent>
+                    <xsd:extension base="AXIS-STRING">
+                      <xsd:attribute name="number" type="xsd:int" use="required"/>
+                      <xsd:attribute name="unit" type="xsd:string" use="required"/>
+                      <xsd:attribute name="unit-modifier" type="xsd:string" use="required"/>
+                    </xsd:extension>
+                  </xsd:simpleContent>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="SEQUENCE" default="by-wavelength">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:enumeration value="by-wavelength"/>
+              <xsd:enumeration value="by-projection"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="MAXPASTSWEEPS" type="xsd:int" minOccurs="0"/>
+      </xsd:all>
+      <xsd:attribute name="WATER-ABSORPTION-CALCULATION-METHOD" type="WaterAbsorptionCalculationMethodType"/>
+      <xsd:attribute name="LEnergy-normalization" type="NormalizationType" use="required"/>          
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

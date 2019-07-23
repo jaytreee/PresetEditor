@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  attributeFormDefault="unqualified"
+  elementFormDefault="qualified"
+  >
+  <xsd:include schemaLocation="Types.xsd"/>
+  <xsd:import namespace="Header_Schema" schemaLocation="PAT-Header.xsd"/>
+
+  <xsd:element name="DataModelMsotProject" >
+    <xsd:complexType>
+      <xsd:all>
+        <xsd:element name="Version" type="xsd:string" minOccurs="0"/>
+        <xsd:element name="FolderName" type="xsd:string" minOccurs="0"/>
+        <xsd:element name="FriendlyName" type="xsd:string" minOccurs="0"/>
+        <xsd:element name="CreationTime" type="xsd:dateTime" minOccurs="0"/>
+        <xsd:element name="DataModelVersion" type="xsd:string" minOccurs="0"/>
+        <xsd:element name="Scientist" type="xsd:string" minOccurs="0"/>
+        <xsd:element name="CustomerName" type="xsd:string" minOccurs="0"/>
+        <xsd:element xmlns:q1="Header_Schema" ref="q1:HARDWARE-DESC" minOccurs="1"/>
+        <xsd:element xmlns:q2="Header_Schema" ref="q2:MEASUREMENT-DESC" minOccurs="1" />
+        <xsd:element name="FLUENCE-MODELS" minOccurs="0">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="DataModelFluenceModel" type="DataModelFluenceModel" maxOccurs="unbounded" minOccurs="0" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="ScanNode" type="DataModelScanNode"/>
+        <xsd:element name="ReconNodes">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="DataModelNewReconstructionNode" type="DataModelNewReconstructionNode" maxOccurs="unbounded" minOccurs="0" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="MspNodes">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="DataModelNewMspNode" type="DataModelNewMspNode" maxOccurs="unbounded" minOccurs="0" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="RoiNodes">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="DataModelRoiNode" type="DataModelRoiNode" maxOccurs="unbounded" minOccurs="0" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="StudyPreset" type="DataModelStudyPreset" minOccurs="0"/>
+        <xsd:element name="OAMPreset" type="DataModelStudyPreset" minOccurs="0"/>
+        <xsd:element name="ScanMaskLayers" type="DataModelScanMaskLayers" minOccurs="0"/>
+        <xsd:element name="Log" type="DataModelMsotProjectLog" minOccurs="0"/>
+      </xsd:all>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

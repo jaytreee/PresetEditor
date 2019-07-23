@@ -1,6 +1,5 @@
 import os
 import xlsxwriter    
-from Colors import Colors
 from difflib import SequenceMatcher
 class ExcelExporter():
 

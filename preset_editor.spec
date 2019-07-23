@@ -1,4 +1,13 @@
 # -*- mode: python -*-
+import glob
+
+def get_files(files, path):
+    filelist = glob.glob(files)
+    ret = []
+    for f in filelist:
+        ret.append((f, path))
+        print((f, path))
+    return ret
 
 block_cipher = None
 
@@ -32,20 +41,22 @@ with open('revision.txt','w') as f:
 if DEBUG:
     OUTNAME += '_DEBUG'
 
-a = Analysis(['preset_editor.py'],
-             pathex=['H:\\Code\\com.itheramedical.PresetEditor'],
+a = Analysis(['source\\preset_editor.py'],
+             pathex=['source'],
              binaries=[],
-             datas=[('resources/Types.xsd','.'),
-			 ('resources/ArrayOfDataModelStudyPreset.xsd','.'),
-			 ('version.txt','.'),
-			 ('revision.txt', '.')],
-             hiddenimports=[],
-             hookspath=[],
-             runtime_hooks=[],
-             excludes=[],
-             win_no_prefer_redirects=False,
-             win_private_assemblies=False,
-             cipher=block_cipher)
+             datas=[
+                *get_files('schemata/*.xsd', 'schemata'),
+			    ('version.txt', '.'),
+			    ('revision.txt', '.')
+            ],
+            hiddenimports=[],
+            hookspath=[],
+            runtime_hooks=[],
+            excludes=[],
+            win_no_prefer_redirects=False,
+            win_private_assemblies=False,
+            cipher=block_cipher
+)
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,

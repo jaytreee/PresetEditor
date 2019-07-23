@@ -1,50 +1,38 @@
 from unittest import TestCase
 from xmlfileparser import XmlFileParser
 import os
+import tempfile
 from lxml import etree
 
 
-class Test_ViewSetting(TestCase):
+class Test_XMLFileParser(TestCase):
     
     def test_init(self):
         x = XmlFileParser()
         # strings not empty
         self.assertTrue(x.sf)
         self.assertTrue(x.sn)
-        # schema name has xsd as file ending
-        self.assertEqual(x.sn[-4:], '.xsd')
+        self.assertTrue(os.path.isfile(os.path.join(x.sf, x.sn)))
 
-
-    def test_read(self):
+    def test_read_error(self):
         # Needs Schema for tree validation
-        path = r'H:\Code\com.itheramedical.PresetEditor\source\tests\testdata'
-        fn = r'256Arc-4MHz_Hb, HbO2, Melanin, ICG_v1.2.xml'
+        path = 'testdata'
+        fn = '2D_Masterpreset_singleWL800_dual panel_ERROR.XML'
         x = XmlFileParser()
         tree = x.read(path+'\\'+fn)
-        self.assertFalse(tree is None)
-
-    def test_write(self):
-        path = r'H:\Code\com.itheramedical.PresetEditor\source\tests\testdata'
-        fn = r'256Arc-4MHz_Hb, HbO2, Melanin, ICG_v1.2.xml'
-        x = XmlFileParser()
-        tree = x.read(path+'\\'+fn)
-        of = path+'\\'+'testout.xml'
-        # delete previous testoutput
-        if os.path.isfile(of):
-            os.remove(of)
-        x.write(tree, of, message=False)
-        self.assertTrue(os.path.isfile(of))
-
+        self.assertIsNone(tree)
 
     def test_readwrite(self):
         # test consistency between read write
-        path = r'H:\Code\com.itheramedical.PresetEditor\source\tests\testdata'
-        fn = r'256Arc-4MHz_Hb, HbO2, Melanin, ICG_v1.2.xml'
+        path = 'testdata'
+        fn = '2D_Masterpreset_Hb HbO2 Melanin_multipanel.XML'
         x = XmlFileParser()
         tree = x.read(path+'\\'+fn)
-        of = path+'\\'+'testout.xml'
+        (oh, of) = tempfile.mkstemp()
+        os.close(oh)
         # delete previous testoutput
         x.write(tree, of, message=False)
         tree2 = x.read(of)
         self.assertEqual(etree.tostring(tree), etree.tostring(tree2))
+        os.remove(of)
         

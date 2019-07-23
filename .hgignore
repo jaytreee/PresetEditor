@@ -1,8 +1,6 @@
 syntax: regexp
 __pycache__/
-.vscode/
 syntax: glob
 build/
 dist/
-source/resources/addWavelengthDialog.py
-source/resources/preset_editor_gui.py
+.pytest_cache
