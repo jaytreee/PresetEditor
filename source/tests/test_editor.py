@@ -13,20 +13,20 @@ class TestPresetEditor(unittest.TestCase):
     #@slow
     def test_loadxmlfile(self):
         """testing load of XmlFileParser and getViewingPresets(), 
-            the settingslist should be the same   """
+            the viewlist should be the same   """
 
         path = 'H:/Code/com.itheramedical.PresetEditor/testdata/256Arc-4MHz_Hb, HbO2, Melanin, ICG_v1.2.xml'
         with open('H:/Code/com.itheramedical.PresetEditor/testdata/settings.pickle','rb') as f:
             test_settings = pickle.load(f)
         example_tree = XmlFileParser.read(self, path)
         preset = PresetEditor
-        preset.settingslist.clear()
+        preset.viewlist.clear()
         preset.tree = example_tree
         preset.getViewingPresets(preset)
         
-        self.assertEqual(preset.settingslist, test_settings)
+        self.assertEqual(preset.viewlist, test_settings)
         del test_settings[0][1]
-        self.assertNotEqual(PresetEditor.settingslist, test_settings)
+        self.assertNotEqual(PresetEditor.viewlist, test_settings)
 
     def test_writexmlfile(self):
         """read xmlfile, write it and read again, settings should still be the same"""

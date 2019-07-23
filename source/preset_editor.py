@@ -54,7 +54,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     fsf = 'C:\ProgramData\iThera\ViewMSOTc\Factory Spectra'
     """factory spectra folder"""
 
-    settingslist = [[], [], [], []]
+    viewlist = [[], [], [], []]
     """dimensions = #views; containing corresponing layersetting objects """
 
     viewsettings = []
@@ -77,6 +77,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(PresetEditor, self).__init__()
         self.setupUi(window)
+        self.tabWidget.setEnabled(False)
+        self.groupBox_5.setEnabled(False)
 
         self.connectGUItoFunctionalty()
 
@@ -231,15 +233,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.cleanup()
 
-        if True:
-            path = QtWidgets.QFileDialog.getOpenFileName(self,caption='Select a preset.xml file to modify', filter='XML Files (*.xml)')
-            if not os.path.isfile(path[0]):
-                return
+        path = QtWidgets.QFileDialog.getOpenFileName(self,caption='Select a preset.xml file to modify', filter='XML Files (*.xml)')
+        if not os.path.isfile(path[0]):
+            return
 
-        else:
-            path = ['', '']
-            path[0] = ('C:/Users/thomas.hartmann/Desktop/xml files/'
-                       '256Arc-4MHz_Hb, HbO2, Melanin, ICG_v1.2.xml')
         #self.nameBox.setText(path[0])
         self.tree = self.xmlfp.read(path[0])
         if self.tree is None:
@@ -251,6 +248,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         print(test.tag) '''
 
         self.loadeddata = True
+        self.tabWidget.setEnabled(True)
+        self.groupBox_5.setEnabled(True)
 
         #check for newest version, find fields
         self.checkBGWLfield()
@@ -258,7 +257,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.displayTreetoGUI()
 
 
-        #pprint(self.settingslist)
+        #pprint(self.viewlist)
 
     def checkBGWLfield(self):
         """ check if the BGWavelength entry is found in xml file, disable gui element if not"""
@@ -450,12 +449,12 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 #delete from xml if not found in settings
                 found = False
 
-                for k in range(0, len(self.settingslist[i])):
-                    if self.settingslist[i][k].spectrum == spectrum.text:
+                for k in range(0, len(self.viewlist[i])):
+                    if self.viewlist[i][k].spectrum == spectrum.text:
                         panelString = spectrum.text
                         found = True
                         sset.remove(spectrum.text)
-                        s = self.settingslist[i][k]
+                        s = self.viewlist[i][k]
                         p = spectrum.getparent()
                         p.find('.//GainMax').text = str(s.maxthresh)
                         excel_dict.update({viewString+' '+ panelString+ ' '+ 'Upper Threshold':  str(s.maxthresh)}) 
@@ -491,9 +490,9 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                     showedwarning = True
             else:
                 for item in sset:
-                    for k in range(0, len(self.settingslist[i])):
-                        if self.settingslist[i][k].spectrum == item:
-                            s = self.settingslist[i][k]
+                    for k in range(0, len(self.viewlist[i])):
+                        if self.viewlist[i][k].spectrum == item:
+                            s = self.viewlist[i][k]
                             panelString = item
                             # TODO: Why is here no load, or pallette type, logrithmicscaling?
                             hbdummy.find('.//ComponentTagIdentifier').text = item
@@ -658,9 +657,9 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     def addSpectratoViewPanel(self):
         """ Add the spectra into the view panels in the visualization tab"""
         
-        for idx, val  in enumerate(self.settingslist[0]):
-            self.viewSpectraList.addItem(self.settingslist[0][idx].spectrum)
-            self.originalSpectra = self.originalSpectra + [self.settingslist[0][idx].spectrum]
+        for idx, val  in enumerate(self.viewlist[0]):
+            self.viewSpectraList.addItem(self.viewlist[0][idx].spectrum)
+            self.originalSpectra = self.originalSpectra + [self.viewlist[0][idx].spectrum]
 
 
 
@@ -684,13 +683,16 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         
     def generatePresetID(self):
         """ auto generate PresetID """
+        if not self.loadeddata:
+            return
+
         text = self.detectorBox.text()
         text += '_' + self.nameBox.text()
 
         for s in self.spectralist:
             text += '_' + s
 
-        for s in self.settingslist[0]:
+        for s in self.viewlist[0]:
             if s.spectrum == 'OPUS':
                 if s.load:
                     text += '_' + 'US'
@@ -720,7 +722,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         # self.viewSpectraList.addItems(self.defaultspectra)
         self.spectralist.clear()
         self.unselectedspectra = self.allspectra
-        self.settingslist.clear()
+        self.viewlist.clear()
         self.originalSpectra = []
 
 
@@ -791,7 +793,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
             # add the list of one view to the complete list
-            self.settingslist.append(settings)
+            self.viewlist.append(settings)
 
 
 
@@ -837,7 +839,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             self.viewSpectraList.setCurrentRow(0)
 
         #print('View:'+ str(i)+ selected)
-        settings = self.settingslist[k]
+        settings = self.viewlist[k]
 
         for i in range(0, len(settings)):
             #pprint(selected)
@@ -879,8 +881,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         # add viewsettings object for the new spectrum for each view
         new = [LayerSetting(item.text()),LayerSetting(item.text()),LayerSetting(item.text()),LayerSetting(item.text())]
 
-        for i in range(0, len(self.settingslist)):
-            self.settingslist[i].append(new[i])
+        for i in range(0, len(self.viewlist)):
+            self.viewlist[i].append(new[i])
 
         self.generatePresetID()
 
@@ -900,10 +902,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.viewSpectraList.takeItem(r)
 
         # remove settingsobject"
-        for i in range(0, len(self.settingslist)):
-            for j in range(0, len(self.settingslist[i])):
-                if self.settingslist[i][j].spectrum == item.text():
-                    del self.settingslist[i][j]
+        for i in range(0, len(self.viewlist)):
+            for j in range(0, len(self.viewlist[i])):
+                if self.viewlist[i][j].spectrum == item.text():
+                    del self.viewlist[i][j]
                     break
 
         self.generatePresetID()
@@ -953,9 +955,9 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 view = i
                 break
 
-        for j in range(0, len(self.settingslist[view])):
-            if self.settingslist[view][j].spectrum == item.text():
-                s = self.settingslist[view][j]
+        for j in range(0, len(self.viewlist[view])):
+            if self.viewlist[view][j].spectrum == item.text():
+                s = self.viewlist[view][j]
                 s.visible = self.visibleCheck.isChecked()
                 s.transparent = self.transparentCheck.isChecked()
                 s.minthresh = self.minBox.value()
@@ -964,7 +966,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 s.logarithmic = self.logarithmicScalingCheck.isChecked()
                 s.palette = self.paletteType.currentText()
                 print('View '+str(view))
-                print(self.settingslist[view][j])
+                print(self.viewlist[view][j])
                 break
         
 
