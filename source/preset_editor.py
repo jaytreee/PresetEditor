@@ -225,8 +225,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def generateGUID(self):
         """gernerate GUID from the Preset Name"""
-        hash = uuid.uuid5(uuid.NAMESPACE_DNS,self.nameBox.text())
-        self.PresetIDTextBox.setText(str(hash))
+        hsh = uuid.uuid5(uuid.NAMESPACE_DNS,self.nameBox.text())
+        self.PresetIDTextBox.setText(str(hsh))
 
     def loadxmlFile(self):
         """ load xml File """
@@ -304,10 +304,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             return
         # === Construct the filename
         path += '/' + self.presetIDBox.text()
-        path +='_v1'
-
+        path += '_v' + self.versionTextBox.text()
         date = datetime.datetime.now()
-        
         c ='{:04d}{:02d}{:02d}'.format(date.year, date.month, date.day) 
         path += '_' +c
         path += '_' + self.appscientistname.text()
@@ -331,7 +329,6 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.tree.xpath('./DataModelStudyPreset/PresetVersion')[0].text = self.versionTextBox.text()
         excel_dict.update({'PresetVersion':  self.versionTextBox.text()})
         
-        excel_dict.update({'Hash':  self.PresetIDTextBox.text()})
 
     
         # ====== Acquisition Tab =======
@@ -509,13 +506,19 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                             layers[0].getparent().append(hbdummy)
                             hbdummy = deepcopy(hbdummy)
 
+        # Write XML
+        chash = self.xmlfp.write(
+            self.tree, 
+            path, 
+            version=self.version, 
+            compat=self.compat, 
+            initials=self.appscientistname.text(), 
+            presetversion=self.versionTextBox.text()
+        )
 
-        c = 'Created with PresetEditor '+self.version
-        date = datetime.datetime.now()
-        c += ' on '+str(date.year)+'-'+str(date.month)+'-'+str(date.day)+'-'+str(date.hour)+'-'+str(date.minute)+'-'+str(date.second)
-
-        ExcelExporter.writeToExcel(path, excel_dict)
-        self.xmlfp.write(self.tree, path, comment=c)
+        # Update content Hash to Excel
+        excel_dict.update({'Hash':  chash})
+        ExcelExporter.writeToExcel(path, excel_dict, chash)
 
 
 

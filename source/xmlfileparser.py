@@ -5,12 +5,12 @@ XML/XSD  file parser, for Preset Editor GUI
 # pylint: disable=E1101
 
 import os, glob, sys, re
-from hashlib import blake2s
-from base64 import b64encode
+import uuid
 from lxml import etree
 from copy import deepcopy
-from  PyQt5 import QtWidgets
+from  PyQt5 import QtWidgets, QtCore
 import logging
+import datetime
 
 
 class XmlFileParser:
@@ -23,6 +23,7 @@ class XmlFileParser:
         # schema name
         self.sn = 'ArrayOfDataModelStudyPreset.xsd'
 
+        self.contentparser = etree.XMLParser(remove_blank_text=True, remove_comments=True)
 
     def read(self, path):
         """parse xml file and xsd file in the same folder and validate
@@ -52,51 +53,99 @@ class XmlFileParser:
             logging.debug('Exception while validating {}'.format(path), exc_info=err)
             logging.error('XML Schema validation error: ' + str(err))
             return None
-            # sys.exit(-1)
         
         # Check if this file was saved using the preset editor by scanning for auto-tag
         filehash = None
         compat = None
         hashwarning = False
-        for item in tree.getroot():  # First parse and take out auto comment
-            if isinstance(item, etree._Comment):
-                match = re.search("^ Content hash: ([A-Za-z0-9+/]+) # Compatible: <=([0-9\.]+) $", item.text)
+        for item in tree.getroot():  # First parse and take out auto elements
+            # Find and take out contentHash (only for validation)
+            if item.tag == 'DataModelStudyPreset':  # 
+                if 'contentHash' in item.attrib:
+                    filehash = item.attrib['contentHash']
+                    logging.debug('Found content hash in file: {}'.format(filehash))
+                    del item.attrib['contentHash']
+            # Find compatibility tag
+            elif isinstance(item, etree._Comment):
+                match = re.search("^ Compatible Software Version: <=([0-9.]+) $", item.text)
                 if match is not None:  # save content hash
-                    filehash = match[1]
-                    compat = match[2]
-                    logging.debug('Found auto-tag in file (Content-hash: {}, Compat: {})'.format(filehash, compat))
-                    tree.getroot().remove(item)  # Take out, we will add a new one when saving
+                    compat = match[1]
+                    logging.debug('Found compatibility-tag in file: {}'.format(compat))
+                    # Comments will be removed anyways
 
-        # copy of tree to take all other comments and tails out
-        parser = etree.XMLParser(remove_blank_text=True, remove_comments=True)
-        contenttree = etree.parse(path, parser) 
-        # Get hash of the file content (reduced tree)
-        hsh = int.from_bytes(blake2s( etree.tostring(contenttree) , digest_size=12).digest(),'little')
-        hashstr = b64encode(hsh.to_bytes(12,'little')).decode('utf-8')
         # Compare Hash and show warning
+        hashstr = self.get_contenthash(tree)
         if filehash is None or filehash != hashstr:
             logging.debug('Content hash is: {} (in file: {})'.format(hashstr, filehash))
-            logging.warning('Preset is not authentic - Please contact iThera for a valid template!')
+            logging.warning('Preset is not authentic, missing content hash - Please contact iThera for a valid template!')
             hashwarning = True
+        if compat is None:
+            logging.warning('Missing software version compatibility tag - Please contact iThera for a valid template!')
 
         logging.info('Successfully parsed and validated file {}'.format(path))
         return tree, hashwarning, compat
 
+    def get_contenthash(self, tree):
+        """ copy of tree to take all other comments and tails out, get the hash """
+        presetelem = None  # isolate the preset element
+        for item in tree.getroot():
+            if item.tag == 'DataModelStudyPreset':
+                presetelem = item
+                break
+        if presetelem is None:
+            logging.error('Preset Element not found in tree')
+            return None
+        # At this point, there is o contentHash attribute anymore
+        # This creates a tree copy without blanks and comments
+        contenttree = etree.fromstring(etree.tostring(presetelem), self.contentparser) 
+        
+        # Remove Preset Name, Preset Identifier, Preset Version for "functional content" only hash
+        for item in contenttree:
+            if item.tag in ('PresetIdentifier', 'Name', 'PresetType', 'PresetVersion', 'IsDefaultPreset'):
+                contenttree.remove(item)
+
+        chash = str(uuid.uuid5(uuid.NAMESPACE_DNS, etree.tostring(contenttree, encoding='unicode')))
+        logging.debug('Content hash is now {}'.format(chash))
+        return chash
+        # hsh = int.from_bytes(blake2s( etree.tostring(contenttree) , digest_size=12).digest(),'little')
+        # hashstr = b64encode(hsh.to_bytes(12,'little')).decode('utf-8')
+        # return hashstr
 
 
-    def write(self, settings, path, message=True, comment=''):
+    def write(self, origtree, path, message=True, version='Y.YY-revZZ', compat='x.x.xx', initials='XX', presetversion='Q'):
         """ write the Settings to an xml file and add comment to the top of the file"""
-        # print(etree.tostring(settings, pretty_print=True))
-        # add comment about version and date if the comment has a previous change the existing
-        # comment text
-        root =settings.getroot()
-        p = root.getprevious()
-        if not p is None:
-            p.text = comment #change text of existing comment
-        else :
-            root.addprevious(etree.Comment(comment))
-        settings.write(path , pretty_print=True)
+        # copy of tree to take all other comments and tails out, get the hash
+        hashstr = self.get_contenthash(origtree)
+
+        # Copy to make sure modifications don't propagate to working tree
+        settings = deepcopy(origtree)
+
+        # Change Log
+        comment = ' * '.join((
+            QtCore.QDateTime(datetime.datetime.now()).toString("yyyy-MM-dd HH:mm:ss"),
+            '{:<3}'.format(initials),
+            'v' + presetversion,
+            '#' + hashstr,
+            'PE ' + version
+        ))
+        comment = etree.Comment(' ' + comment + ' ')
+        comment.tail = '\n'
+
+        presetelem = None  # isolate the preset element
+        for item in settings.getroot():
+            if item.tag == 'DataModelStudyPreset':
+                presetelem = item
+                break
+        if presetelem is None:
+            logging.error('Preset Element not found in tree')
+            return None
+        presetelem.set('contentHash', hashstr)
+        presetelem.insert(0, comment)
+        settings.write(path, pretty_print=True, xml_declaration=True, encoding='utf-8')
         if message:
             msg = QtWidgets.QMessageBox()
-            msg.setText('Saved')
+            msg.setText('Saved as {}'.format(os.path.basename(path)))
+            msg.setInformativeText('Content hash: {}'.format(hashstr))
             msg.exec()
+        
+        return hashstr

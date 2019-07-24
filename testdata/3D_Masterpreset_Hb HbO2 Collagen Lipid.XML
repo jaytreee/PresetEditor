@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDataModelStudyPreset xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">   
-	<DataModelStudyPreset>
+<!-- Compatible Software Version: <=1.2.0.25 -->
+	<DataModelStudyPreset contentHash="87332bc0-0aed-5fb2-a101-9cdfccf2e1ca">
 <!-- **************************************************************************************
 	 RELEASE 1.2 Single Panel - Melanin Preset
 	 ************************************************************************************** 

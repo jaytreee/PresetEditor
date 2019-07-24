@@ -660,6 +660,7 @@
       <xsd:element name="PresetType" type="xsd:string" minOccurs="0" />
       <xsd:element name="CompatibleDetectorGUID" type="xsd:string" minOccurs="0" />
     </xsd:all>
+    <xsd:attribute name="contentHash" type="xsd:string" use="optional"/>
   </xsd:complexType>
   <xsd:complexType name="ArrayOfDataModelStudyPreset">
     <xsd:sequence>

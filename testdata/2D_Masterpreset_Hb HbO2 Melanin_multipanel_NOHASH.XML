@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDataModelStudyPreset xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">   
-<!-- Compatible Software Version: <=1.2.0.25 -->
-	<DataModelStudyPreset contentHash="a3e68a85-0c89-5365-a642-52a03b38d0e0">
+	<DataModelStudyPreset>
 <!-- **************************************************************************************
 	 RELEASE 1.2 Multi-panel Panel - 2D Multi WL Preset
 	 ************************************************************************************** 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDataModelStudyPreset xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">   
-	<DataModelStudyPreset>
+<!-- Compatible Software Version: <=1.2.0.25 -->
+	<DataModelStudyPreset contentHash="0b59a482-ba99-5f27-ac91-f0a4f98c13f6">
 <!-- **************************************************************************************
 	 RELEASE 1.2 Single Panel - 2D 800nm Single WL Preset
 	 ************************************************************************************** 

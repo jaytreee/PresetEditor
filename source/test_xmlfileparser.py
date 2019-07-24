@@ -32,18 +32,28 @@ class Test_XMLFileParser(TestCase):
         self.assertIsNone(compat)
 
     def test_readwrite(self):
-        # test consistency between read write
+        """ test consistency between read write """
         path = 'testdata'
         fn = '2D_Masterpreset_Hb HbO2 Melanin_multipanel.XML'
         x = XmlFileParser()
+
+        # read file
         (tree, warn, compat) = x.read(path+'\\'+fn)
+        inithash = x.get_contenthash(tree)
         self.assertFalse(warn)
+
+        # temp file
         (oh, of) = tempfile.mkstemp()
         os.close(oh)
         # delete previous testoutput
-        x.write(tree, of, message=False)
+        wrhash = x.write(tree, of, message=False, version='TEST', compat=compat)
+        self.assertEqual(inithash, wrhash)  # written hash should be equivalent to read hash
+
+        # Read written file and check contentis identcal
         (tree2, warn, compat) = x.read(of)
-        # self.assertFalse(warn) - TODO, not yet writing correctly
-        self.assertEqual(etree.tostring(tree), etree.tostring(tree2))
+        readhash = x.get_contenthash(tree2)
+        self.assertFalse(warn)
+        self.assertEqual(inithash, readhash)
+
         os.remove(of)
         

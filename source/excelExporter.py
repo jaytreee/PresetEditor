@@ -4,7 +4,7 @@ from difflib import SequenceMatcher
 class ExcelExporter():
 
     @staticmethod
-    def writeToExcel(filename, dictionary):
+    def writeToExcel(filename, dictionary, contenthash='aa-bb'):
         "write summary of xml document to an excel worksheet, same changes that are written to the xml tree"""
         dictionary = ExcelExporter.cleanup(dictionary)
         ExcelExporter.save(filename, dictionary)
