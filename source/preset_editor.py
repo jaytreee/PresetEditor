@@ -238,12 +238,13 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             return
 
         #self.nameBox.setText(path[0])
-        self.tree = self.xmlfp.read(path[0])
-        if self.tree is None:
+        ret = self.xmlfp.read(path[0])
+        if ret is None:
             return
+        (self.tree, self.hashwarning, self.compat) = ret
 
         '''  test = self.tree.find('.//CompatibleDetectorGUID')
-        print(test.text)
+        pr  int(test.text)
         print(etree.tostring(test))
         print(test.tag) '''
 
