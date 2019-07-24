@@ -77,7 +77,7 @@ class XmlFileParser:
         hashstr = self.get_contenthash(tree)
         if filehash is None or filehash != hashstr:
             logging.debug('Content hash is: {} (in file: {})'.format(hashstr, filehash))
-            logging.warning('Preset is not authentic, missing content hash - Please contact iThera for a valid template!')
+            logging.warning("This doesn't look like a Master Preset, please ask an Application Specialist as this preset might produce unexpected behaviours")
             hashwarning = True
         if compat is None:
             logging.warning('Missing software version compatibility tag - Please contact iThera for a valid template!')

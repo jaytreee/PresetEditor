@@ -80,6 +80,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.tabWidget.setEnabled(False)
         self.groupBox_5.setEnabled(False)
 
+        self.muted = True
+
         self.connectGUItoFunctionalty()
 
         # self.schemamanager = iXMLSchemaManager()
@@ -90,6 +92,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.displayVersion()
 
         self.loadxmlFile()
+        self.muted = False
 
 
 
@@ -111,7 +114,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.view4Button.clicked.connect(self.applySettings)
         self.viewSpectraList.currentItemChanged.connect(self.applySettings)
 
-        self.nameBox.textChanged.connect(self.generateGUID)
+        self.nameBox.textChanged.connect(self.generatePresetID)
 
         self.addButton.clicked.connect(self.addspectra)
         self.deleteButton.clicked.connect(self.removespectra)
@@ -206,8 +209,6 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.changeSettings()
 
 
-
-
     def loadFactorySpectra(self, folder=fsf):
         """load Factory Spectra from folder (default:  C:\ProgramData\iThera\ViewMSOTc\Factory Spectra) and cuts file 
         extension. This is the allspectra list"""
@@ -222,11 +223,6 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.FactorySpectraTextBox.setText(folder)
 
-
-    def generateGUID(self):
-        """gernerate GUID from the Preset Name"""
-        hsh = uuid.uuid5(uuid.NAMESPACE_DNS,self.nameBox.text())
-        self.PresetIDTextBox.setText(str(hsh))
 
     def loadxmlFile(self):
         """ load xml File """
@@ -587,6 +583,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     def displayTreetoGUI(self):
         """ Update the GUI  with the information in the xml file"""
 
+        self.muted = True  # Prevents execution of ID generation
 
         # ====== General Information =============
         self.PresetType.setText(self.tree.find('.//PresetType').text)
@@ -654,6 +651,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.disableMultipanel()  # disable multipanel if preset is 3D
 
         #self.applySettings()
+        self.muted = False  # Prevents execution of ID generation
 
         self.generatePresetID()
 
@@ -687,7 +685,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         
     def generatePresetID(self):
         """ auto generate PresetID """
-        if not self.loadeddata:
+        if not self.loadeddata or self.muted:
             return
 
         text = self.detectorBox.text()
@@ -707,8 +705,9 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             text += '_' + 'MP'
         else:
             text += '_' + 'SP'
-        
 
+        text += '#' + self.xmlfp.get_contenthash(self.tree)
+        
         self.presetIDBox.setText(text)
 
 
@@ -856,7 +855,6 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.transparentCheck.setChecked(s.transparent)
                 self.minBox.setValue(s.minthresh)
                 self.maxBox.setValue(s.maxthresh)
-                print(s)
 
                 # self.generatePresetID()
                 return
@@ -934,9 +932,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.bgfound:
             v.bgWL = self.bgWavelength.currentText()
 
-
-
-        print(v)
+        self.generatePresetID()
         
         
         
@@ -969,10 +965,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 s.load = self.loadCheck.isChecked()
                 s.logarithmic = self.logarithmicScalingCheck.isChecked()
                 s.palette = self.paletteType.currentText()
-                print('View '+str(view))
-                print(self.viewlist[view][j])
                 break
-        
+
+        self.generatePresetID()
+
 
 
 def handle_error(exctype, val, trace):
