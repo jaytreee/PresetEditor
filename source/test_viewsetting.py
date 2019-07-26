@@ -6,7 +6,7 @@ from viewsetting import ViewSettings
 class Test_ViewSetting(TestCase):
     
     def test_init(self):
-        v = ViewSettings(True, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6)
+        v = ViewSettings(True, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 804)
         self.assertEqual(v.autoscaling, True)
         self.assertEqual(v.usscalingmin, 0.1)
         self.assertEqual(v.usscalingmax, 0.2)
@@ -14,6 +14,7 @@ class Test_ViewSetting(TestCase):
         self.assertEqual(v.backgroundscalingmax, 0.4)
         self.assertEqual(v.foregroundscalingmin, 0.5)
         self.assertEqual(v.foregroundscalingmax, 0.6)
+        self.assertEqual(v.bgWL, 804)
 
     
 
