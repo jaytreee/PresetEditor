@@ -212,7 +212,6 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             self.maxBox.setValue(self.minBox.value()+0.5)
         self.changeSettings()
 
-
     def loadFactorySpectra(self, folder=fsf):
         """load Factory Spectra from folder (default:  C:\ProgramData\iThera\ViewMSOTc\Factory Spectra) and cuts file 
         extension. This is the allspectra list"""
@@ -227,7 +226,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.FactorySpectraTextBox.setText(folder)
 
-
+    @QtCore.pyqtSlot()
     def loadxmlFile(self, fn=None):
         """ load xml File """
 
@@ -265,6 +264,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.loadeddata = True
         self.tabWidget.setEnabled(True)
         self.groupBox_5.setEnabled(True)
+        self.contentHashBox.setText(chash)
 
         return True
 
@@ -719,9 +719,11 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         else:
             text += '_' + 'SP'
 
-        text += '#' + self.xmlfp.get_contenthash(self.tree)
+        chash = self.xmlfp.get_contenthash(self.tree)
+        text += '#' + chash
         
         self.presetIDBox.setText(text)
+        self.contentHashBox.setText(chash)
 
 
 

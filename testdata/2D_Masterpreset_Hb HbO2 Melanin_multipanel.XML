@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDataModelStudyPreset xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">   
-<!-- Compatible Software Version: <=1.2.0.25 -->
-	<DataModelStudyPreset contentHash="a3e68a85-0c89-5365-a642-52a03b38d0e0">
+<!-- Compatible Software Version: <=1.2.0.21 -->
+	<DataModelStudyPreset contentHash="c4febed2-7978-5caa-b4e8-396f4089505a">
 <!-- **************************************************************************************
 	 RELEASE 1.2 Multi-panel Panel - 2D Multi WL Preset
 	 ************************************************************************************** 
@@ -15,7 +15,7 @@
 <!-- ** ALWAYS change the Identifier upon copying to uniquely identify the Preset.
 		Upon Change, tag with your Name and Date of change. 
 		This is not shown anywhere in the software, but will appear in the .msot File -->
-		<PresetIdentifier>PType212_Master_2D_Hb, HbO2, Melanin_MULTIPANEL_v1.2</PresetIdentifier>
+		<PresetIdentifier>PType212_Master_2D_Hb, HbO2, Melanin_MULTIPANEL_v1.2#c4febed2-7978-5caa-b4e8-396f4089505a</PresetIdentifier>
 
 <!-- ** COMPATIBLE DETECTOR ** must be matching a detector in settings file -->
 		<CompatibleDetectorGUID>PType212</CompatibleDetectorGUID>
@@ -203,8 +203,8 @@
             <AlphaLutCurveMap>Linear</AlphaLutCurveMap>
             <ParabolicAlphaCurvePower>1</ParabolicAlphaCurvePower>
           </Palette>
-          <GainMax>190</GainMax>
-          <GainMin>10</GainMin>
+          <GainMax>190.0</GainMax>
+          <GainMin>10.0</GainMin>
           <Semitransparent>false</Semitransparent>
           <FrangiFilter>false</FrangiFilter>
           <ArchiveThresholds />
@@ -246,8 +246,8 @@
             <AlphaLutCurveMap>Linear</AlphaLutCurveMap>
             <ParabolicAlphaCurvePower>1</ParabolicAlphaCurvePower>
           </Palette>
-          <GainMax>530</GainMax>
-          <GainMin>0</GainMin>
+          <GainMax>530.0</GainMax>
+          <GainMin>0.0</GainMin>
           <Semitransparent>false</Semitransparent>
           <FrangiFilter>false</FrangiFilter>
           <ArchiveThresholds />

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>548</width>
+    <width>748</width>
     <height>751</height>
    </rect>
   </property>
@@ -200,7 +200,7 @@ QTabBar::tab:selected {
         </widget>
        </item>
        <item row="5" column="2">
-        <widget class="QLabel" name="UniqueID">
+        <widget class="QLabel" name="contentHashLabel">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -215,15 +215,18 @@ QTabBar::tab:selected {
           </font>
          </property>
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Preset Identifier&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Unique Content Hash&lt;br&gt;(excludes Preset ID, Name, Version and AppScientist)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-2</number>
          </property>
          <property name="text">
-          <string>Unique ID</string>
+          <string>Content Hash</string>
          </property>
         </widget>
        </item>
        <item row="5" column="3">
-        <widget class="QLineEdit" name="PresetIDTextBox">
+        <widget class="QLineEdit" name="contentHashBox">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -1454,7 +1457,7 @@ QTabBar::tab:selected {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>548</width>
+     <width>748</width>
      <height>21</height>
     </rect>
    </property>

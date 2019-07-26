@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDataModelStudyPreset xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">   
 <!-- Compatible Software Version: <=1.2.0.25 -->
-	<DataModelStudyPreset contentHash="0b59a482-ba99-5f27-ac91-f0a4f98c13f6">
+	<DataModelStudyPreset contentHash="f4021044-ec4c-5172-bb8c-51284f3241e9">
 <!-- **************************************************************************************
 	 RELEASE 1.2 Single Panel - 2D 800nm Single WL Preset
 	 ************************************************************************************** 
@@ -16,7 +16,7 @@
 <!-- ** ALWAYS change the Identifier upon copying to uniquely identify the Preset.
 		Upon Change, tag with your Name and Date of change. 
 		This is not shown anywhere in the software, but will appear in the .msot File -->
-		<PresetIdentifier>PType212_Master_2D_800nm_v1.2</PresetIdentifier>
+		<PresetIdentifier>PType212_Master_2D_800nm_v1.2#f4021044-ec4c-5172-bb8c-51284f3241e9</PresetIdentifier>
 
 <!-- ** COMPATIBLE DETECTOR ** must be matching a detector in settings file -->
 		<CompatibleDetectorGUID>PType212</CompatibleDetectorGUID>
@@ -203,8 +203,8 @@
             <AlphaLutCurveMap>Linear</AlphaLutCurveMap>
             <ParabolicAlphaCurvePower>1</ParabolicAlphaCurvePower>
           </Palette>
-          <GainMax>190</GainMax>
-          <GainMin>10</GainMin>
+          <GainMax>190.0</GainMax>
+          <GainMin>10.0</GainMin>
           <Semitransparent>false</Semitransparent>
           <FrangiFilter>false</FrangiFilter>
           <ArchiveThresholds />
@@ -246,8 +246,8 @@
             <AlphaLutCurveMap>Linear</AlphaLutCurveMap>
             <ParabolicAlphaCurvePower>1</ParabolicAlphaCurvePower>
           </Palette>
-          <GainMax>530</GainMax>
-          <GainMin>0</GainMin>
+          <GainMax>530.0</GainMax>
+          <GainMin>0.0</GainMin>
           <Semitransparent>false</Semitransparent>
           <FrangiFilter>false</FrangiFilter>
           <ArchiveThresholds />
@@ -496,8 +496,8 @@
 							</Palette>
 			
 <!--     Thresholds - Used when Autoscaling is off per default -->
-							<GainMax>530</GainMax>
-							<GainMin>0</GainMin>
+							<GainMax>530.0</GainMax>
+							<GainMin>0.0</GainMin>
 			
 <!--     Control Overlay and visibility -->
 							<Semitransparent>true</Semitransparent>		<!-- Transparency -->
