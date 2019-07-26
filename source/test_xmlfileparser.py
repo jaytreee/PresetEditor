@@ -27,7 +27,7 @@ class Test_XMLFileParser(TestCase):
         path = 'testdata'
         fn = '2D_Masterpreset_Hb HbO2 Melanin_multipanel_NOHASH.XML'
         x = XmlFileParser()
-        (tree, warn, compat) = x.read(path+'\\'+fn)
+        (tree, warn, compat, chash) = x.read(path+'\\'+fn)
         self.assertTrue(warn)
         self.assertIsNone(compat)
 
@@ -38,8 +38,7 @@ class Test_XMLFileParser(TestCase):
         x = XmlFileParser()
 
         # read file
-        (tree, warn, compat) = x.read(path+'\\'+fn)
-        inithash = x.get_contenthash(tree)
+        (tree, warn, compat, inithash) = x.read(path+'\\'+fn)
         self.assertFalse(warn)
 
         # temp file
@@ -50,8 +49,7 @@ class Test_XMLFileParser(TestCase):
         self.assertEqual(inithash, wrhash)  # written hash should be equivalent to read hash
 
         # Read written file and check contentis identcal
-        (tree2, warn, compat) = x.read(of)
-        readhash = x.get_contenthash(tree2)
+        (tree2, warn, compat, readhash) = x.read(of)
         self.assertFalse(warn)
         self.assertEqual(inithash, readhash)
 

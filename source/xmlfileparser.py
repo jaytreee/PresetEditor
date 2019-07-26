@@ -83,7 +83,7 @@ class XmlFileParser:
             logging.warning('Missing software version compatibility tag - Please contact iThera for a valid template!')
 
         logging.info('Successfully parsed and validated file {}'.format(path))
-        return tree, hashwarning, compat
+        return tree, hashwarning, compat, hashstr
 
     def get_contenthash(self, tree):
         """ copy of tree to take all other comments and tails out, get the hash """

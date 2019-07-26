@@ -74,13 +74,18 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     sortedwvlist = []
     """ sorted wavelength list"""
 
-    def __init__(self):
+    def __init__(self, autoload=True):
         super(PresetEditor, self).__init__()
-        self.setupUi(window)
+        self.window = QtWidgets.QMainWindow()
+        self.setupUi(self.window)
+        self.window.show()
         self.tabWidget.setEnabled(False)
         self.groupBox_5.setEnabled(False)
 
         self.muted = True
+        self.excel_dict = dict()
+        """Dictionary for easier excel export"""
+        
 
         self.connectGUItoFunctionalty()
 
@@ -91,9 +96,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.displayVersion()
 
-        self.loadxmlFile()
-        self.muted = False
-
+        if autoload:
+            self.loadxmlFile()
 
 
     def connectGUItoFunctionalty(self):
@@ -224,20 +228,34 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.FactorySpectraTextBox.setText(folder)
 
 
-    def loadxmlFile(self):
+    def loadxmlFile(self, fn=None):
         """ load xml File """
 
         self.cleanup()
 
-        path = QtWidgets.QFileDialog.getOpenFileName(self,caption='Select a preset.xml file to modify', filter='XML Files (*.xml)')
-        if not os.path.isfile(path[0]):
-            return
+        if fn is None:
+            path = QtWidgets.QFileDialog.getOpenFileName(self,caption='Select a template preset to load', filter='XML Files (*.xml)')
+            fn = path[0]
+            if fn == '':
+                return
+        if not os.path.isfile(fn):
+            logging.error('File not found: {}'.format(fn))
+            raise FileNotFoundError(fn)
 
         #self.nameBox.setText(path[0])
-        ret = self.xmlfp.read(path[0])
+        ret = self.xmlfp.read(fn)
         if ret is None:
-            return
-        (self.tree, self.hashwarning, self.compat) = ret
+            return False
+        (self.tree, self.hashwarning, self.compat, chash) = ret
+
+        # Apply to UI, then apply UI to tree - to check if content hash after saving without changes will be identical
+        self.checkBGWLfield()
+        self.displayTreetoGUI()
+        self.UItoTree()
+        newhash = self.xmlfp.get_contenthash(self.tree)
+        if newhash != chash:
+            logging.error('Consistency error: Preset Editor changes content hash - please check template.')
+            return False
 
         '''  test = self.tree.find('.//CompatibleDetectorGUID')
         pr  int(test.text)
@@ -248,13 +266,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.tabWidget.setEnabled(True)
         self.groupBox_5.setEnabled(True)
 
-        #check for newest version, find fields
-        self.checkBGWLfield()
-
-        self.displayTreetoGUI()
-
-
-        #pprint(self.viewlist)
+        return True
 
     def checkBGWLfield(self):
         """ check if the BGWavelength entry is found in xml file, disable gui element if not"""
@@ -279,27 +291,21 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     def writexmlFile(self):
         """apply changes to lxml tree and then write it""" 
 
-
         if self.tree is None:
             return
 
-        excel_dict = dict()
-        """Dictionary for easier excel export"""
-        
         if self.appscientistname.text() =='':
             msg = QtWidgets.QMessageBox()
             msg.setText('Insert the Application Scientist Name')
             msg.exec()
             return
         
-        excel_dict.update({'Scientist': self.appscientistname.text()})
-
         # path = QtWidgets.QFileDialog.getSaveFileName(self,directory=self.presetIDBox.text(), filter='XML Files (*.xml)')
         path = QtWidgets.QFileDialog.getExistingDirectory(self)
         if path == '':
             return
         # === Construct the filename
-        path += '/' + self.presetIDBox.text()
+        path += '/' + self.presetIDBox.text().split('#')[0]
         path += '_v' + self.versionTextBox.text()
         date = datetime.datetime.now()
         c ='{:04d}{:02d}{:02d}'.format(date.year, date.month, date.day) 
@@ -313,6 +319,27 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             ret = qm.question(self,'', "File already exists \n Overwrite?", qm.Yes | qm.No)
             if ret == qm.No:
                 return
+
+        # Write XML
+        chash = self.xmlfp.write(
+            self.tree, 
+            path, 
+            version=self.version, 
+            compat=self.compat, 
+            initials=self.appscientistname.text(), 
+            presetversion=self.versionTextBox.text()
+        )
+
+        # Update content Hash to Excel
+        self.excel_dict.update({'Hash':  chash})
+        ExcelExporter.writeToExcel(path, self.excel_dict, chash)
+
+    def UItoTree(self):
+
+        excel_dict = dict()
+
+        excel_dict.update({'Scientist': self.appscientistname.text()})
+
         # ====== General Information ===========
         self.tree.find('.//PresetType').text = self.PresetType.text()
         excel_dict.update({'PresetType': self.PresetType.text()})
@@ -502,21 +529,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                             layers[0].getparent().append(hbdummy)
                             hbdummy = deepcopy(hbdummy)
 
-        # Write XML
-        chash = self.xmlfp.write(
-            self.tree, 
-            path, 
-            version=self.version, 
-            compat=self.compat, 
-            initials=self.appscientistname.text(), 
-            presetversion=self.versionTextBox.text()
-        )
-
-        # Update content Hash to Excel
-        excel_dict.update({'Hash':  chash})
-        ExcelExporter.writeToExcel(path, excel_dict, chash)
-
-
+        self.excel_dict = excel_dict
+        self.generatePresetID()
 
     def toggleMultiPanel(self, **kwargs):
         """ toggle Multipanel Option to state(True, False)"""
@@ -566,6 +580,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             self.bgWavelength.insertItem(p, str(ui.spinBox.value()))
             # self.bgWL.addItem(str(ui.spinBox.value()))
 
+            self.UItoTree()
+
         
     def removeWavelength(self):
         """ remove selected Wavelength from the Wavelength Set and from the PrefferedWL Combobox"""
@@ -575,7 +591,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             self.prefWLBox.removeItem(self.prefWLBox.findText(t))
             self.bgWavelength.removeItem(self.bgWavelength.findText(t))
             self.sortedwvlist.remove(int(t))
-            # self.bgWL.removeItem(self.prefWLBox.findText(t))
+
+            self.UItoTree()
         except AttributeError:
             # if there is no element in the list
             pass
@@ -591,10 +608,6 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.presetIDBox.setText(self.tree.find('.//PresetIdentifier').text)
         self.versionTextBox.setText(self.tree.find('//PresetVersion').text)
         self.detectorBox.setText(self.tree.find('.//CompatibleDetectorGUID').text)
-    
-
-        
-        
 
         # ======== Acquisition Tab ===========
         self.displayAllWLBox.setChecked(self.tree.find('.//DisplayAllWavelengths').text == 'true')
@@ -1024,11 +1037,9 @@ if __name__ == '__main__':
     with open(style, mode='r') as ss:
         app.setStyleSheet(ss.read()) '''
 
-    window = QtWidgets.QMainWindow()
     # f = open('log.txt', 'w')
     
     prog = PresetEditor()
-    window.show()
     exitcode=app.exec_()
     
     #     f.write(e)
