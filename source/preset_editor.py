@@ -74,6 +74,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     sortedwvlist = []
     """ sorted wavelength list"""
 
+    contentHashChanged = QtCore.pyqtSignal(str)
+
     def __init__(self, autoload=True):
         super(PresetEditor, self).__init__()
         self.window = QtWidgets.QMainWindow()
@@ -86,7 +88,6 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.excel_dict = dict()
         """Dictionary for easier excel export"""
         
-
         self.connectGUItoFunctionalty()
 
         # self.schemamanager = iXMLSchemaManager()
@@ -98,6 +99,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         if autoload:
             self.loadxmlFile()
+        
 
 
     def connectGUItoFunctionalty(self):
@@ -117,21 +119,44 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.view3Button.clicked.connect(self.applySettings)
         self.view4Button.clicked.connect(self.applySettings)
         self.viewSpectraList.currentItemChanged.connect(self.applySettings)
+        
+        self.detectorBox.editingFinished.connect(self.UItoTree)
+        self.nameBox.textChanged.connect(self.UItoTree)  # also live typing
+        self.nameBox.editingFinished.connect(self.UItoTree)
+        self.versionTextBox.textChanged.connect(self.UItoTree) # also live typing
+        self.versionTextBox.editingFinished.connect(self.UItoTree)
 
-        self.nameBox.textChanged.connect(self.generatePresetID)
+        self.prefWLBox.currentIndexChanged.connect(self.UItoTree)
+        self.displayAllWLBox.toggled.connect(self.UItoTree)
+        self.usvisibleBox.toggled.connect(self.UItoTree)
 
+        self.userSoundBox.editingFinished.connect(self.UItoTree)
+        self.userSoundBox.valueChanged.connect(self.UItoTree)
+        self.backgroundOxyBox.editingFinished.connect(self.UItoTree)
+        self.backgroundOxyBox.valueChanged.connect(self.UItoTree)
+        self.maxavgframes.editingFinished.connect(self.UItoTree)
+        self.maxavgframes.valueChanged.connect(self.UItoTree)
+        self.SFAFrameThreshBox.editingFinished.connect(self.UItoTree)
+        self.SFAFrameThreshBox.valueChanged.connect(self.UItoTree)
+        self.backgroundAbsorptionBox.editingFinished.connect(self.UItoTree)
+        self.backgroundAbsorptionBox.valueChanged.connect(self.UItoTree)
+        self.sfabuffersize.editingFinished.connect(self.UItoTree)
+        self.sfabuffersize.valueChanged.connect(self.UItoTree)
         self.addButton.clicked.connect(self.addspectra)
         self.deleteButton.clicked.connect(self.removespectra)
 
-        self.visibleCheck.clicked.connect(self.changeSettings)
-        self.loadCheck.clicked.connect(self.changeSettings)
-        self.logarithmicScalingCheck.clicked.connect(self.changeSettings)
-        self.paletteType.activated.connect(self.changeSettings)
-        self.transparentCheck.clicked.connect(self.changeSettings)
-        # self.minBox.editingFinished.connect(self.changeSettings)
-        # self.maxBox.editingFinished.connect(self.changeSettings)
-        self.maxBox.editingFinished.connect(partial(self.maxThreshCheck))
-        self.minBox.editingFinished.connect(partial(self.maxThreshCheck))
+        self.visibleCheck.clicked.connect(self.changeLayerSettings)
+        self.loadCheck.clicked.connect(self.changeLayerSettings)
+        self.logarithmicScalingCheck.clicked.connect(self.changeLayerSettings)
+        self.paletteType.activated.connect(self.changeLayerSettings)
+        self.paletteType.currentIndexChanged.connect(self.changeLayerSettings)
+        self.transparentCheck.clicked.connect(self.changeLayerSettings)
+        # self.minBox.editingFinished.connect(self.changeLayerSettings)
+        # self.maxBox.editingFinished.connect(self.changeLayerSettings)
+        self.maxBox.editingFinished.connect(self.maxThreshCheck)
+        self.maxBox.valueChanged.connect(self.maxThreshCheck)
+        self.minBox.editingFinished.connect(self.maxThreshCheck)
+        self.minBox.valueChanged.connect(self.maxThreshCheck)
         
         self.enableMultiPanel.toggled.connect(self.toggleMultiPanel)
 
@@ -151,6 +176,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         # ======== View Settings ===========
         self.autoScalingCheck.clicked.connect(self.changeViewSettings)
         self.bgWavelength.activated.connect(self.changeViewSettings)
+        self.bgWavelength.currentIndexChanged.connect(self.changeViewSettings)
         self.usmin.editingFinished.connect(partial(self.scalingTypeCheck, self.usmin))
         self.usmax.editingFinished.connect(partial(self.scalingTypeCheck, self.usmax))
         self.bgmin.editingFinished.connect(partial(self.scalingTypeCheck, self.bgmin))
@@ -210,7 +236,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         """ set Validator for UpperThreshold (has to be higher than lower threshold)"""
         if not self.maxBox.value() > self.minBox.value():
             self.maxBox.setValue(self.minBox.value()+0.5)
-        self.changeSettings()
+        self.changeLayerSettings()
 
     def loadFactorySpectra(self, folder=fsf):
         """load Factory Spectra from folder (default:  C:\ProgramData\iThera\ViewMSOTc\Factory Spectra) and cuts file 
@@ -250,7 +276,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         # Apply to UI, then apply UI to tree - to check if content hash after saving without changes will be identical
         self.checkBGWLfield()
         self.displayTreetoGUI()
-        self.UItoTree()
+        self.UItoTree(True)
         newhash = self.xmlfp.get_contenthash(self.tree)
         if newhash != chash:
             logging.error('Consistency error: Preset Editor changes content hash - please check template.')
@@ -334,7 +360,15 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.excel_dict.update({'Hash':  chash})
         ExcelExporter.writeToExcel(path, self.excel_dict, chash)
 
-    def UItoTree(self):
+    @QtCore.pyqtSlot()
+    def UItoTree(self, force=False):
+
+        if not self.loadeddata and not force:
+            return
+
+        sender = self.sender()
+        if sender is not None:
+            logging.debug('Element triggered a Tree change: {} ({})'.format(sender.objectName(), sender))
 
         excel_dict = dict()
 
@@ -556,7 +590,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             self.radioButtons[3].setCheckable(True)
             self.radioButtons[3].setStyleSheet('color: #cccccc')
 
-        self.generatePresetID()
+        self.UItoTree()
             
         
 
@@ -724,6 +758,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         
         self.presetIDBox.setText(text)
         self.contentHashBox.setText(chash)
+        self.contentHashChanged.emit(chash)
 
 
 
@@ -814,7 +849,6 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             self.viewlist.append(settings)
 
 
-
     def applySettings(self):
         """update gui with settings according to the current selected item"""
         # get selected view
@@ -874,9 +908,6 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 # self.generatePresetID()
                 return
 
-        
-        
-
     def addspectra(self):
         """called when addButton is clicked; removes selected spectrum 
         from unselected list, adds it to the selected list and 
@@ -901,7 +932,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         for i in range(0, len(self.viewlist)):
             self.viewlist[i].append(new[i])
 
-        self.generatePresetID()
+        self.UItoTree()
 
     def removespectra(self):
         """remove item from selected list and add it to unselected list,
@@ -925,10 +956,13 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                     del self.viewlist[i][j]
                     break
 
-        self.generatePresetID()
+        self.UItoTree()
     
+    @QtCore.pyqtSlot()
     def changeViewSettings(self):
         """ save changes to viewsettings object, called after modifying the the settings in the view settings box """
+        if not self.loadeddata:
+            return
         view = 0
         for i in range(0, len(self.radioButtons)):
             if self.radioButtons[i].isChecked():
@@ -947,12 +981,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.bgfound:
             v.bgWL = self.bgWavelength.currentText()
 
-        self.generatePresetID()
+        self.UItoTree()
         
-        
-        
-
-    def changeSettings(self):
+    @QtCore.pyqtSlot()
+    def changeLayerSettings(self):
         """ save the changes made in the gui to the LayerSettings object,
         called by clicking Visible/Transparent checkboxes
         and changing the threshold
@@ -982,7 +1014,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 s.palette = self.paletteType.currentText()
                 break
 
-        self.generatePresetID()
+        self.UItoTree()
 
 
 
