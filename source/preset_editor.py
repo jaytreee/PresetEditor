@@ -710,10 +710,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     def disableMultipanel(self):
         """ disable Multipanel if 3D is enabled == 3D depth is greater than 1"""
         
-        if int(self.tree.find('.//Nz').text) > 1:
+        if int(self.tree.find('.//Nz').text) > 1 or len(self.viewsettings) == 1:
 
             self.enableMultiPanel.setStyleSheet('color : rgb(120, 120, 120)')
-            self.enableMultiPanel.setToolTip('Multipanel disabled when 3D Depth > 1 ')
+            self.enableMultiPanel.setToolTip('Multipanel disabled for Dual-Panel templates and 3D presets ')
             self.enableMultiPanel.setEnabled(False)
 
         else:

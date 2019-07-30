@@ -161,7 +161,9 @@ def test_load_subsequent(qapp):
     assert ret
     pe.viewSpectraList.setCurrentRow(0)
     pe.UItoTree()
+    assert pe.enableMultiPanel.isEnabled()
 
     testfile2 = 'testdata\\2D_Masterpreset_singleWL800_dual panel.XML'
     ret = pe.loadxmlFile(testfile2)
     assert ret  #make sure it loaded sanely without consistency error
+    assert not pe.enableMultiPanel.isEnabled()
