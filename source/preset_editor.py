@@ -363,7 +363,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     @QtCore.pyqtSlot()
     def UItoTree(self, force=False):
 
-        if not self.loadeddata and not force:
+        if (not self.loadeddata or self.muted) and not force:
             return
 
         sender = self.sender()
@@ -863,6 +863,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 break
 
         # apply current view settings
+        self.muted = True
         cv = self.viewsettings[k]
         self.autoScalingCheck.setChecked(cv.autoscaling)
         self.usmin.setText(cv.usscalingmin)
@@ -877,6 +878,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # get selected spectrum
         if self.viewSpectraList.count() == 0:
+            self.muted = False
             return
 
         selected = self.viewSpectraList.currentItem()
@@ -906,6 +908,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.maxBox.setValue(s.maxthresh)
 
                 # self.generatePresetID()
+                self.muted = False
                 return
 
     def addspectra(self):
@@ -989,6 +992,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         called by clicking Visible/Transparent checkboxes
         and changing the threshold
         """
+        if self.muted:
+            return
 
         row = self.viewSpectraList.currentRow()
         if row == -1:

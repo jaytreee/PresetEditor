@@ -39,12 +39,7 @@ class Test_PresetEditor(TestCase):
         assert ret 
         assert pe.loadeddata
 
-def dienice(*args):
-    print('Dieing')
-
 def test_bindings_ID(qapp, qtbot):
-    sys.excepthook = dienice
-    app = PyQt5.QtWidgets.QApplication([])
     mymock = MagicMock()
     pe = PresetEditor(False)
     pe.contentHashChanged.connect(mymock)
@@ -53,7 +48,7 @@ def test_bindings_ID(qapp, qtbot):
     ret = pe.loadxmlFile(testfile)
     pe.viewSpectraList.setCurrentRow(0)
     last_hash = pe.contentHashBox.text()
-    # qtbot.addWidget(pe.window)
+    qtbot.addWidget(pe.window)
     
     for el in pe.window.findChildren((PyQt5.QtWidgets.QLineEdit, PyQt5.QtWidgets.QSpinBox, PyQt5.QtWidgets.QDoubleSpinBox)):
         if not el.isEnabled():
@@ -128,4 +123,31 @@ def test_bindings_ID(qapp, qtbot):
         assert mymock.call_count >= 1, 'Checkbox {} does not fire preset ID update'.format(el.objectName())
         chash = mymock.call_args[0][0]
         assert last_hash != chash, 'Checkbox {} does not influence preset ID'.format(el.objectName())
+
+def test_browsing(qapp, qtbot):
+    mymock = MagicMock()
+    pe = PresetEditor(False)
+    pe.contentHashChanged.connect(mymock)
+    # load inconsistent file
+    testfile = 'testdata\\2D_Masterpreset_Hb HbO2 Melanin_multipanel.XML'
+    ret = pe.loadxmlFile(testfile)
+    pe.viewSpectraList.setCurrentRow(0)
+    pe.UItoTree()
+    init_hash = mymock.call_args[0][0]
+
+    # change panel
+    pe.view2Button.clicked.emit()
+    assert mymock.call_args[0][0] == init_hash, 'content hash changed when changing view'
+
+    # change spectrum
+    pe.viewSpectraList.setCurrentRow(2)
+    assert mymock.call_args[0][0] == init_hash, 'content hash changed when changing layer (1)'
+
+    # change spectrum
+    pe.viewSpectraList.setCurrentRow(1)
+    assert mymock.call_args[0][0] == init_hash, 'content hash changed when changing layer (1)'
+
+    # change panel
+    pe.view4Button.clicked.emit()
+    assert mymock.call_args[0][0] == init_hash, 'content hash changed when changing view (2)'
 
