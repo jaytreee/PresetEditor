@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDataModelStudyPreset xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">   
 <!-- Compatible Software Version: <=1.2.0.21 -->
-	<DataModelStudyPreset contentHash="c4febed2-7978-5caa-b4e8-396f4089505a">
+	<DataModelStudyPreset contentHash="db7ec262-6304-5a7e-bd20-33ffcbb5b3dc">
 <!-- **************************************************************************************
 	 RELEASE 1.2 Multi-panel Panel - 2D Multi WL Preset
 	 ************************************************************************************** 
@@ -15,7 +15,7 @@
 <!-- ** ALWAYS change the Identifier upon copying to uniquely identify the Preset.
 		Upon Change, tag with your Name and Date of change. 
 		This is not shown anywhere in the software, but will appear in the .msot File -->
-		<PresetIdentifier>PType212_Master_2D_Hb, HbO2, Melanin_MULTIPANEL_v1.2#c4febed2-7978-5caa-b4e8-396f4089505a</PresetIdentifier>
+		<PresetIdentifier>PType212_Master_2D_Hb, HbO2, Melanin_MULTIPANEL_v1.2#db7ec262-6304-5a7e-bd20-33ffcbb5b3dc</PresetIdentifier>
 
 <!-- ** COMPATIBLE DETECTOR ** must be matching a detector in settings file -->
 		<CompatibleDetectorGUID>PType212</CompatibleDetectorGUID>
@@ -1396,9 +1396,9 @@ FORTH ADDITIONAL PANEL (bottom right)
 		-->
 					<UltrasoundMinimumScaling>0</UltrasoundMinimumScaling>
 					<UltrasoundMaximumScaling>1</UltrasoundMaximumScaling>
-					<BackgroundMinimumScaling>0.05</BackgroundMinimumScaling>
+					<BackgroundMinimumScaling>0.1</BackgroundMinimumScaling>
 					<BackgroundMaximumScaling>0.995</BackgroundMaximumScaling>
-					<ForegroundMinimumScaling>-1</ForegroundMinimumScaling>
+					<ForegroundMinimumScaling>0</ForegroundMinimumScaling>
 					<ForegroundMaximumScaling>1</ForegroundMaximumScaling>
 		
 					<Visible3DGridPlanesTypes>All</Visible3DGridPlanesTypes>
