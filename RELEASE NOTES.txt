@@ -1,3 +1,6 @@
+[1.06]
+Bug PE-B021: Presets without versioning tag crashes tool
+
 [1.05]
 Bug PE-B017: Sync color palattes w. vMc 1.2
 Bug PE-B018: Adding spectra doesn't work
