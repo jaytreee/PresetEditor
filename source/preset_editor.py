@@ -717,8 +717,21 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.disableMultipanel()  # disable multipanel if preset is 3D
 
-        #self.applySettings()
-        self.muted = False  # Prevents execution of ID generation
+        # If no panel is activated, activate the first one
+        k = -1
+        for i in range(0, len(self.radioButtons)):
+            if self.radioButtons[i].isChecked():
+                k = i
+                break
+        if k == -1:
+            self.view1Button.setChecked(True)
+        # If no layer is selected, select the first one
+        row = self.viewSpectraList.currentRow()
+        if row == -1:
+            self.viewSpectraList.setCurrentRow(0)
+        self.applySettings(True)  # Make sure the new tree propagates to view settings, also unmutes
+
+        # self.muted = False  # Prevents execution of ID generation
 
         self.generatePresetID()
 
@@ -870,11 +883,11 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             self.viewlist.append(settings)
 
 
-    def applySettings(self):
+    def applySettings(self, force=False):
         """update gui with settings according to the current selected item"""
         # get selected view
 
-        if not self.loadeddata:
+        if not self.loadeddata and not force:
             return
 
         k = 0

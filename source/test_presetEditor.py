@@ -15,11 +15,6 @@ class Test_PresetEditor(TestCase):
         ret = pe.loadxmlFile(testfile)
         assert not ret 
         assert not pe.loadeddata
-        # load file with no hash
-        testfile = 'testdata\\2D_Masterpreset_Hb HbO2 Melanin_multipanel_NOHASH.XML'
-        ret = pe.loadxmlFile(testfile)
-        assert not ret 
-        assert not pe.loadeddata
         # load file with XML Error
         testfile = 'testdata\\2D_Masterpreset_singleWL800_dual panel_ERROR.XML'
         ret = pe.loadxmlFile(testfile)
@@ -44,7 +39,7 @@ def test_bindings_ID(qapp, qtbot):
     pe = PresetEditor(False)
     pe.contentHashChanged.connect(mymock)
     # load inconsistent file
-    testfile = 'testdata\\2D_Masterpreset_singleWL800_dual panel.XML'
+    testfile = 'testdata\\2D_Masterpreset_Hb HbO2 Melanin_multipanel.XML'
     ret = pe.loadxmlFile(testfile)
     pe.viewSpectraList.setCurrentRow(0)
     last_hash = pe.contentHashBox.text()
