@@ -655,6 +655,12 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
                 # self.bgWL.addItem(w)
             except ValueError:
                 pass
+        # Disable multispectral features for single WL presets (otherwise no layer template exists)
+        multispectral = not len(self.WLList) == 1
+        self.addWL.setEnabled(multispectral)
+        self.removeWL.setEnabled(multispectral)
+        self.addButton.setEnabled(multispectral)
+        self.deleteButton.setEnabled(multispectral)
 
         # ========= Processing Tab ===========
         self.userSoundBox.setValue(int(self.tree.find('.//UserSoundTrim').text))
