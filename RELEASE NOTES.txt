@@ -1,0 +1,11 @@
+[1.04]
+- PE-B014 Bugfix: Modifying a single WL preset for multi-spectral fails
+- PE-B016: Inconsistency error occurs when subseuqently loading a second preset
+- PE-F026: Creating a multi-panel preset from a dual-panel template should be disabled
+
+[1.03]
+- PE-F022: Export as Excel Table
+- PE-F025: Content Hash as a unique identifier of preset content
+
+[1.02]
+- PE-F024: Guide Preset Naming by Convention
