@@ -13,6 +13,7 @@ import subprocess, re
 import logging
 import logging.handlers
 from copy import deepcopy
+from distutils.version import LooseVersion
 #from pprint import pprint
 from xmlfileparser import XmlFileParser
 from lxml import etree
@@ -92,6 +93,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     sortedwvlist = []
     """ sorted wavelength list"""
 
+    vMc_compat = '1.2.0.21'
+
     contentHashChanged = QtCore.pyqtSignal(str)
 
     def __init__(self, autoload=True):
@@ -103,6 +106,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.groupBox_5.setEnabled(False)
 
         self.muted = True
+        self.versionwarning = 0
         self.excel_dict = dict()
         """Dictionary for easier excel export"""
         
@@ -236,6 +240,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.statusbar.showMessage(self.version)
         logging.info('PresetEditor started ({})'.format(self.version))
 
+        self.PECompatLabel.setText('Preset Editor: vMc v1.2 (<= {})'.format(self.vMc_compat))
+
     def changeFactorySpectra(self):
         """ opens Windows File Dialog, to select folder for the FactorySpectra"""
         folder = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Select Directory", self.fsf))
@@ -305,6 +311,31 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.tabWidget.setEnabled(True)
         self.groupBox_5.setEnabled(True)
         self.contentHashBox.setText(chash)
+
+        # Preset Version checking
+        self.PresetCompatLabel.setText('Loaded Preset: <b>&lt;= {}</b>'.format(self.compat))
+        PE = LooseVersion(self.vMc_compat)
+        PE_major = int(self.vMc_compat.split('.')[0])
+        Preset = LooseVersion(self.compat)
+        Preset_major = int(self.compat.split('.')[0])
+        if Preset_major != PE_major:  # Show an error
+            self.compatibilityBox.setStyleSheet('color:#a42e2e')  # red 164/46/46
+            msg = 'Preset is made for another vMc version - Please use correct Preset Editor'
+            self.CompatMsg.setText('--> {}'.format(msg))
+            logging.error(msg)
+            self.versionwarning = logging.ERROR
+            return False
+        elif Preset > PE:  # Show a warning
+            self.compatibilityBox.setStyleSheet('color:#a5812e')  # yellow 165/129/46
+            msg = 'Preset is made for a newer version of the software - check if newer Preset Editor is available. Could work fine though'
+            self.CompatMsg.setText('--> {}'.format(msg))
+            self.versionwarning = logging.WARNING
+        else:  # All good
+            self.compatibilityBox.setStyleSheet('color:#2ea42e')  # green 46/164/46
+            self.CompatMsg.setText('--> Preset Editor is compatible with this Preset')
+            self.versionwarning = logging.INFO
+
+        # ToDo: Comparison to update Message
 
         return True
 
