@@ -80,7 +80,7 @@ class XmlFileParser:
             logging.warning("This doesn't look like a Master Preset, please ask an Application Specialist as this preset might produce unexpected behaviours")
             hashwarning = True
         if compat is None:
-            logging.warning('Missing software version compatibility tag - Please contact iThera for a valid template!')
+            logging.warning('Missing software version compatibility tag - Please use a verified template!')
 
         logging.info('Successfully parsed and validated file {}'.format(path))
         return tree, hashwarning, compat, hashstr

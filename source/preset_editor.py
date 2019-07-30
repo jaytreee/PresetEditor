@@ -297,6 +297,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         if ret is None:
             return False
         (self.tree, self.hashwarning, self.compat, chash) = ret
+        ret = True
 
         # Apply to UI, then apply UI to tree - to check if content hash after saving without changes will be identical
         self.checkBGWLfield()
@@ -306,38 +307,43 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         if newhash != chash:
             logging.error('Consistency error: Preset Editor changes content hash - please check template.')
             return False
-
-        self.loadeddata = True
-        self.tabWidget.setEnabled(True)
-        self.groupBox_5.setEnabled(True)
         self.contentHashBox.setText(chash)
 
         # Preset Version checking
-        self.PresetCompatLabel.setText('Loaded Preset: <b>&lt;= {}</b>'.format(self.compat))
-        PE = LooseVersion(self.vMc_compat)
-        PE_major = int(self.vMc_compat.split('.')[0])
-        Preset = LooseVersion(self.compat)
-        Preset_major = int(self.compat.split('.')[0])
-        if Preset_major != PE_major:  # Show an error
-            self.compatibilityBox.setStyleSheet('color:#a42e2e')  # red 164/46/46
-            msg = 'Preset is made for another vMc version - Please use correct Preset Editor'
-            self.CompatMsg.setText('--> {}'.format(msg))
-            logging.error(msg)
-            self.versionwarning = logging.ERROR
-            return False
-        elif Preset > PE:  # Show a warning
+        if self.compat is None:
+            self.PresetCompatLabel.setText('Loaded Preset: <b>unknown</b>'.format(self.compat))
             self.compatibilityBox.setStyleSheet('color:#a5812e')  # yellow 165/129/46
-            msg = 'Preset is made for a newer version of the software - check if newer Preset Editor is available. Could work fine though'
+            msg = 'Missing software version compatibility tag - Please use a verified template! Cannot guarantee compatibility.'
             self.CompatMsg.setText('--> {}'.format(msg))
             self.versionwarning = logging.WARNING
-        else:  # All good
-            self.compatibilityBox.setStyleSheet('color:#2ea42e')  # green 46/164/46
-            self.CompatMsg.setText('--> Preset Editor is compatible with this Preset')
-            self.versionwarning = logging.INFO
+        else:
+            self.PresetCompatLabel.setText('Loaded Preset: <b>&lt;= {}</b>'.format(self.compat))
+            PE = LooseVersion(self.vMc_compat)
+            PE_major = int(self.vMc_compat.split('.')[0])
+            Preset = LooseVersion(self.compat)
+            Preset_major = int(self.compat.split('.')[0])
+            if Preset_major != PE_major:  # Show an error
+                self.compatibilityBox.setStyleSheet('color:#a42e2e')  # red 164/46/46
+                msg = 'Preset is made for another vMc version - Please use correct Preset Editor'
+                self.CompatMsg.setText('--> {}'.format(msg))
+                logging.error(msg)
+                self.versionwarning = logging.ERROR
+                ret = False
+            elif Preset > PE:  # Show a warning
+                self.compatibilityBox.setStyleSheet('color:#a5812e')  # yellow 165/129/46
+                msg = 'Preset is made for a newer version of the software - check if newer Preset Editor is available. Could work fine though'
+                self.CompatMsg.setText('--> {}'.format(msg))
+                self.versionwarning = logging.WARNING
+            else:  # All good
+                self.compatibilityBox.setStyleSheet('color:#2ea42e')  # green 46/164/46
+                self.CompatMsg.setText('--> Preset Editor is compatible with this Preset')
+                self.versionwarning = logging.INFO
 
-        # ToDo: Comparison to update Message
+        self.loadeddata = ret
+        self.tabWidget.setEnabled(ret)
+        self.groupBox_5.setEnabled(ret)
 
-        return True
+        return ret
 
     def checkBGWLfield(self):
         """ check if the BGWavelength entry is found in xml file, disable gui element if not"""

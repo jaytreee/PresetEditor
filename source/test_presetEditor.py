@@ -48,6 +48,13 @@ class Test_PresetEditor(TestCase):
         assert pe.loadeddata
         assert pe.versionwarning == logging.WARNING
 
+        # No version
+        testfile = 'testdata\\2D_Masterpreset_singleWL800_dual panel_NoVersion.XML'
+        ret = pe.loadxmlFile(testfile)
+        assert ret 
+        assert pe.loadeddata
+        assert pe.versionwarning == logging.WARNING
+
 def test_bindings_ID(qapp, qtbot):
     mymock = MagicMock()
     pe = PresetEditor(False)
