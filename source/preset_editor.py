@@ -256,8 +256,6 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     def loadxmlFile(self, fn=None):
         """ load xml File """
 
-        self.cleanup()
-
         if fn is None:
             path = QtWidgets.QFileDialog.getOpenFileName(self,caption='Select a template preset to load', filter='XML Files (*.xml)')
             fn = path[0]
@@ -267,7 +265,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             logging.error('File not found: {}'.format(fn))
             raise FileNotFoundError(fn)
 
-        #self.nameBox.setText(path[0])
+        self.cleanup()
+
         ret = self.xmlfp.read(fn)
         if ret is None:
             return False
@@ -281,11 +280,6 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         if newhash != chash:
             logging.error('Consistency error: Preset Editor changes content hash - please check template.')
             return False
-
-        '''  test = self.tree.find('.//CompatibleDetectorGUID')
-        pr  int(test.text)
-        print(etree.tostring(test))
-        print(test.tag) '''
 
         self.loadeddata = True
         self.tabWidget.setEnabled(True)
@@ -794,6 +788,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             sys.exit(-1)
 
         #get all settings for all views
+        self.viewsettings.clear()
         for i in range(0, len(views)):
             
             # === get the Settings of each view panel =====

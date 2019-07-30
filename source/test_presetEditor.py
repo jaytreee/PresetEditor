@@ -124,7 +124,7 @@ def test_bindings_ID(qapp, qtbot):
         chash = mymock.call_args[0][0]
         assert last_hash != chash, 'Checkbox {} does not influence preset ID'.format(el.objectName())
 
-def test_browsing(qapp, qtbot):
+def test_browsing(qapp):
     mymock = MagicMock()
     pe = PresetEditor(False)
     pe.contentHashChanged.connect(mymock)
@@ -151,3 +151,17 @@ def test_browsing(qapp, qtbot):
     pe.view4Button.clicked.emit()
     assert mymock.call_args[0][0] == init_hash, 'content hash changed when changing view (2)'
 
+def test_load_subsequent(qapp):
+    mymock = MagicMock()
+    pe = PresetEditor(False)
+    pe.contentHashChanged.connect(mymock)
+    # load inconsistent file
+    testfile = 'testdata\\2D_Masterpreset_Hb HbO2 Melanin_multipanel.XML'
+    ret = pe.loadxmlFile(testfile)
+    assert ret
+    pe.viewSpectraList.setCurrentRow(0)
+    pe.UItoTree()
+
+    testfile2 = 'testdata\\2D_Masterpreset_singleWL800_dual panel.XML'
+    ret = pe.loadxmlFile(testfile2)
+    assert ret  #make sure it loaded sanely without consistency error
