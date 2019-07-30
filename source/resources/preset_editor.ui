@@ -397,7 +397,7 @@ QTabBar::tab:selected {
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
@@ -1219,91 +1219,6 @@ QTabBar::tab:selected {
                   <bold>true</bold>
                  </font>
                 </property>
-                <item>
-                 <property name="text">
-                  <string>DarkBlue</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Bone</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Contrast</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Cyan</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Gray</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>DarkGreen</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Hot</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Hue</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Jet</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>LightBlue</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>LightGreen</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>LightRed</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Magenta</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>DarkRed</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>RdBuBl</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>UnionJack</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Yellow</string>
-                 </property>
-                </item>
                </widget>
               </item>
               <item row="0" column="2">

@@ -30,7 +30,25 @@ from addWavelengthDialog import Ui_AddWLDialog
 from viewEnum import ViewEnum
 
 
-
+COLORMAPS = [
+    'Gray',
+    'Bone',
+    'Hot',
+    'Red',
+    'Light-Red',
+    'Green',
+    'Light-Green',
+    'Blue',
+    'Light-Blue',
+    'Cyan',
+    'Magenta',
+    'Yellow',
+    'HSB_HSL',
+    'Jet',
+    'Union Jack',
+    'RedBlueBlack',
+    'Contrast'
+]
 
 
 class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -89,6 +107,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         """Dictionary for easier excel export"""
         
         self.connectGUItoFunctionalty()
+        for cmap in sorted(COLORMAPS):
+            self.paletteType.addItem(cmap)
 
         # self.schemamanager = iXMLSchemaManager()
         # self.schemamanager.main()
