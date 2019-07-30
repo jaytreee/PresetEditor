@@ -33,13 +33,13 @@ if match.group(2) and not DEBUG:
     sys.exit(1)
     
 REVISION = match.group(1)
-OUTNAME = 'PresetEditor_v' + VERSION + '-rev' + '{:04d}'.format(int(REVISION))
+OUTNAME = 'PresetEditor_v' + VERSION 
 
 with open('revision.txt','w') as f:
 	f.write(REVISION)
 
 if DEBUG:
-    OUTNAME += '_DEBUG'
+    OUTNAME += '_DEBUG' + '-rev' + '{:04d}'.format(int(REVISION))
 
 a = Analysis(['source\\preset_editor.py'],
              pathex=['source'],

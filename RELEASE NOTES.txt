@@ -1,11 +1,18 @@
+[1.05]
+Bug PE-B017: Sync color palattes w. vMc 1.2
+Bug PE-B018: Adding spectra doesn't work
+Bug PE-B019: default thresholding of autoscale
+Bug PE-B020: View Settings in UI are not updated upon loading of new preset
+Feature PE-F029: Showing and verifying compatibility with SW Version
+
 [1.04]
-- PE-B014 Bugfix: Modifying a single WL preset for multi-spectral fails
-- PE-B016: Inconsistency error occurs when subseuqently loading a second preset
-- PE-F026: Creating a multi-panel preset from a dual-panel template should be disabled
+Bug PE-B014 Bugfix: Modifying a single WL preset for multi-spectral fails
+Bug PE-B016: Inconsistency error occurs when subseuqently loading a second preset
+Feature PE-F026: Creating a multi-panel preset from a dual-panel template should be disabled
 
 [1.03]
-- PE-F022: Export as Excel Table
-- PE-F025: Content Hash as a unique identifier of preset content
+Feature PE-F022: Export as Excel Table
+Feature PE-F025: Content Hash as a unique identifier of preset content
 
 [1.02]
-- PE-F024: Guide Preset Naming by Convention
+Feature PE-F024: Guide Preset Naming by Convention
