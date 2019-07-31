@@ -107,6 +107,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.muted = True
         self.versionwarning = 0
+        self.consistencywarning = False
         self.excel_dict = dict()
         """Dictionary for easier excel export"""
         
@@ -292,6 +293,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             raise FileNotFoundError(fn)
 
         self.cleanup()
+        self.loadeddata = False
+        self.consistencywarning = False
+        self.tabWidget.setEnabled(False)
+        self.groupBox_5.setEnabled(False)
 
         ret = self.xmlfp.read(fn)
         if ret is None:
@@ -305,9 +310,12 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.UItoTree(True)
         newhash = self.xmlfp.get_contenthash(self.tree)
         if newhash != chash:
-            logging.error('Consistency error: Preset Editor changes content hash - please check template.')
-            return False
-        self.contentHashBox.setText(chash)
+            logging.error('''Consistency error: Preset Editor changes content hash - please check template.
+This can happen when opening a preset with the Editor for the first time and should vanish after saving the preset.
+
+Continue to use the editor at your own risk, and check resulting presets carefully.''')
+            self.consistencywarning = True
+        self.contentHashBox.setText(newhash)
 
         # Preset Version checking
         if self.compat is None:
@@ -342,6 +350,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.loadeddata = ret
         self.tabWidget.setEnabled(ret)
         self.groupBox_5.setEnabled(ret)
+        self.generatePresetID()  # Need to do this manually, as it returns wen loadeddata == False
 
         return ret
 
@@ -791,6 +800,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             self.enableMultiPanel.setStyleSheet('color : rgb(120, 120, 120)')
             self.enableMultiPanel.setToolTip('Multipanel disabled for Dual-Panel templates and 3D presets ')
             self.enableMultiPanel.setEnabled(False)
+
+            if self.enableMultiPanel.isChecked():  # This must be a preset mistake
+                logging.warning('MultiPanel was enabled although there requirements in the preset are not met - Disabling Multi-Panel')
+                self.enableMultiPanel.setCheckState(False)
 
         else:
             self.enableMultiPanel.setEnabled(True)

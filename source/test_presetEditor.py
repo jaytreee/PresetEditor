@@ -13,13 +13,15 @@ class Test_PresetEditor(TestCase):
         # load inconsistent file
         testfile = 'testdata\\2D_Masterpreset_singleWL800_dual panel_Inconsistent.XML'
         ret = pe.loadxmlFile(testfile)
-        assert not ret 
-        assert not pe.loadeddata
+        assert ret 
+        assert pe.loadeddata
+        assert pe.consistencywarning
         # load file with XML Error
         testfile = 'testdata\\2D_Masterpreset_singleWL800_dual panel_ERROR.XML'
         ret = pe.loadxmlFile(testfile)
         assert not ret 
         assert not pe.loadeddata
+        assert not pe.consistencywarning
         # nonexistent file
         with self.assertRaises(FileNotFoundError):
             ret = pe.loadxmlFile('blabla')  
@@ -28,7 +30,7 @@ class Test_PresetEditor(TestCase):
     def test_load(self):
         app = PyQt5.QtWidgets.QApplication([])
         pe = PresetEditor(False)
-        # load inconsistent file
+        # load consistent file
         testfile = 'testdata\\2D_Masterpreset_singleWL800_dual panel.XML'
         ret = pe.loadxmlFile(testfile)
         assert ret 
@@ -38,7 +40,7 @@ class Test_PresetEditor(TestCase):
         testfile = 'testdata\\2D_Masterpreset_singleWL800_dual panel_WRONGv2.XML'
         ret = pe.loadxmlFile(testfile)
         assert not ret 
-        assert pe.loadeddata
+        assert not pe.loadeddata
         assert pe.versionwarning == logging.ERROR
 
         # Wrong minor version
