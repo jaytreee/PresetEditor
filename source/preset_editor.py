@@ -730,13 +730,11 @@ Continue to use the editor at your own risk, and check resulting presets careful
 
         # ========= Processing Tab ===========
         self.userSoundBox.setValue(int(self.tree.find('.//UserSoundTrim').text))
-        self.SFAFrameThreshBox.setValue(float(self.tree.find('.//FRAMECORRTHRES').text))
-        self.backgroundAbsorptionBox.setValue(float(self.tree.find('.//BackgroundAbsorption').text))
-        self.backgroundOxyBox.setValue(int(self.tree.find('.//BackgroundOxygenation').text))
-        self.maxavgframes.setValue(int(self.tree.find('.//MAXAVERAGES').text))
-        self.sfabuffersize.setValue(int(self.tree.find('.//MAXPASTSWEEPS').text))
-        # self.bgWL.setCurrentText(self.tree.find('.//BgWavelength').text)
-
+        self.setUIEditValue(self.SFAFrameThreshBox, float, './/FRAMECORRTHRES')
+        self.setUIEditValue(self.backgroundAbsorptionBox, float, './/BackgroundAbsorption')
+        self.setUIEditValue(self.backgroundOxyBox, float, './/BackgroundOxygenation')
+        self.setUIEditValue(self.maxavgframes, int, './/MAXAVERAGES')
+        self.setUIEditValue(self.sfabuffersize, int, './/MAXPASTSWEEPS')
 
 
         self.prefWLBox.setCurrentText(self.tree.find('.//PreferredBackgroundWL').text)
@@ -780,6 +778,14 @@ Continue to use the editor at your own risk, and check resulting presets careful
         # self.muted = False  # Prevents execution of ID generation
 
         self.generatePresetID()
+
+    def setUIEditValue(self, uiel, datatype, xmltag):
+        el = self.tree.find(xmltag)
+        if el is None:
+            uiel.setEnabled(False)
+        else:
+            uiel.setValue(datatype(el.text))
+            uiel.setEnabled(True)
 
 
     def addSpectratoViewPanel(self):
@@ -871,9 +877,7 @@ Continue to use the editor at your own risk, and check resulting presets careful
             #print(etree.tostring(viewingpresets))
             views = viewingpresets.findall('.//DataModelViewingPreset')
         except AttributeError:
-            msg = QtWidgets.QMessageBox()
-            msg.setText('Support only for Multipanel Views')
-            msg.exec_()
+            logging.critical('Template is too old to be supported by this Preset Editor - missing Viewing Presets')
             sys.exit(-1)
 
         #get all settings for all views
