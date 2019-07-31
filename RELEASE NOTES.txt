@@ -1,3 +1,6 @@
+[1.08]
+Feature PE-F028: Load preset from Scan .msot File
+
 [1.07]
 Bug PE-B022: Old customer presets or master presets cause issues
 
