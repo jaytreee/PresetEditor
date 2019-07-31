@@ -1,3 +1,6 @@
+[1.07]
+Bug PE-B022: Old customer presets or master presets cause issues
+
 [1.06]
 Bug PE-B021: Presets without versioning tag crashes tool
 
