@@ -23,17 +23,18 @@ class XmlFileParser:
         # schema name
         self.sn = 'ArrayOfDataModelStudyPreset.xsd'
 
-        self.contentparser = etree.XMLParser(remove_blank_text=True, remove_comments=True)
-
-    def read(self, path):
+    def read(self, path, xmlstring=None):
         """parse xml file and xsd file in the same folder and validate
             returns: lxml.etree 
         """
         logging.debug('Loading {}'.format(path))
-        # TODO: remove comment to remove whitespace to add linebreaks
         
         try:
-            tree = etree.parse(path)
+            if path is not None:
+                tree = etree.parse(path)
+            else: 
+                root = etree.fromstring(xmlstring)
+                tree = etree.ElementTree(root)
         except etree.XMLSyntaxError as err:
             logging.debug('Exception while parsing {}'.format(path), exc_info=err)
             logging.error('File invalid: ' + str(err))
@@ -73,9 +74,9 @@ class XmlFileParser:
                     logging.debug('Found compatibility-tag in file: {}'.format(compat))
                     # Comments will be removed anyways
 
-        # Compare Hash and show warning
+        # Compare Hash and show warning (if not importing from Scan)
         hashstr = self.get_contenthash(tree)
-        if filehash is None or filehash != hashstr:
+        if (filehash is None or filehash != hashstr) and xmlstring is None:
             logging.debug('Content hash is: {} (in file: {})'.format(hashstr, filehash))
             logging.warning("This doesn't look like a Master Preset, please ask an Application Specialist as this preset might produce unexpected behaviours")
             hashwarning = True
@@ -85,7 +86,8 @@ class XmlFileParser:
         logging.info('Successfully parsed and validated file {}'.format(path))
         return tree, hashwarning, compat, hashstr
 
-    def get_contenthash(self, tree):
+    @staticmethod
+    def get_contenthash(tree):
         """ copy of tree to take all other comments and tails out, get the hash """
         presetelem = None  # isolate the preset element
         for item in tree.getroot():
@@ -97,7 +99,8 @@ class XmlFileParser:
             return None
         # At this point, there is o contentHash attribute anymore
         # This creates a tree copy without blanks and comments
-        contenttree = etree.fromstring(etree.tostring(presetelem), self.contentparser) 
+        contentparser = etree.XMLParser(remove_blank_text=True, remove_comments=True)
+        contenttree = etree.fromstring(etree.tostring(presetelem), contentparser) 
         
         # Remove Preset Name, Preset Identifier, Preset Version for "functional content" only hash
         for item in contenttree:

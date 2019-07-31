@@ -57,6 +57,16 @@ class Test_PresetEditor(TestCase):
         assert pe.loadeddata
         assert pe.versionwarning == logging.WARNING
 
+    def test_import(self):
+        app = PyQt5.QtWidgets.QApplication([])
+        pe = PresetEditor(False)
+        # load consistent file
+        testfile = 'testdata\\Scan_1.msot'
+        ret = pe.importscan(testfile)
+        assert ret 
+        assert pe.loadeddata
+
+
 def test_bindings_ID(qapp, qtbot):
     mymock = MagicMock()
     pe = PresetEditor(False)

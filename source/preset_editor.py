@@ -25,6 +25,7 @@ from typechecker import ScalingValidator
 from functools import partial
 from errorhandler import ErrorLogHandler
 from excelExporter import ExcelExporter
+from scanimporter import import_scan
 
 from addWavelengthDialog import Ui_AddWLDialog
 #from schemamanager import iXMLSchemaManager
@@ -97,7 +98,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
     contentHashChanged = QtCore.pyqtSignal(str)
 
-    def __init__(self, autoload=True):
+    def __init__(self, autoload=False):
         super(PresetEditor, self).__init__()
         self.window = QtWidgets.QMainWindow()
         self.setupUi(self.window)
@@ -131,6 +132,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         """add Signals to Functions"""
                 #self.addBtn.clicked.connect(self.addInputTextToListbox)
         self.loadButton.clicked.connect(self.loadxmlFile)
+        self.importScanButton.clicked.connect(self.importscan)
         self.saveAsButton.clicked.connect(self.writexmlFile)
         
         
@@ -280,15 +282,32 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.FactorySpectraTextBox.setText(folder)
 
     @QtCore.pyqtSlot()
-    def loadxmlFile(self, fn=None):
-        """ load xml File """
-
+    def importscan(self, fn=None):
         if fn is None:
-            path = QtWidgets.QFileDialog.getOpenFileName(self,caption='Select a template preset to load', filter='XML Files (*.xml)')
+            path = QtWidgets.QFileDialog.getOpenFileName(self,caption='Select a template Scan to load', filter='MSOT Scans (*.msot)')
             fn = path[0]
             if fn == '':
                 return
         if not os.path.isfile(fn):
+            logging.error('File not found: {}'.format(fn))
+            raise FileNotFoundError(fn)
+        logging.info('Importing Preset from Scan File: {}'.format(fn))
+
+        xmlstring = import_scan(fn)
+        if xmlstring is not None:
+            return self.loadxmlFile(None, xmlstring)
+        return False
+
+    @QtCore.pyqtSlot()
+    def loadxmlFile(self, fn=None, xmlstring=None):
+        """ load xml File """
+
+        if fn is None and xmlstring is None:
+            path = QtWidgets.QFileDialog.getOpenFileName(self,caption='Select a template preset to load', filter='XML Files (*.xml)')
+            fn = path[0]
+            if fn == '':
+                return
+        if not xmlstring and not os.path.isfile(fn):
             logging.error('File not found: {}'.format(fn))
             raise FileNotFoundError(fn)
 
@@ -298,7 +317,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.tabWidget.setEnabled(False)
         self.groupBox_5.setEnabled(False)
 
-        ret = self.xmlfp.read(fn)
+        ret = self.xmlfp.read(fn, xmlstring)
         if ret is None:
             return False
         (self.tree, self.hashwarning, self.compat, chash) = ret
@@ -309,7 +328,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.displayTreetoGUI()
         self.UItoTree(True)
         newhash = self.xmlfp.get_contenthash(self.tree)
-        if newhash != chash:
+        if newhash != chash and xmlstring is None:  # ignore consistency when importing from Scan
             logging.error('''Consistency error: Preset Editor changes content hash - please check template.
 This can happen when opening a preset with the Editor for the first time and should vanish after saving the preset.
 
