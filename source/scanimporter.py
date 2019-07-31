@@ -5,38 +5,28 @@ import os, sys
 
 def import_scan(filename, swcompat=None):
     if not os.path.isfile(filename):
-        logging.error('File not found: {}'.format(filename))
+        logging.error('MSOT File not found: {}'.format(filename))
+        return None
+    imgfile = filename.replace('.msot', '.img')
+    if not os.path.isfile(imgfile):
+        logging.error('IMG File not found: {}'.format(imgfile))
         return None
 
-    # Load Scan Tree
-    try:
-        tree = etree.parse(filename)
-    except etree.XMLSyntaxError as err:
-        logging.debug('Exception while parsing {}'.format(filename), exc_info=err)
-        logging.error('File invalid: ' + str(err))
+    tree = _load_and_verify(filename, 'DataModelMsotProject.xsd')
+    if tree is None:
         return None
-    
-    # Load schema
-    schemadir  = 'schemata'
-    if hasattr(sys, '_MEIPASS'):
-        schemadir = os.path.join(sys._MEIPASS, schemadir)
-    schemafile = os.path.join(schemadir, 'DataModelMsotProject.xsd')
-    if not os.path.isfile(schemafile):
-        logging.error('Schema file {} not found'.format(schemafile))
-        logging.debug('Current dir contains: {}'.format(','.join(glob.glob('*'))))
+
+    imgtree = _load_and_verify(imgfile, 'DataModelImagingSuperSession.xsd')
+    if imgtree is None:
         return None
-    xmlschema = etree.XMLSchema(etree.parse(schemafile))
-    
-    # Validate Schema
-    try:
-        xmlschema.assertValid(tree)
-    except etree.DocumentInvalid as err:
-        logging.debug('Exception while validating {}'.format(path), exc_info=err)
-        logging.error('XML Schema validation error: ' + str(err))
-        return None
-    
+
     # Find OAM Preset as a template
     oampreset = tree.find('.//OAMPreset')
+    oldviewingpresets = oampreset.find('.//ViewingPresets')
+
+    # Get ViewingPresets from .img File and replace them
+    viewingpresets = imgtree.find('.//ViewingPresets')
+    oampreset.replace(oldviewingpresets, viewingpresets)
 
     newtree = etree.Element('ArrayOfDataModelStudyPreset')
 
@@ -62,3 +52,33 @@ def import_scan(filename, swcompat=None):
     newtree.append(oampreset)
 
     return etree.tostring(newtree, pretty_print=True, xml_declaration=True, encoding='utf-8')
+
+def _load_and_verify(filename, schemafile):
+    # Load Scan Tree
+    try:
+        tree = etree.parse(filename)
+    except etree.XMLSyntaxError as err:
+        logging.debug('Exception while parsing {}'.format(filename), exc_info=err)
+        logging.error('File invalid: ' + str(err))
+        return None
+    
+    # Load schema
+    schemadir  = 'schemata'
+    if hasattr(sys, '_MEIPASS'):
+        schemadir = os.path.join(sys._MEIPASS, schemadir)
+    schemafile = os.path.join(schemadir, schemafile)
+    if not os.path.isfile(schemafile):
+        logging.error('Schema file {} not found'.format(schemafile))
+        logging.debug('Current dir contains: {}'.format(','.join(glob.glob('*'))))
+        return None
+    xmlschema = etree.XMLSchema(etree.parse(schemafile))
+    
+    # Validate Schema
+    try:
+        xmlschema.assertValid(tree)
+    except etree.DocumentInvalid as err:
+        logging.debug('Exception while validating {}'.format(path), exc_info=err)
+        logging.error('XML Schema validation error: ' + str(err))
+        return None
+
+    return tree

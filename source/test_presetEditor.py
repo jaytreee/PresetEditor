@@ -65,6 +65,16 @@ class Test_PresetEditor(TestCase):
         ret = pe.importscan(testfile)
         assert ret 
         assert pe.loadeddata
+        firsthash = pe.contentHashBox.text()
+
+        # Import second Scan from same preset, with different visualisation parameters
+        testfile = 'testdata\\Scan_2.msot'
+        ret = pe.importscan(testfile)
+        assert ret 
+        assert pe.loadeddata
+        secondhash = pe.contentHashBox.text()
+
+        assert firsthash != secondhash
 
 
 def test_bindings_ID(qapp, qtbot):
