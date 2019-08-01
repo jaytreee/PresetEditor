@@ -487,8 +487,9 @@ Continue to use the editor at your own risk, and check resulting presets careful
         # ====== Acquisition Tab =======
         self.tree.find('.//DisplayAllWavelengths').text = str(self.displayAllWLBox.isChecked()).lower()
         excel_dict.update({'Cycle Wavelengths':  str(self.displayAllWLBox.isChecked()).lower()})
-        self.tree.find('.//USVisible').text = str(self.usvisibleBox.isChecked()).lower()
-        excel_dict.update({'Show Ultrasound':  str(self.usvisibleBox.isChecked()).lower()})
+        if self.usvisibleBox.isEnabled():
+            self.tree.find('.//USVisible').text = str(self.usvisibleBox.isChecked()).lower()
+            excel_dict.update({'Show Ultrasound':  str(self.usvisibleBox.isChecked()).lower()})
         self.tree.find('.//PreferredBackgroundWL').text = self.prefWLBox.currentText()
         excel_dict.update({'Preferred Wavelength':  self.prefWLBox.currentText()})
 
@@ -529,8 +530,9 @@ Continue to use the editor at your own risk, and check resulting presets careful
                 excel_dict.update({'Backprojection':  'Derivative'})
         
         # ====== Visualization Tab =======
-        self.tree.find('.//IsMultipleMspLivePreviewEnabled').text = str(self.enableMultiPanel.isChecked()).lower()
-        excel_dict.update({'enable MultiPanel':  str(self.enableMultiPanel.isChecked()).lower()})
+        if self.enableMultiPanel.isEnabled():
+            self.tree.find('.//IsMultipleMspLivePreviewEnabled').text = str(self.enableMultiPanel.isChecked()).lower()
+            excel_dict.update({'enable MultiPanel':  str(self.enableMultiPanel.isChecked()).lower()})
 
         # Selected Wavlengeth List, delete all and current
         wlset = self.tree.find('.//WavelengthSet/Items')
@@ -583,10 +585,11 @@ Continue to use the editor at your own risk, and check resulting presets careful
             s = self.viewsettings[i]
             v.find('.//AutoScaling').text = str(s.autoscaling).lower()
             excel_dict.update({viewString+' AutoScaling':  str(s.autoscaling).lower()})  
-            v.find('.//UltrasoundMinimumScaling').text = str(s.usscalingmin)
-            excel_dict.update({viewString+' UltrasoundMinimumScaling':  str(s.usscalingmin)})  
-            v.find('.//UltrasoundMaximumScaling').text = str(s.usscalingmax)
-            excel_dict.update({viewString+' UltrasoundMaximumScaling':  str(s.usscalingmax)})  
+            if s.usscalingmin is not None:
+                v.find('.//UltrasoundMinimumScaling').text = str(s.usscalingmin)
+                excel_dict.update({viewString+' UltrasoundMinimumScaling':  str(s.usscalingmin)})  
+                v.find('.//UltrasoundMaximumScaling').text = str(s.usscalingmax)
+                excel_dict.update({viewString+' UltrasoundMaximumScaling':  str(s.usscalingmax)})  
             v.find('.//BackgroundMinimumScaling').text = str(s.backgroundscalingmin)
             excel_dict.update({viewString+' BackgroundMinimumScaling':  str(s.backgroundscalingmin)})  
             v.find('.//BackgroundMaximumScaling').text = str(s.backgroundscalingmax)
@@ -762,7 +765,7 @@ Continue to use the editor at your own risk, and check resulting presets careful
 
         # ======== Acquisition Tab ===========
         self.displayAllWLBox.setChecked(self.tree.find('.//DisplayAllWavelengths').text == 'true')
-        self.usvisibleBox.setChecked(self.tree.find('.//USVisible').text == 'true')
+        self.setUICheckbox(self.usvisibleBox, './/USVisible')
         wlset = self.tree.find('.//WavelengthSet/Items')
         for wl in wlset:
             # dont include comments by casting 
@@ -840,9 +843,7 @@ Continue to use the editor at your own risk, and check resulting presets careful
 
         #self.viewSpectraList.SelectItems(0)
 
-        self.enableMultiPanel.setChecked(self.tree.find('.//IsMultipleMspLivePreviewEnabled').text =='true')
-
-        self.disableMultipanel()  # disable multipanel if preset is 3D
+        self.toggleMultipanel()  # disable multipanel if preset is 3D
 
         # If no panel is activated, activate the first one
         k = -1
@@ -870,6 +871,14 @@ Continue to use the editor at your own risk, and check resulting presets careful
             uiel.setValue(datatype(el.text))
             uiel.setEnabled(True)
 
+    def setUICheckbox(self, uiel, xmltag):
+        el = self.tree.find(xmltag)
+        if el is None:
+            uiel.setEnabled(False)
+        else:
+            uiel.setEnabled(True)
+            uiel.setChecked(el.text == 'true')
+
 
     def addSpectratoViewPanel(self):
         """ Add the spectra into the view panels in the visualization tab"""
@@ -881,10 +890,11 @@ Continue to use the editor at your own risk, and check resulting presets careful
 
 
 
-    def disableMultipanel(self):
+    def toggleMultipanel(self):
         """ disable Multipanel if 3D is enabled == 3D depth is greater than 1"""
-        
-        if int(self.tree.find('.//Nz').text) > 1 or len(self.viewsettings) == 1:
+        uiel = self.tree.find('.//IsMultipleMspLivePreviewEnabled')
+
+        if int(self.tree.find('.//Nz').text) > 1 or len(self.viewsettings) == 1 or uiel is None:
 
             self.enableMultiPanel.setStyleSheet('color : rgb(120, 120, 120)')
             self.enableMultiPanel.setToolTip('Multipanel disabled for Dual-Panel templates and 3D presets ')
@@ -895,6 +905,7 @@ Continue to use the editor at your own risk, and check resulting presets careful
                 self.enableMultiPanel.setCheckState(False)
 
         else:
+            self.enableMultiPanel.setChecked(uiel.text =='true')
             self.enableMultiPanel.setEnabled(True)
             self.enableMultiPanel.setToolTip('')
             self.enableMultiPanel.setStyleSheet('color: #cccccc')
@@ -969,8 +980,13 @@ Continue to use the editor at your own risk, and check resulting presets careful
             
             # === get the Settings of each view panel =====
             autosc = views[i].find('.//AutoScaling').text == 'true'
-            usmin = views[i].find('.//UltrasoundMinimumScaling').text
-            usmax = views[i].find('.//UltrasoundMaximumScaling').text
+            usmin_el = views[i].find('.//UltrasoundMinimumScaling')
+            if usmin_el is None:
+                usmin = None
+                usmax = None
+            else:
+                usmin = usmin_el.text
+                usmax = views[i].find('.//UltrasoundMaximumScaling').text
             bgmin = views[i].find('.//BackgroundMinimumScaling').text
             bgmax = views[i].find('.//BackgroundMaximumScaling').text
             foremin = views[i].find('.//ForegroundMinimumScaling').text
@@ -1037,8 +1053,14 @@ Continue to use the editor at your own risk, and check resulting presets careful
         self.muted = True
         cv = self.viewsettings[k]
         self.autoScalingCheck.setChecked(cv.autoscaling)
-        self.usmin.setText(cv.usscalingmin)
-        self.usmax.setText(cv.usscalingmax)
+        if cv.usscalingmin is None:
+            self.usmin.setEnabled(False)
+            self.usmax.setEnabled(False)
+        else:
+            self.usmin.setEnabled(True)
+            self.usmax.setEnabled(True)
+            self.usmin.setText(cv.usscalingmin)
+            self.usmax.setText(cv.usscalingmax)
         self.bgmin.setText(cv.backgroundscalingmin)
         self.bgmax.setText(cv.backgroundscalingmax)
         self.fgmin.setText(cv.foregroundscalingmin)
@@ -1148,8 +1170,9 @@ Continue to use the editor at your own risk, and check resulting presets careful
         v.autoscaling = self.autoScalingCheck.isChecked()
         v.backgroundscalingmin = self.bgmin.text()
         v.backgroundscalingmax = self.bgmax.text()
-        v.usscalingmin = self.usmin.text()
-        v.usscalingmax = self.usmax.text()
+        if self.usmin.isEnabled():
+            v.usscalingmin = self.usmin.text()
+            v.usscalingmax = self.usmax.text()        
         v.foregroundscalingmin = self.fgmin.text()
         v.foregroundscalingmax = self.fgmax.text()
         if self.bgfound:
