@@ -1,3 +1,6 @@
+[1.10]
+Bug PE-B022: Old customer presets or master presets cause issues
+
 [1.09]
 Feature PE-F030: Compatibility with v1.2.0.27 absolute IR feature
 
