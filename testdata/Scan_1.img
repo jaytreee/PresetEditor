@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DataModelImagingSuperSession xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Version>v1.00</Version>
+  <DataModelVersion>1.2</DataModelVersion>
   <Name>Scan_1</Name>
   <Comment />
-  <CreationTime>2019-07-31T15:38:55.5132234+02:00</CreationTime>
-  <ModifiedTime>2019-07-31T15:38:55.5132234+02:00</ModifiedTime>
+  <CreationTime>2019-08-01T16:06:13.8667992+02:00</CreationTime>
+  <ModifiedTime>2019-08-01T16:06:13.8667992+02:00</ModifiedTime>
+  <AdvanceEditor>false</AdvanceEditor>
   <Items>
     <DataModelMspImagingSession>
       <IsEmpty>false</IsEmpty>
@@ -21,12 +22,30 @@
           <OffsetX>0</OffsetX>
           <OffsetY>0</OffsetY>
         </Rotation>
-        <Zoom>1.3011494252873563</Zoom>
+        <RotationYZ>
+          <M11>1</M11>
+          <M12>0</M12>
+          <M21>0</M21>
+          <M22>1</M22>
+          <OffsetX>0</OffsetX>
+          <OffsetY>0</OffsetY>
+        </RotationYZ>
+        <RotationXZ>
+          <M11>1</M11>
+          <M12>0</M12>
+          <M21>0</M21>
+          <M22>1</M22>
+          <OffsetX>0</OffsetX>
+          <OffsetY>0</OffsetY>
+        </RotationXZ>
+        <Zoom>1.91816091954023</Zoom>
         <ImageLayers>
           <DataModelImagingLayer>
             <Palette>
               <PaletteType>Gray</PaletteType>
               <PaletteName>Gray</PaletteName>
+              <Contrast>0.5</Contrast>
+              <Brightness>0.5</Brightness>
               <AlphaGainCurveCP1>
                 <X>0</X>
                 <Y>0</Y>
@@ -42,30 +61,35 @@
             <GainMax>190</GainMax>
             <GainMin>10</GainMin>
             <Semitransparent>false</Semitransparent>
-            <Visible>true</Visible>
+            <ArchiveThresholds />
             <Load>true</Load>
             <Tlp>false</Tlp>
             <Flip>false</Flip>
+            <AutoAlphaTransitions>true</AutoAlphaTransitions>
             <ComponentTagIdentifier>OPUS</ComponentTagIdentifier>
             <FirstIdentifier>-1</FirstIdentifier>
             <SecondIdentifier>0</SecondIdentifier>
-            <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-            <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-            <OxyMapThresholdValue>0</OxyMapThresholdValue>
             <LogarithmicScaling>false</LogarithmicScaling>
             <RenderingWeight>1</RenderingWeight>
             <FilterSettings>
               <DataModelFrequencyFilterSetting>
-                <HighFrequency>0</HighFrequency>
+                <IsActive>false</IsActive>
+                <HighFrequency>15</HighFrequency>
                 <LowFrequency>100</LowFrequency>
               </DataModelFrequencyFilterSetting>
             </FilterSettings>
             <RoiTableVisible>true</RoiTableVisible>
+            <ShowContourOutline>true</ShowContourOutline>
+            <SmoothEdgeFactor>25</SmoothEdgeFactor>
+            <Visible>true</Visible>
+            <FiltersInactiveMode>true</FiltersInactiveMode>
           </DataModelImagingLayer>
           <DataModelImagingLayer>
             <Palette>
               <PaletteType>Yellow</PaletteType>
               <PaletteName>Yellow</PaletteName>
+              <Contrast>0.5</Contrast>
+              <Brightness>0.5</Brightness>
               <AlphaGainCurveCP1>
                 <X>0</X>
                 <Y>0</Y>
@@ -81,30 +105,35 @@
             <GainMax>530</GainMax>
             <GainMin>0</GainMin>
             <Semitransparent>true</Semitransparent>
-            <Visible>true</Visible>
+            <ArchiveThresholds />
             <Load>true</Load>
             <Tlp>false</Tlp>
             <Flip>false</Flip>
+            <AutoAlphaTransitions>true</AutoAlphaTransitions>
             <ComponentTagIdentifier>Background</ComponentTagIdentifier>
             <FirstIdentifier>0</FirstIdentifier>
             <SecondIdentifier>0</SecondIdentifier>
-            <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-            <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-            <OxyMapThresholdValue>0</OxyMapThresholdValue>
             <LogarithmicScaling>false</LogarithmicScaling>
             <RenderingWeight>1</RenderingWeight>
             <FilterSettings>
               <DataModelFrequencyFilterSetting>
+                <IsActive>true</IsActive>
                 <HighFrequency>0</HighFrequency>
                 <LowFrequency>100</LowFrequency>
               </DataModelFrequencyFilterSetting>
             </FilterSettings>
             <RoiTableVisible>true</RoiTableVisible>
+            <ShowContourOutline>true</ShowContourOutline>
+            <SmoothEdgeFactor>25</SmoothEdgeFactor>
+            <Visible>true</Visible>
+            <FiltersInactiveMode>false</FiltersInactiveMode>
           </DataModelImagingLayer>
           <DataModelImagingLayer>
             <Palette>
               <PaletteType>Yellow</PaletteType>
               <PaletteName>Yellow</PaletteName>
+              <Contrast>0.5</Contrast>
+              <Brightness>0.5</Brightness>
               <AlphaGainCurveCP1>
                 <X>0</X>
                 <Y>0</Y>
@@ -120,30 +149,35 @@
             <GainMax>0.7</GainMax>
             <GainMin>0</GainMin>
             <Semitransparent>true</Semitransparent>
-            <Visible>false</Visible>
+            <ArchiveThresholds />
             <Load>true</Load>
             <Tlp>false</Tlp>
             <Flip>false</Flip>
+            <AutoAlphaTransitions>true</AutoAlphaTransitions>
             <ComponentTagIdentifier>Hb</ComponentTagIdentifier>
             <FirstIdentifier>1</FirstIdentifier>
             <SecondIdentifier>1</SecondIdentifier>
-            <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-            <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-            <OxyMapThresholdValue>0</OxyMapThresholdValue>
             <LogarithmicScaling>false</LogarithmicScaling>
             <RenderingWeight>1</RenderingWeight>
             <FilterSettings>
               <DataModelFrequencyFilterSetting>
+                <IsActive>false</IsActive>
                 <HighFrequency>0</HighFrequency>
                 <LowFrequency>100</LowFrequency>
               </DataModelFrequencyFilterSetting>
             </FilterSettings>
             <RoiTableVisible>true</RoiTableVisible>
+            <ShowContourOutline>true</ShowContourOutline>
+            <SmoothEdgeFactor>25</SmoothEdgeFactor>
+            <Visible>true</Visible>
+            <FiltersInactiveMode>true</FiltersInactiveMode>
           </DataModelImagingLayer>
           <DataModelImagingLayer>
             <Palette>
-              <PaletteType>Contrast</PaletteType>
-              <PaletteName>Contrast</PaletteName>
+              <PaletteType>Gray</PaletteType>
+              <PaletteName>Gray</PaletteName>
+              <Contrast>0.5</Contrast>
+              <Brightness>0.5</Brightness>
               <AlphaGainCurveCP1>
                 <X>0</X>
                 <Y>0</Y>
@@ -159,30 +193,35 @@
             <GainMax>0.5</GainMax>
             <GainMin>0</GainMin>
             <Semitransparent>true</Semitransparent>
-            <Visible>false</Visible>
+            <ArchiveThresholds />
             <Load>true</Load>
             <Tlp>false</Tlp>
             <Flip>false</Flip>
+            <AutoAlphaTransitions>true</AutoAlphaTransitions>
             <ComponentTagIdentifier>HbO2</ComponentTagIdentifier>
             <FirstIdentifier>2</FirstIdentifier>
             <SecondIdentifier>1</SecondIdentifier>
-            <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-            <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-            <OxyMapThresholdValue>0</OxyMapThresholdValue>
             <LogarithmicScaling>false</LogarithmicScaling>
             <RenderingWeight>1</RenderingWeight>
             <FilterSettings>
               <DataModelFrequencyFilterSetting>
+                <IsActive>false</IsActive>
                 <HighFrequency>0</HighFrequency>
                 <LowFrequency>100</LowFrequency>
               </DataModelFrequencyFilterSetting>
             </FilterSettings>
             <RoiTableVisible>true</RoiTableVisible>
+            <ShowContourOutline>true</ShowContourOutline>
+            <SmoothEdgeFactor>25</SmoothEdgeFactor>
+            <Visible>false</Visible>
+            <FiltersInactiveMode>true</FiltersInactiveMode>
           </DataModelImagingLayer>
           <DataModelImagingLayer>
             <Palette>
               <PaletteType>Yellow</PaletteType>
               <PaletteName>Yellow</PaletteName>
+              <Contrast>0.5</Contrast>
+              <Brightness>0.5</Brightness>
               <AlphaGainCurveCP1>
                 <X>0</X>
                 <Y>0</Y>
@@ -198,52 +237,53 @@
             <GainMax>0.72</GainMax>
             <GainMin>0</GainMin>
             <Semitransparent>true</Semitransparent>
-            <Visible>false</Visible>
+            <ArchiveThresholds />
             <Load>true</Load>
             <Tlp>false</Tlp>
             <Flip>false</Flip>
+            <AutoAlphaTransitions>true</AutoAlphaTransitions>
             <ComponentTagIdentifier>Melanin</ComponentTagIdentifier>
             <FirstIdentifier>3</FirstIdentifier>
             <SecondIdentifier>1</SecondIdentifier>
-            <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-            <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-            <OxyMapThresholdValue>0</OxyMapThresholdValue>
             <LogarithmicScaling>false</LogarithmicScaling>
             <RenderingWeight>1</RenderingWeight>
             <FilterSettings>
               <DataModelFrequencyFilterSetting>
+                <IsActive>false</IsActive>
                 <HighFrequency>0</HighFrequency>
                 <LowFrequency>100</LowFrequency>
               </DataModelFrequencyFilterSetting>
             </FilterSettings>
             <RoiTableVisible>true</RoiTableVisible>
+            <ShowContourOutline>true</ShowContourOutline>
+            <SmoothEdgeFactor>25</SmoothEdgeFactor>
+            <Visible>false</Visible>
+            <FiltersInactiveMode>true</FiltersInactiveMode>
           </DataModelImagingLayer>
         </ImageLayers>
         <ImageLayersComposeMethod>Overlay</ImageLayersComposeMethod>
         <IsOxyMapsEnabled>false</IsOxyMapsEnabled>
+        <HBTThreshold>0</HBTThreshold>
         <VolumeZoomCenter3D>
           <X>0</X>
           <Y>0</Y>
           <Z>0</Z>
         </VolumeZoomCenter3D>
         <CroppingPoint0>
-          <X>0</X>
-          <Y>0</Y>
-          <Z>0</Z>
+          <X>0.0125</X>
+          <Y>0.0125</Y>
+          <Z>0.0125</Z>
         </CroppingPoint0>
         <CroppingPoint1>
-          <X>1</X>
-          <Y>1</Y>
-          <Z>1</Z>
+          <X>0.9875</X>
+          <Y>0.9875</Y>
+          <Z>0.9875</Z>
         </CroppingPoint1>
         <MeasurementRulers2D>
           <MeasurementRulersXY />
           <MeasurementRulersXZ />
           <MeasurementRulersYZ />
         </MeasurementRulers2D>
-        <DrawingRois2D>
-          <Regions />
-        </DrawingRois2D>
         <Show3DTexture>false</Show3DTexture>
         <Show3DVolumeRender>false</Show3DVolumeRender>
         <Show3DViews>false</Show3DViews>
@@ -253,6 +293,24 @@
         <Z_SelectedPlane>0.5</Z_SelectedPlane>
         <Y_SelectedPlane>0.5</Y_SelectedPlane>
         <X_SelectedPlane>0.5</X_SelectedPlane>
+        <TrackballTransform>
+          <M11>1</M11>
+          <M12>0</M12>
+          <M13>0</M13>
+          <M14>0</M14>
+          <M21>0</M21>
+          <M22>1</M22>
+          <M23>0</M23>
+          <M24>0</M24>
+          <M31>0</M31>
+          <M32>0</M32>
+          <M33>1</M33>
+          <M34>0</M34>
+          <OffsetX>0</OffsetX>
+          <OffsetY>0</OffsetY>
+          <OffsetZ>0</OffsetZ>
+          <M44>1</M44>
+        </TrackballTransform>
         <Texture3DCameraTransform>
           <M11>1</M11>
           <M12>0</M12>
@@ -289,8 +347,26 @@
           <OffsetZ>0</OffsetZ>
           <M44>1</M44>
         </VolumeRenderCameraTransform>
-        <ShowVRWireFrame>false</ShowVRWireFrame>
-        <Show3DVolumeRenderMIP>false</Show3DVolumeRenderMIP>
+        <VolumeRotationTransform>
+          <M11>1</M11>
+          <M12>0</M12>
+          <M13>0</M13>
+          <M14>0</M14>
+          <M21>0</M21>
+          <M22>1</M22>
+          <M23>0</M23>
+          <M24>0</M24>
+          <M31>0</M31>
+          <M32>0</M32>
+          <M33>1</M33>
+          <M34>0</M34>
+          <OffsetX>0</OffsetX>
+          <OffsetY>0</OffsetY>
+          <OffsetZ>0</OffsetZ>
+          <M44>1</M44>
+        </VolumeRotationTransform>
+        <ShowVRWireFrame>true</ShowVRWireFrame>
+        <Show3DVolumeRenderMIP>true</Show3DVolumeRenderMIP>
         <ImageGridLineType>Dot</ImageGridLineType>
         <ImageGridLineStepSize>5</ImageGridLineStepSize>
         <ImageGridLineColor>
@@ -314,16 +390,16 @@
       <DataSource>
         <ProjectNodeGUID />
         <FrameList />
-        <SelectedVisibleMainImage>0</SelectedVisibleMainImage>
+        <SelectedVisibleMainImage>-1</SelectedVisibleMainImage>
         <TlpPosition>0</TlpPosition>
-        <MsotProjectGUID>6e13dcb4-4469-4a14-a469-6a2a8dcf40a9</MsotProjectGUID>
+        <MsotProjectGUID>f6692f3c-9ae6-4b2a-a54d-583aec39e7a8</MsotProjectGUID>
         <ImageTaggingList />
       </DataSource>
       <Compose3DFrame>false</Compose3DFrame>
-      <ThubnailFileName>9f6bc0c4-8132-4085-9a81-018f78541458</ThubnailFileName>
+      <Render3DFrame>false</Render3DFrame>
+      <ThubnailFileName>3faf15f9-0fc8-47b8-91bd-fb10800b913d</ThubnailFileName>
       <ReconPresets>
         <DataModelReconPreset>
-          <SystemReconPresetsVersion>0</SystemReconPresetsVersion>
           <Method>direct</Method>
           <SystemReconPresets>
             <ReconstructionPreset>
@@ -342,12 +418,29 @@
               <FilterLow>50000</FilterLow>
               <FilterHigh>5500000</FilterHigh>
               <FilterType>FIR</FilterType>
-              <Nz>1</Nz>
               <RoiZlow>0</RoiZlow>
-              <RoiZhigh>0</RoiZhigh>
+              <RoiZhigh>0.01</RoiZhigh>
               <AThreshold>0.001</AThreshold>
               <Threshold>0.01</Threshold>
               <MaxSupportedFrameRate>50</MaxSupportedFrameRate>
+              <Nz>1</Nz>
+              <FIELD-OF-VIEW>
+                <Extents>
+                  <X>0.039999999999999994</X>
+                  <Y>0</Y>
+                  <Z>0.039999999999999994</Z>
+                </Extents>
+                <PixelCount>
+                  <X>400</X>
+                  <Y>1</Y>
+                  <Z>400</Z>
+                </PixelCount>
+                <Center>
+                  <X>0</X>
+                  <Y>0</Y>
+                  <Z>0</Z>
+                </Center>
+              </FIELD-OF-VIEW>
             </ReconstructionPreset>
           </SystemReconPresets>
           <SelectedPresetIndex>0</SelectedPresetIndex>
@@ -364,11 +457,18 @@
           <ProdigyFrequency>6</ProdigyFrequency>
           <ProdigyPower>PL20</ProdigyPower>
           <ProdigySV>1530</ProdigySV>
+          <DirectFilter xsi:nil="true" />
+          <InvertReconstruction>false</InvertReconstruction>
+          <FluenceCorrection>
+            <GUID>94ea4be1-748a-5688-9063-9a27e1f2e46f</GUID>
+            <Version>1</Version>
+            <ParameterIndex>3</ParameterIndex>
+          </FluenceCorrection>
         </DataModelReconPreset>
       </ReconPresets>
       <MspPresets>
         <DataModelMspPreset>
-          <GUID>7deee4b0-3114-4e59-9383-7d78ffaf849d</GUID>
+          <GUID>c0b74906-0543-4888-aaad-22775474f9a1</GUID>
           <SubstractOneFromMany>true</SubstractOneFromMany>
           <Method>regression</Method>
           <DiscardNegativeValues>true</DiscardNegativeValues>
@@ -381,6 +481,7 @@
           <BgWavelength unit="m" unit-modifier="n" number="0">700</BgWavelength>
           <BgWavelengthFrame>1</BgWavelengthFrame>
           <DifferenceWavelength unit="m" unit-modifier="n" number="0">700</DifferenceWavelength>
+          <ResolutionReductionFactor>2</ResolutionReductionFactor>
         </DataModelMspPreset>
       </MspPresets>
       <PreviewFrameRate>10</PreviewFrameRate>
@@ -392,8 +493,10 @@
         <DataModelViewingPreset>
           <IsEnabled>true</IsEnabled>
           <IsMaximized>false</IsMaximized>
-          <BgWavelength unit="m" unit-modifier="n" number="0">800</BgWavelength>
+          <BgWavelength unit="m" unit-modifier="n" number="0">700</BgWavelength>
+          <BgFramePerWL>1</BgFramePerWL>
           <FrameAveragingThreshold>0</FrameAveragingThreshold>
+          <SFADependantVisualization>false</SFADependantVisualization>
           <GridRow>0</GridRow>
           <GridColumn>0</GridColumn>
           <ImagingSettingsPreset>
@@ -407,12 +510,30 @@
               <OffsetX>0</OffsetX>
               <OffsetY>0</OffsetY>
             </Rotation>
-            <Zoom>1.3011494252873563</Zoom>
+            <RotationYZ>
+              <M11>1</M11>
+              <M12>0</M12>
+              <M21>0</M21>
+              <M22>1</M22>
+              <OffsetX>0</OffsetX>
+              <OffsetY>0</OffsetY>
+            </RotationYZ>
+            <RotationXZ>
+              <M11>1</M11>
+              <M12>0</M12>
+              <M21>0</M21>
+              <M22>1</M22>
+              <OffsetX>0</OffsetX>
+              <OffsetY>0</OffsetY>
+            </RotationXZ>
+            <Zoom>1.91816091954023</Zoom>
             <ImageLayers>
               <DataModelImagingLayer>
                 <Palette>
                   <PaletteType>Gray</PaletteType>
                   <PaletteName>Gray</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -428,30 +549,35 @@
                 <GainMax>190</GainMax>
                 <GainMin>10</GainMin>
                 <Semitransparent>false</Semitransparent>
-                <Visible>true</Visible>
+                <ArchiveThresholds />
                 <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>OPUS</ComponentTagIdentifier>
                 <FirstIdentifier>-1</FirstIdentifier>
                 <SecondIdentifier>0</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
-                    <HighFrequency>0</HighFrequency>
+                    <IsActive>false</IsActive>
+                    <HighFrequency>15</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>true</Visible>
+                <FiltersInactiveMode>true</FiltersInactiveMode>
               </DataModelImagingLayer>
               <DataModelImagingLayer>
                 <Palette>
                   <PaletteType>Yellow</PaletteType>
                   <PaletteName>Yellow</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -467,30 +593,35 @@
                 <GainMax>530</GainMax>
                 <GainMin>0</GainMin>
                 <Semitransparent>true</Semitransparent>
-                <Visible>true</Visible>
+                <ArchiveThresholds />
                 <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>Background</ComponentTagIdentifier>
                 <FirstIdentifier>0</FirstIdentifier>
                 <SecondIdentifier>0</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
+                    <IsActive>true</IsActive>
                     <HighFrequency>0</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>true</Visible>
+                <FiltersInactiveMode>false</FiltersInactiveMode>
               </DataModelImagingLayer>
               <DataModelImagingLayer>
                 <Palette>
                   <PaletteType>Yellow</PaletteType>
                   <PaletteName>Yellow</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -506,30 +637,35 @@
                 <GainMax>0.7</GainMax>
                 <GainMin>0</GainMin>
                 <Semitransparent>true</Semitransparent>
-                <Visible>false</Visible>
+                <ArchiveThresholds />
                 <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>Hb</ComponentTagIdentifier>
                 <FirstIdentifier>1</FirstIdentifier>
                 <SecondIdentifier>1</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
+                    <IsActive>false</IsActive>
                     <HighFrequency>0</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>true</Visible>
+                <FiltersInactiveMode>true</FiltersInactiveMode>
               </DataModelImagingLayer>
               <DataModelImagingLayer>
                 <Palette>
-                  <PaletteType>Contrast</PaletteType>
-                  <PaletteName>Contrast</PaletteName>
+                  <PaletteType>Gray</PaletteType>
+                  <PaletteName>Gray</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -545,30 +681,35 @@
                 <GainMax>0.5</GainMax>
                 <GainMin>0</GainMin>
                 <Semitransparent>true</Semitransparent>
-                <Visible>false</Visible>
+                <ArchiveThresholds />
                 <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>HbO2</ComponentTagIdentifier>
                 <FirstIdentifier>2</FirstIdentifier>
                 <SecondIdentifier>1</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
+                    <IsActive>false</IsActive>
                     <HighFrequency>0</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>false</Visible>
+                <FiltersInactiveMode>true</FiltersInactiveMode>
               </DataModelImagingLayer>
               <DataModelImagingLayer>
                 <Palette>
                   <PaletteType>Yellow</PaletteType>
                   <PaletteName>Yellow</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -584,52 +725,53 @@
                 <GainMax>0.72</GainMax>
                 <GainMin>0</GainMin>
                 <Semitransparent>true</Semitransparent>
-                <Visible>false</Visible>
+                <ArchiveThresholds />
                 <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>Melanin</ComponentTagIdentifier>
                 <FirstIdentifier>3</FirstIdentifier>
                 <SecondIdentifier>1</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
+                    <IsActive>false</IsActive>
                     <HighFrequency>0</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>false</Visible>
+                <FiltersInactiveMode>true</FiltersInactiveMode>
               </DataModelImagingLayer>
             </ImageLayers>
             <ImageLayersComposeMethod>Overlay</ImageLayersComposeMethod>
             <IsOxyMapsEnabled>false</IsOxyMapsEnabled>
+            <HBTThreshold>0</HBTThreshold>
             <VolumeZoomCenter3D>
               <X>0</X>
               <Y>0</Y>
               <Z>0</Z>
             </VolumeZoomCenter3D>
             <CroppingPoint0>
-              <X>0</X>
-              <Y>0</Y>
-              <Z>0</Z>
+              <X>0.0125</X>
+              <Y>0.0125</Y>
+              <Z>0.0125</Z>
             </CroppingPoint0>
             <CroppingPoint1>
-              <X>1</X>
-              <Y>1</Y>
-              <Z>1</Z>
+              <X>0.9875</X>
+              <Y>0.9875</Y>
+              <Z>0.9875</Z>
             </CroppingPoint1>
             <MeasurementRulers2D>
               <MeasurementRulersXY />
               <MeasurementRulersXZ />
               <MeasurementRulersYZ />
             </MeasurementRulers2D>
-            <DrawingRois2D>
-              <Regions />
-            </DrawingRois2D>
             <Show3DTexture>false</Show3DTexture>
             <Show3DVolumeRender>false</Show3DVolumeRender>
             <Show3DViews>false</Show3DViews>
@@ -639,6 +781,24 @@
             <Z_SelectedPlane>0.5</Z_SelectedPlane>
             <Y_SelectedPlane>0.5</Y_SelectedPlane>
             <X_SelectedPlane>0.5</X_SelectedPlane>
+            <TrackballTransform>
+              <M11>1</M11>
+              <M12>0</M12>
+              <M13>0</M13>
+              <M14>0</M14>
+              <M21>0</M21>
+              <M22>1</M22>
+              <M23>0</M23>
+              <M24>0</M24>
+              <M31>0</M31>
+              <M32>0</M32>
+              <M33>1</M33>
+              <M34>0</M34>
+              <OffsetX>0</OffsetX>
+              <OffsetY>0</OffsetY>
+              <OffsetZ>0</OffsetZ>
+              <M44>1</M44>
+            </TrackballTransform>
             <Texture3DCameraTransform>
               <M11>1</M11>
               <M12>0</M12>
@@ -675,8 +835,26 @@
               <OffsetZ>0</OffsetZ>
               <M44>1</M44>
             </VolumeRenderCameraTransform>
-            <ShowVRWireFrame>false</ShowVRWireFrame>
-            <Show3DVolumeRenderMIP>false</Show3DVolumeRenderMIP>
+            <VolumeRotationTransform>
+              <M11>1</M11>
+              <M12>0</M12>
+              <M13>0</M13>
+              <M14>0</M14>
+              <M21>0</M21>
+              <M22>1</M22>
+              <M23>0</M23>
+              <M24>0</M24>
+              <M31>0</M31>
+              <M32>0</M32>
+              <M33>1</M33>
+              <M34>0</M34>
+              <OffsetX>0</OffsetX>
+              <OffsetY>0</OffsetY>
+              <OffsetZ>0</OffsetZ>
+              <M44>1</M44>
+            </VolumeRotationTransform>
+            <ShowVRWireFrame>true</ShowVRWireFrame>
+            <Show3DVolumeRenderMIP>true</Show3DVolumeRenderMIP>
             <ImageGridLineType>Dot</ImageGridLineType>
             <ImageGridLineStepSize>5</ImageGridLineStepSize>
             <ImageGridLineColor>
@@ -701,8 +879,10 @@
         <DataModelViewingPreset>
           <IsEnabled>true</IsEnabled>
           <IsMaximized>false</IsMaximized>
-          <BgWavelength unit="m" unit-modifier="n" number="0">800</BgWavelength>
+          <BgWavelength unit="m" unit-modifier="n" number="0">700</BgWavelength>
+          <BgFramePerWL>1</BgFramePerWL>
           <FrameAveragingThreshold>0</FrameAveragingThreshold>
+          <SFADependantVisualization>false</SFADependantVisualization>
           <GridRow>0</GridRow>
           <GridColumn>1</GridColumn>
           <ImagingSettingsPreset>
@@ -716,12 +896,30 @@
               <OffsetX>0</OffsetX>
               <OffsetY>0</OffsetY>
             </Rotation>
-            <Zoom>1.3011494252873563</Zoom>
+            <RotationYZ>
+              <M11>1</M11>
+              <M12>0</M12>
+              <M21>0</M21>
+              <M22>1</M22>
+              <OffsetX>0</OffsetX>
+              <OffsetY>0</OffsetY>
+            </RotationYZ>
+            <RotationXZ>
+              <M11>1</M11>
+              <M12>0</M12>
+              <M21>0</M21>
+              <M22>1</M22>
+              <OffsetX>0</OffsetX>
+              <OffsetY>0</OffsetY>
+            </RotationXZ>
+            <Zoom>1.91816091954023</Zoom>
             <ImageLayers>
               <DataModelImagingLayer>
                 <Palette>
                   <PaletteType>Gray</PaletteType>
                   <PaletteName>Gray</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -737,30 +935,35 @@
                 <GainMax>190</GainMax>
                 <GainMin>10</GainMin>
                 <Semitransparent>false</Semitransparent>
-                <Visible>true</Visible>
+                <ArchiveThresholds />
                 <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>OPUS</ComponentTagIdentifier>
                 <FirstIdentifier>-1</FirstIdentifier>
                 <SecondIdentifier>0</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
-                    <HighFrequency>0</HighFrequency>
+                    <IsActive>false</IsActive>
+                    <HighFrequency>15</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>true</Visible>
+                <FiltersInactiveMode>true</FiltersInactiveMode>
               </DataModelImagingLayer>
               <DataModelImagingLayer>
                 <Palette>
                   <PaletteType>Yellow</PaletteType>
                   <PaletteName>Yellow</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -776,30 +979,35 @@
                 <GainMax>530</GainMax>
                 <GainMin>0</GainMin>
                 <Semitransparent>false</Semitransparent>
-                <Visible>false</Visible>
+                <ArchiveThresholds />
                 <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>Background</ComponentTagIdentifier>
                 <FirstIdentifier>0</FirstIdentifier>
                 <SecondIdentifier>0</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
+                    <IsActive>true</IsActive>
                     <HighFrequency>0</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>false</Visible>
+                <FiltersInactiveMode>false</FiltersInactiveMode>
               </DataModelImagingLayer>
               <DataModelImagingLayer>
                 <Palette>
                   <PaletteType>Yellow</PaletteType>
                   <PaletteName>Yellow</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -815,30 +1023,35 @@
                 <GainMax>0.5</GainMax>
                 <GainMin>0</GainMin>
                 <Semitransparent>true</Semitransparent>
-                <Visible>true</Visible>
+                <ArchiveThresholds />
                 <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>Hb</ComponentTagIdentifier>
                 <FirstIdentifier>1</FirstIdentifier>
                 <SecondIdentifier>1</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
+                    <IsActive>false</IsActive>
                     <HighFrequency>0</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>true</Visible>
+                <FiltersInactiveMode>true</FiltersInactiveMode>
               </DataModelImagingLayer>
               <DataModelImagingLayer>
                 <Palette>
-                  <PaletteType>Contrast</PaletteType>
-                  <PaletteName>Contrast</PaletteName>
+                  <PaletteType>Gray</PaletteType>
+                  <PaletteName>Gray</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -854,30 +1067,35 @@
                 <GainMax>0.5</GainMax>
                 <GainMin>0</GainMin>
                 <Semitransparent>false</Semitransparent>
-                <Visible>false</Visible>
-                <Load>false</Load>
+                <ArchiveThresholds />
+                <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>HbO2</ComponentTagIdentifier>
                 <FirstIdentifier>2</FirstIdentifier>
                 <SecondIdentifier>1</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
+                    <IsActive>false</IsActive>
                     <HighFrequency>0</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>false</Visible>
+                <FiltersInactiveMode>true</FiltersInactiveMode>
               </DataModelImagingLayer>
               <DataModelImagingLayer>
                 <Palette>
-                  <PaletteType>Contrast</PaletteType>
-                  <PaletteName>Contrast</PaletteName>
+                  <PaletteType>Gray</PaletteType>
+                  <PaletteName>Gray</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -893,52 +1111,53 @@
                 <GainMax>0.72</GainMax>
                 <GainMin>0</GainMin>
                 <Semitransparent>false</Semitransparent>
-                <Visible>false</Visible>
-                <Load>false</Load>
+                <ArchiveThresholds />
+                <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>Melanin</ComponentTagIdentifier>
                 <FirstIdentifier>3</FirstIdentifier>
                 <SecondIdentifier>1</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
+                    <IsActive>false</IsActive>
                     <HighFrequency>0</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>false</Visible>
+                <FiltersInactiveMode>true</FiltersInactiveMode>
               </DataModelImagingLayer>
             </ImageLayers>
             <ImageLayersComposeMethod>Overlay</ImageLayersComposeMethod>
             <IsOxyMapsEnabled>false</IsOxyMapsEnabled>
+            <HBTThreshold>0</HBTThreshold>
             <VolumeZoomCenter3D>
               <X>0</X>
               <Y>0</Y>
               <Z>0</Z>
             </VolumeZoomCenter3D>
             <CroppingPoint0>
-              <X>0</X>
-              <Y>0</Y>
-              <Z>0</Z>
+              <X>0.0125</X>
+              <Y>0.0125</Y>
+              <Z>0.0125</Z>
             </CroppingPoint0>
             <CroppingPoint1>
-              <X>1</X>
-              <Y>1</Y>
-              <Z>1</Z>
+              <X>0.9875</X>
+              <Y>0.9875</Y>
+              <Z>0.9875</Z>
             </CroppingPoint1>
             <MeasurementRulers2D>
               <MeasurementRulersXY />
               <MeasurementRulersXZ />
               <MeasurementRulersYZ />
             </MeasurementRulers2D>
-            <DrawingRois2D>
-              <Regions />
-            </DrawingRois2D>
             <Show3DTexture>false</Show3DTexture>
             <Show3DVolumeRender>false</Show3DVolumeRender>
             <Show3DViews>false</Show3DViews>
@@ -948,6 +1167,24 @@
             <Z_SelectedPlane>0.5</Z_SelectedPlane>
             <Y_SelectedPlane>0.5</Y_SelectedPlane>
             <X_SelectedPlane>0.5</X_SelectedPlane>
+            <TrackballTransform>
+              <M11>1</M11>
+              <M12>0</M12>
+              <M13>0</M13>
+              <M14>0</M14>
+              <M21>0</M21>
+              <M22>1</M22>
+              <M23>0</M23>
+              <M24>0</M24>
+              <M31>0</M31>
+              <M32>0</M32>
+              <M33>1</M33>
+              <M34>0</M34>
+              <OffsetX>0</OffsetX>
+              <OffsetY>0</OffsetY>
+              <OffsetZ>0</OffsetZ>
+              <M44>1</M44>
+            </TrackballTransform>
             <Texture3DCameraTransform>
               <M11>1</M11>
               <M12>0</M12>
@@ -984,8 +1221,26 @@
               <OffsetZ>0</OffsetZ>
               <M44>1</M44>
             </VolumeRenderCameraTransform>
-            <ShowVRWireFrame>false</ShowVRWireFrame>
-            <Show3DVolumeRenderMIP>false</Show3DVolumeRenderMIP>
+            <VolumeRotationTransform>
+              <M11>1</M11>
+              <M12>0</M12>
+              <M13>0</M13>
+              <M14>0</M14>
+              <M21>0</M21>
+              <M22>1</M22>
+              <M23>0</M23>
+              <M24>0</M24>
+              <M31>0</M31>
+              <M32>0</M32>
+              <M33>1</M33>
+              <M34>0</M34>
+              <OffsetX>0</OffsetX>
+              <OffsetY>0</OffsetY>
+              <OffsetZ>0</OffsetZ>
+              <M44>1</M44>
+            </VolumeRotationTransform>
+            <ShowVRWireFrame>true</ShowVRWireFrame>
+            <Show3DVolumeRenderMIP>true</Show3DVolumeRenderMIP>
             <ImageGridLineType>Dot</ImageGridLineType>
             <ImageGridLineStepSize>5</ImageGridLineStepSize>
             <ImageGridLineColor>
@@ -1010,8 +1265,10 @@
         <DataModelViewingPreset>
           <IsEnabled>true</IsEnabled>
           <IsMaximized>false</IsMaximized>
-          <BgWavelength unit="m" unit-modifier="n" number="0">800</BgWavelength>
+          <BgWavelength unit="m" unit-modifier="n" number="0">700</BgWavelength>
+          <BgFramePerWL>1</BgFramePerWL>
           <FrameAveragingThreshold>0</FrameAveragingThreshold>
+          <SFADependantVisualization>false</SFADependantVisualization>
           <GridRow>1</GridRow>
           <GridColumn>0</GridColumn>
           <ImagingSettingsPreset>
@@ -1025,12 +1282,30 @@
               <OffsetX>0</OffsetX>
               <OffsetY>0</OffsetY>
             </Rotation>
-            <Zoom>1.3011494252873563</Zoom>
+            <RotationYZ>
+              <M11>1</M11>
+              <M12>0</M12>
+              <M21>0</M21>
+              <M22>1</M22>
+              <OffsetX>0</OffsetX>
+              <OffsetY>0</OffsetY>
+            </RotationYZ>
+            <RotationXZ>
+              <M11>1</M11>
+              <M12>0</M12>
+              <M21>0</M21>
+              <M22>1</M22>
+              <OffsetX>0</OffsetX>
+              <OffsetY>0</OffsetY>
+            </RotationXZ>
+            <Zoom>1.91816091954023</Zoom>
             <ImageLayers>
               <DataModelImagingLayer>
                 <Palette>
                   <PaletteType>Gray</PaletteType>
                   <PaletteName>Gray</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -1046,30 +1321,35 @@
                 <GainMax>190</GainMax>
                 <GainMin>10</GainMin>
                 <Semitransparent>false</Semitransparent>
-                <Visible>true</Visible>
+                <ArchiveThresholds />
                 <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>OPUS</ComponentTagIdentifier>
                 <FirstIdentifier>-1</FirstIdentifier>
                 <SecondIdentifier>0</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
-                    <HighFrequency>0</HighFrequency>
+                    <IsActive>false</IsActive>
+                    <HighFrequency>15</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>true</Visible>
+                <FiltersInactiveMode>true</FiltersInactiveMode>
               </DataModelImagingLayer>
               <DataModelImagingLayer>
                 <Palette>
-                  <PaletteType>Contrast</PaletteType>
-                  <PaletteName>Contrast</PaletteName>
+                  <PaletteType>Gray</PaletteType>
+                  <PaletteName>Gray</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -1085,30 +1365,35 @@
                 <GainMax>530</GainMax>
                 <GainMin>0</GainMin>
                 <Semitransparent>false</Semitransparent>
-                <Visible>false</Visible>
+                <ArchiveThresholds />
                 <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>Background</ComponentTagIdentifier>
                 <FirstIdentifier>0</FirstIdentifier>
                 <SecondIdentifier>0</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
+                    <IsActive>true</IsActive>
                     <HighFrequency>0</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>false</Visible>
+                <FiltersInactiveMode>false</FiltersInactiveMode>
               </DataModelImagingLayer>
               <DataModelImagingLayer>
                 <Palette>
-                  <PaletteType>Contrast</PaletteType>
-                  <PaletteName>Contrast</PaletteName>
+                  <PaletteType>Gray</PaletteType>
+                  <PaletteName>Gray</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -1124,30 +1409,35 @@
                 <GainMax>0.7</GainMax>
                 <GainMin>0</GainMin>
                 <Semitransparent>false</Semitransparent>
-                <Visible>false</Visible>
-                <Load>false</Load>
+                <ArchiveThresholds />
+                <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>Hb</ComponentTagIdentifier>
                 <FirstIdentifier>1</FirstIdentifier>
                 <SecondIdentifier>1</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
+                    <IsActive>false</IsActive>
                     <HighFrequency>0</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>false</Visible>
+                <FiltersInactiveMode>true</FiltersInactiveMode>
               </DataModelImagingLayer>
               <DataModelImagingLayer>
                 <Palette>
                   <PaletteType>Yellow</PaletteType>
                   <PaletteName>Yellow</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -1163,30 +1453,35 @@
                 <GainMax>0.4</GainMax>
                 <GainMin>0</GainMin>
                 <Semitransparent>true</Semitransparent>
-                <Visible>true</Visible>
+                <ArchiveThresholds />
                 <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>HbO2</ComponentTagIdentifier>
                 <FirstIdentifier>2</FirstIdentifier>
                 <SecondIdentifier>1</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
+                    <IsActive>false</IsActive>
                     <HighFrequency>0</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>true</Visible>
+                <FiltersInactiveMode>true</FiltersInactiveMode>
               </DataModelImagingLayer>
               <DataModelImagingLayer>
                 <Palette>
-                  <PaletteType>Contrast</PaletteType>
-                  <PaletteName>Contrast</PaletteName>
+                  <PaletteType>Gray</PaletteType>
+                  <PaletteName>Gray</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -1202,52 +1497,53 @@
                 <GainMax>0.3</GainMax>
                 <GainMin>0</GainMin>
                 <Semitransparent>false</Semitransparent>
-                <Visible>false</Visible>
-                <Load>false</Load>
+                <ArchiveThresholds />
+                <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>Melanin</ComponentTagIdentifier>
                 <FirstIdentifier>3</FirstIdentifier>
                 <SecondIdentifier>1</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
+                    <IsActive>false</IsActive>
                     <HighFrequency>0</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>false</Visible>
+                <FiltersInactiveMode>true</FiltersInactiveMode>
               </DataModelImagingLayer>
             </ImageLayers>
             <ImageLayersComposeMethod>Overlay</ImageLayersComposeMethod>
             <IsOxyMapsEnabled>false</IsOxyMapsEnabled>
+            <HBTThreshold>0</HBTThreshold>
             <VolumeZoomCenter3D>
               <X>0</X>
               <Y>0</Y>
               <Z>0</Z>
             </VolumeZoomCenter3D>
             <CroppingPoint0>
-              <X>0</X>
-              <Y>0</Y>
-              <Z>0</Z>
+              <X>0.0125</X>
+              <Y>0.0125</Y>
+              <Z>0.0125</Z>
             </CroppingPoint0>
             <CroppingPoint1>
-              <X>1</X>
-              <Y>1</Y>
-              <Z>1</Z>
+              <X>0.9875</X>
+              <Y>0.9875</Y>
+              <Z>0.9875</Z>
             </CroppingPoint1>
             <MeasurementRulers2D>
               <MeasurementRulersXY />
               <MeasurementRulersXZ />
               <MeasurementRulersYZ />
             </MeasurementRulers2D>
-            <DrawingRois2D>
-              <Regions />
-            </DrawingRois2D>
             <Show3DTexture>false</Show3DTexture>
             <Show3DVolumeRender>false</Show3DVolumeRender>
             <Show3DViews>false</Show3DViews>
@@ -1257,6 +1553,24 @@
             <Z_SelectedPlane>0.5</Z_SelectedPlane>
             <Y_SelectedPlane>0.5</Y_SelectedPlane>
             <X_SelectedPlane>0.5</X_SelectedPlane>
+            <TrackballTransform>
+              <M11>1</M11>
+              <M12>0</M12>
+              <M13>0</M13>
+              <M14>0</M14>
+              <M21>0</M21>
+              <M22>1</M22>
+              <M23>0</M23>
+              <M24>0</M24>
+              <M31>0</M31>
+              <M32>0</M32>
+              <M33>1</M33>
+              <M34>0</M34>
+              <OffsetX>0</OffsetX>
+              <OffsetY>0</OffsetY>
+              <OffsetZ>0</OffsetZ>
+              <M44>1</M44>
+            </TrackballTransform>
             <Texture3DCameraTransform>
               <M11>1</M11>
               <M12>0</M12>
@@ -1293,8 +1607,26 @@
               <OffsetZ>0</OffsetZ>
               <M44>1</M44>
             </VolumeRenderCameraTransform>
-            <ShowVRWireFrame>false</ShowVRWireFrame>
-            <Show3DVolumeRenderMIP>false</Show3DVolumeRenderMIP>
+            <VolumeRotationTransform>
+              <M11>1</M11>
+              <M12>0</M12>
+              <M13>0</M13>
+              <M14>0</M14>
+              <M21>0</M21>
+              <M22>1</M22>
+              <M23>0</M23>
+              <M24>0</M24>
+              <M31>0</M31>
+              <M32>0</M32>
+              <M33>1</M33>
+              <M34>0</M34>
+              <OffsetX>0</OffsetX>
+              <OffsetY>0</OffsetY>
+              <OffsetZ>0</OffsetZ>
+              <M44>1</M44>
+            </VolumeRotationTransform>
+            <ShowVRWireFrame>true</ShowVRWireFrame>
+            <Show3DVolumeRenderMIP>true</Show3DVolumeRenderMIP>
             <ImageGridLineType>Dot</ImageGridLineType>
             <ImageGridLineStepSize>5</ImageGridLineStepSize>
             <ImageGridLineColor>
@@ -1319,8 +1651,10 @@
         <DataModelViewingPreset>
           <IsEnabled>true</IsEnabled>
           <IsMaximized>false</IsMaximized>
-          <BgWavelength unit="m" unit-modifier="n" number="0">800</BgWavelength>
+          <BgWavelength unit="m" unit-modifier="n" number="0">700</BgWavelength>
+          <BgFramePerWL>1</BgFramePerWL>
           <FrameAveragingThreshold>0</FrameAveragingThreshold>
+          <SFADependantVisualization>false</SFADependantVisualization>
           <GridRow>1</GridRow>
           <GridColumn>1</GridColumn>
           <ImagingSettingsPreset>
@@ -1334,12 +1668,30 @@
               <OffsetX>0</OffsetX>
               <OffsetY>0</OffsetY>
             </Rotation>
-            <Zoom>1.3011494252873563</Zoom>
+            <RotationYZ>
+              <M11>1</M11>
+              <M12>0</M12>
+              <M21>0</M21>
+              <M22>1</M22>
+              <OffsetX>0</OffsetX>
+              <OffsetY>0</OffsetY>
+            </RotationYZ>
+            <RotationXZ>
+              <M11>1</M11>
+              <M12>0</M12>
+              <M21>0</M21>
+              <M22>1</M22>
+              <OffsetX>0</OffsetX>
+              <OffsetY>0</OffsetY>
+            </RotationXZ>
+            <Zoom>1.91816091954023</Zoom>
             <ImageLayers>
               <DataModelImagingLayer>
                 <Palette>
                   <PaletteType>Gray</PaletteType>
                   <PaletteName>Gray</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -1355,30 +1707,35 @@
                 <GainMax>190</GainMax>
                 <GainMin>10</GainMin>
                 <Semitransparent>false</Semitransparent>
-                <Visible>true</Visible>
+                <ArchiveThresholds />
                 <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>OPUS</ComponentTagIdentifier>
                 <FirstIdentifier>-1</FirstIdentifier>
                 <SecondIdentifier>0</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
-                    <HighFrequency>0</HighFrequency>
+                    <IsActive>false</IsActive>
+                    <HighFrequency>15</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>true</Visible>
+                <FiltersInactiveMode>true</FiltersInactiveMode>
               </DataModelImagingLayer>
               <DataModelImagingLayer>
                 <Palette>
                   <PaletteType>Gray</PaletteType>
                   <PaletteName>Gray</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -1394,30 +1751,35 @@
                 <GainMax>530</GainMax>
                 <GainMin>0</GainMin>
                 <Semitransparent>false</Semitransparent>
-                <Visible>false</Visible>
+                <ArchiveThresholds />
                 <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>Background</ComponentTagIdentifier>
                 <FirstIdentifier>0</FirstIdentifier>
                 <SecondIdentifier>0</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
+                    <IsActive>true</IsActive>
                     <HighFrequency>0</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>false</Visible>
+                <FiltersInactiveMode>false</FiltersInactiveMode>
               </DataModelImagingLayer>
               <DataModelImagingLayer>
                 <Palette>
-                  <PaletteType>Contrast</PaletteType>
-                  <PaletteName>Contrast</PaletteName>
+                  <PaletteType>Gray</PaletteType>
+                  <PaletteName>Gray</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -1433,30 +1795,35 @@
                 <GainMax>0.7</GainMax>
                 <GainMin>0</GainMin>
                 <Semitransparent>false</Semitransparent>
-                <Visible>false</Visible>
+                <ArchiveThresholds />
                 <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>Hb</ComponentTagIdentifier>
                 <FirstIdentifier>1</FirstIdentifier>
                 <SecondIdentifier>1</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
+                    <IsActive>false</IsActive>
                     <HighFrequency>0</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>false</Visible>
+                <FiltersInactiveMode>true</FiltersInactiveMode>
               </DataModelImagingLayer>
               <DataModelImagingLayer>
                 <Palette>
-                  <PaletteType>Contrast</PaletteType>
-                  <PaletteName>Contrast</PaletteName>
+                  <PaletteType>Gray</PaletteType>
+                  <PaletteName>Gray</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -1472,30 +1839,35 @@
                 <GainMax>0.5</GainMax>
                 <GainMin>0</GainMin>
                 <Semitransparent>false</Semitransparent>
-                <Visible>false</Visible>
-                <Load>false</Load>
+                <ArchiveThresholds />
+                <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>HbO2</ComponentTagIdentifier>
                 <FirstIdentifier>2</FirstIdentifier>
                 <SecondIdentifier>1</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
+                    <IsActive>false</IsActive>
                     <HighFrequency>0</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>false</Visible>
+                <FiltersInactiveMode>true</FiltersInactiveMode>
               </DataModelImagingLayer>
               <DataModelImagingLayer>
                 <Palette>
                   <PaletteType>Yellow</PaletteType>
                   <PaletteName>Yellow</PaletteName>
+                  <Contrast>0.5</Contrast>
+                  <Brightness>0.5</Brightness>
                   <AlphaGainCurveCP1>
                     <X>0</X>
                     <Y>0</Y>
@@ -1511,52 +1883,53 @@
                 <GainMax>2.2</GainMax>
                 <GainMin>0.8</GainMin>
                 <Semitransparent>true</Semitransparent>
-                <Visible>true</Visible>
+                <ArchiveThresholds />
                 <Load>true</Load>
                 <Tlp>false</Tlp>
                 <Flip>false</Flip>
+                <AutoAlphaTransitions>true</AutoAlphaTransitions>
                 <ComponentTagIdentifier>Melanin</ComponentTagIdentifier>
                 <FirstIdentifier>3</FirstIdentifier>
                 <SecondIdentifier>1</SecondIdentifier>
-                <HbOxyMapThreshold>0.01</HbOxyMapThreshold>
-                <HbO2OxyMapThreshold>0.01</HbO2OxyMapThreshold>
-                <OxyMapThresholdValue>0</OxyMapThresholdValue>
                 <LogarithmicScaling>false</LogarithmicScaling>
                 <RenderingWeight>1</RenderingWeight>
                 <FilterSettings>
                   <DataModelFrequencyFilterSetting>
+                    <IsActive>false</IsActive>
                     <HighFrequency>0</HighFrequency>
                     <LowFrequency>100</LowFrequency>
                   </DataModelFrequencyFilterSetting>
                 </FilterSettings>
                 <RoiTableVisible>true</RoiTableVisible>
+                <ShowContourOutline>true</ShowContourOutline>
+                <SmoothEdgeFactor>25</SmoothEdgeFactor>
+                <Visible>true</Visible>
+                <FiltersInactiveMode>true</FiltersInactiveMode>
               </DataModelImagingLayer>
             </ImageLayers>
             <ImageLayersComposeMethod>Overlay</ImageLayersComposeMethod>
             <IsOxyMapsEnabled>false</IsOxyMapsEnabled>
+            <HBTThreshold>0</HBTThreshold>
             <VolumeZoomCenter3D>
               <X>0</X>
               <Y>0</Y>
               <Z>0</Z>
             </VolumeZoomCenter3D>
             <CroppingPoint0>
-              <X>0</X>
-              <Y>0</Y>
-              <Z>0</Z>
+              <X>0.0125</X>
+              <Y>0.0125</Y>
+              <Z>0.0125</Z>
             </CroppingPoint0>
             <CroppingPoint1>
-              <X>1</X>
-              <Y>1</Y>
-              <Z>1</Z>
+              <X>0.9875</X>
+              <Y>0.9875</Y>
+              <Z>0.9875</Z>
             </CroppingPoint1>
             <MeasurementRulers2D>
               <MeasurementRulersXY />
               <MeasurementRulersXZ />
               <MeasurementRulersYZ />
             </MeasurementRulers2D>
-            <DrawingRois2D>
-              <Regions />
-            </DrawingRois2D>
             <Show3DTexture>false</Show3DTexture>
             <Show3DVolumeRender>false</Show3DVolumeRender>
             <Show3DViews>false</Show3DViews>
@@ -1566,6 +1939,24 @@
             <Z_SelectedPlane>0.5</Z_SelectedPlane>
             <Y_SelectedPlane>0.5</Y_SelectedPlane>
             <X_SelectedPlane>0.5</X_SelectedPlane>
+            <TrackballTransform>
+              <M11>1</M11>
+              <M12>0</M12>
+              <M13>0</M13>
+              <M14>0</M14>
+              <M21>0</M21>
+              <M22>1</M22>
+              <M23>0</M23>
+              <M24>0</M24>
+              <M31>0</M31>
+              <M32>0</M32>
+              <M33>1</M33>
+              <M34>0</M34>
+              <OffsetX>0</OffsetX>
+              <OffsetY>0</OffsetY>
+              <OffsetZ>0</OffsetZ>
+              <M44>1</M44>
+            </TrackballTransform>
             <Texture3DCameraTransform>
               <M11>1</M11>
               <M12>0</M12>
@@ -1602,8 +1993,26 @@
               <OffsetZ>0</OffsetZ>
               <M44>1</M44>
             </VolumeRenderCameraTransform>
-            <ShowVRWireFrame>false</ShowVRWireFrame>
-            <Show3DVolumeRenderMIP>false</Show3DVolumeRenderMIP>
+            <VolumeRotationTransform>
+              <M11>1</M11>
+              <M12>0</M12>
+              <M13>0</M13>
+              <M14>0</M14>
+              <M21>0</M21>
+              <M22>1</M22>
+              <M23>0</M23>
+              <M24>0</M24>
+              <M31>0</M31>
+              <M32>0</M32>
+              <M33>1</M33>
+              <M34>0</M34>
+              <OffsetX>0</OffsetX>
+              <OffsetY>0</OffsetY>
+              <OffsetZ>0</OffsetZ>
+              <M44>1</M44>
+            </VolumeRotationTransform>
+            <ShowVRWireFrame>true</ShowVRWireFrame>
+            <Show3DVolumeRenderMIP>true</Show3DVolumeRenderMIP>
             <ImageGridLineType>Dot</ImageGridLineType>
             <ImageGridLineStepSize>5</ImageGridLineStepSize>
             <ImageGridLineColor>
@@ -1626,6 +2035,9 @@
           </ImagingSettingsPreset>
         </DataModelViewingPreset>
       </ViewingPresets>
+      <RegionsOfInterest>
+        <Items />
+      </RegionsOfInterest>
       <Scenarios>MspAnatomical</Scenarios>
       <QuantificationSettings>
         <CalculationMethod>PerWholeImageStackPerRoiBasis</CalculationMethod>
