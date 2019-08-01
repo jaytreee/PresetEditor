@@ -201,6 +201,16 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.maxBox.valueChanged.connect(self.maxThreshCheck)
         self.minBox.editingFinished.connect(self.maxThreshCheck)
         self.minBox.valueChanged.connect(self.maxThreshCheck)
+
+        self.mainPanelBrightnessDoubleSpinBox.editingFinished.connect(self.UItoTree)
+        self.mainPanelBrightnessDoubleSpinBox.valueChanged.connect(self.UItoTree)
+        self.mainPanelContrastDoubleSpinBox.editingFinished.connect(self.UItoTree)
+        self.mainPanelContrastDoubleSpinBox.valueChanged.connect(self.UItoTree)
+        self.mainPanelOPUSBrightnessDoubleSpinBox.editingFinished.connect(self.UItoTree)
+        self.mainPanelOPUSBrightnessDoubleSpinBox.valueChanged.connect(self.UItoTree)
+        self.mainPanelOPUSContrastDoubleSpinBox.editingFinished.connect(self.UItoTree)
+        self.mainPanelOPUSContrastDoubleSpinBox.valueChanged.connect(self.UItoTree)
+        self.mainPanelPaletteType.currentIndexChanged.connect(self.UItoTree)
         
         self.enableMultiPanel.toggled.connect(self.toggleMultiPanel)
 
@@ -253,8 +263,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             hgoutput = subprocess.run(['hg','id','-n'], stdout=subprocess.PIPE)
             hgoutput = hgoutput.stdout.decode('utf-8').strip()
             match = re.search('^([0-9]+)(\+)?$', hgoutput)
-
-            rev = match.group(1)
+            if match is None:
+                rev = 'XX'
+            else:
+                rev = match.group(1)
 
         self.version = 'v'+v+ '-rev'+rev
         self.statusbar.showMessage(self.version)
@@ -482,7 +494,6 @@ Continue to use the editor at your own risk, and check resulting presets careful
         self.tree.xpath('./DataModelStudyPreset/PresetVersion')[0].text = self.versionTextBox.text()
         excel_dict.update({'PresetVersion':  self.versionTextBox.text()})
         
-
     
         # ====== Acquisition Tab =======
         self.tree.find('.//DisplayAllWavelengths').text = str(self.displayAllWLBox.isChecked()).lower()
@@ -528,6 +539,31 @@ Continue to use the editor at your own risk, and check resulting presets careful
                 if '{http://www.w3.org/2001/XMLSchema-instance}nil' in directF.attrib:
                     del directF.attrib['{http://www.w3.org/2001/XMLSchema-instance}nil']
                 excel_dict.update({'Backprojection':  'Derivative'})
+
+        # ======= Main Panel =========
+        mainPanelNodes = self.tree.findall('.//ImageLayers//DataModelImagingLayer')
+
+        bnode = mainPanelNodes[0].find('.//Palette//Brightness')
+        if bnode is not None:        
+            bnode.text = str(self.mainPanelOPUSBrightnessDoubleSpinBox.value())
+            excel_dict.update({'MainPanel OPUS Brightness':  str(self.mainPanelOPUSBrightnessDoubleSpinBox.value())})
+        cnode = mainPanelNodes[0].find('.//Palette//Contrast')
+        if cnode is not None:
+            cnode.text = str(self.mainPanelOPUSContrastDoubleSpinBox.value())
+            excel_dict.update({'MainPanel OPUS Contrast':   str(self.mainPanelOPUSContrastDoubleSpinBox.value())})
+        bnode = mainPanelNodes[1].find('.//Palette//Brightness')
+        if bnode is not None:        
+            bnode.text = str(self.mainPanelBrightnessDoubleSpinBox.value())
+            excel_dict.update({'MainPanel Background Brightness':  str(self.mainPanelBrightnessDoubleSpinBox.value())})
+        cnode = mainPanelNodes[1].find('.//Palette//Contrast')
+        if cnode is not None:
+            cnode.text = str(self.mainPanelContrastDoubleSpinBox.value())
+            excel_dict.update({'MainPanel Background Contrast':   str(self.mainPanelContrastDoubleSpinBox.value())})
+        pnode = mainPanelNodes[1].find('.//Palette//PaletteType')
+        if pnode is not None:
+            pnode.text = str(self.mainPanelPaletteType.currentText())
+            excel_dict.update({'MainPanel Background PaletteType':  str(self.mainPanelPaletteType.currentText())})
+
         
         # ====== Visualization Tab =======
         if self.enableMultiPanel.isEnabled():
@@ -790,12 +826,23 @@ Continue to use the editor at your own risk, and check resulting presets careful
 
         # ========= Processing Tab ===========
         self.userSoundBox.setValue(int(self.tree.find('.//UserSoundTrim').text))
-        self.setUIEditValue(self.SFAFrameThreshBox, float, './/FRAMECORRTHRES')
-        self.setUIEditValue(self.backgroundAbsorptionBox, float, './/BackgroundAbsorption')
-        self.setUIEditValue(self.backgroundOxyBox, float, './/BackgroundOxygenation')
-        self.setUIEditValue(self.maxavgframes, int, './/MAXAVERAGES')
-        self.setUIEditValue(self.sfabuffersize, int, './/MAXPASTSWEEPS')
+        self.setUIEditValue(self.SFAFrameThreshBox, float, self.tree, './/FRAMECORRTHRES')
+        self.setUIEditValue(self.backgroundAbsorptionBox, float, self.tree, './/BackgroundAbsorption')
+        self.setUIEditValue(self.backgroundOxyBox, float, self.tree, './/BackgroundOxygenation')
+        self.setUIEditValue(self.maxavgframes, int, self.tree, './/MAXAVERAGES')
+        self.setUIEditValue(self.sfabuffersize, int, self.tree, './/MAXPASTSWEEPS')
         self.filterTypeBox.setCurrentText(self.tree.find('.//FilterType').text)
+        self.prefWLBox.setCurrentText(self.tree.find('.//PreferredBackgroundWL').text)
+
+
+        # ======= Main Panel =================
+        # should find 2 DataModelImagingLayer (first Opus and then Background)
+        mainPanelNodes = self.tree.findall('.//ImageLayers//DataModelImagingLayer')
+        self.setUIEditValue(self.mainPanelOPUSBrightnessDoubleSpinBox, float, mainPanelNodes[0], './/Palette//Brightness')
+        self.setUIEditValue(self.mainPanelOPUSContrastDoubleSpinBox, float, mainPanelNodes[0], './/Palette//Contrast')
+        self.setUIComboBox(self.mainPanelPaletteType, mainPanelNodes[1], './/Palette//PaletteType')
+        self.setUIEditValue(self.mainPanelBrightnessDoubleSpinBox, float, mainPanelNodes[1], './/Palette//Brightness')
+        self.setUIEditValue(self.mainPanelContrastDoubleSpinBox, float, mainPanelNodes[1], './/Palette//Contrast')
 
         v27_enabled = self.compat is not None and LooseVersion(self.compat) >= LooseVersion('1.2.0.27')
         self.backprojectionAuto.setEnabled(v27_enabled)
@@ -823,7 +870,6 @@ Continue to use the editor at your own risk, and check resulting presets careful
                 elif directF.text == 'false':
                     self.backprojectionDerivative.setChecked(True)
 
-        self.prefWLBox.setCurrentText(self.tree.find('.//PreferredBackgroundWL').text)
         # ===============Visualization Tab==================
         
         self.getViewingPresets()
@@ -863,12 +909,20 @@ Continue to use the editor at your own risk, and check resulting presets careful
 
         self.generatePresetID()
 
-    def setUIEditValue(self, uiel, datatype, xmltag):
-        el = self.tree.find(xmltag)
+    def setUIEditValue(self, uiel, datatype, tree, xmltag):
+        el = tree.find(xmltag)
         if el is None:
             uiel.setEnabled(False)
         else:
             uiel.setValue(datatype(el.text))
+            uiel.setEnabled(True)
+
+    def setUIComboBox(self, uiel, tree, xmltag):
+        el = tree.find(xmltag)
+        if el is None:
+            uiel.setEnabled(False)
+        else:
+            uiel.setCurrentText(el.text)
             uiel.setEnabled(True)
 
     def setUICheckbox(self, uiel, xmltag):
