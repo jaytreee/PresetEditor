@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDataModelStudyPreset xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">   
-<!-- Compatible Software Version: <=1.2.0.21 -->
-	<DataModelStudyPreset contentHash="f4021044-ec4c-5172-bb8c-51284f3241e9">
+<!-- Compatible Software Version: <=1.2.0.27 -->
+	<DataModelStudyPreset contentHash="8adfce84-b322-54f3-91e3-a9c65d8358f9">
 <!-- **************************************************************************************
 	 RELEASE 1.2 Single Panel - 2D 800nm Single WL Preset
 	 ************************************************************************************** 
@@ -16,7 +16,7 @@
 <!-- ** ALWAYS change the Identifier upon copying to uniquely identify the Preset.
 		Upon Change, tag with your Name and Date of change. 
 		This is not shown anywhere in the software, but will appear in the .msot File -->
-		<PresetIdentifier>PType212_Master_2D_800nm_v1.2#f4021044-ec4c-5172-bb8c-51284f3241e9</PresetIdentifier>
+		<PresetIdentifier>PType212_Master_2D_800nm_v1.2#8adfce84-b322-54f3-91e3-a9c65d8358f9</PresetIdentifier>
 
 <!-- ** COMPATIBLE DETECTOR ** must be matching a detector in settings file -->
 		<CompatibleDetectorGUID>PType212</CompatibleDetectorGUID>
@@ -102,6 +102,10 @@
 <!-- ** ULTRASOUND FOCUS ** Ultrasound Frequency and Speed of Sound -->
 				<ProdigyFrequency>6</ProdigyFrequency>	<!-- Excitation Frequency, can have integer numbers and should not exceed 3dB bandwidth of transducer -->
 				<ProdigySV>1530</ProdigySV>				<!-- Speed of Sound for Prodigy - will not adapt when OA image is focussed -->					
+
+<!-- ** New RECON Params in v1.2.0.27 ** Don't touch unless you know what you are doing -->
+				<DirectFilter xsi:nil="true"/>
+				<InvertReconstruction>false</InvertReconstruction>
 			</DataModelReconPreset>
 		</ReconPresets>
 	

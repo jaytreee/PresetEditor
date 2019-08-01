@@ -52,6 +52,13 @@ COLORMAPS = [
     'Contrast'
 ]
 
+FILTERTYPES = [
+    'FIR',
+    'FIR_0_phase',
+    # 'Cheby4thOrderZP',
+    # 'Cheby1stOrderNZ'
+]
+
 
 class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     """
@@ -94,7 +101,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     sortedwvlist = []
     """ sorted wavelength list"""
 
-    vMc_compat = '1.2.0.21'
+    vMc_compat = '1.2.0.27'
 
     contentHashChanged = QtCore.pyqtSignal(str)
 
@@ -115,6 +122,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.connectGUItoFunctionalty()
         for cmap in sorted(COLORMAPS):
             self.paletteType.addItem(cmap)
+        for ft in FILTERTYPES:
+            self.filterTypeBox.addItem(ft)
 
         # self.schemamanager = iXMLSchemaManager()
         # self.schemamanager.main()
@@ -171,6 +180,14 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.sfabuffersize.valueChanged.connect(self.UItoTree)
         self.addButton.clicked.connect(self.addspectra)
         self.deleteButton.clicked.connect(self.removespectra)
+
+        # New features from 1.2.0.27
+        self.backprojectionButtons = (self.backprojectionAuto, self.backprojectionDerivative, self.backprojectionDirect)
+        self.filterTypeBox.currentIndexChanged.connect(self.UItoTree)
+        self.invertReconstruction.toggled.connect(self.UItoTree)
+        self.backprojectionAuto.toggled.connect(self.UItoTree)
+        self.backprojectionDirect.toggled.connect(self.UItoTree)
+        self.backprojectionDerivative.toggled.connect(self.UItoTree)
 
         self.visibleCheck.clicked.connect(self.changeLayerSettings)
         self.loadCheck.clicked.connect(self.changeLayerSettings)
@@ -488,7 +505,28 @@ Continue to use the editor at your own risk, and check resulting presets careful
         excel_dict.update({'Max Averaged Frames':  str(self.maxavgframes.value())})
         self.tree.find('.//MAXPASTSWEEPS').text = str(self.sfabuffersize.value())
         excel_dict.update({'SFA Buffer Size':  str(self.sfabuffersize.value())})
+        self.tree.find('.//FilterType').text = str(self.filterTypeBox.currentText())
+        excel_dict.update({'FilterType':  str(self.filterTypeBox.currentText())})
         # self.tree.find('.//BgWavelength').text = self.bgWL.currentText()
+        if self.invertReconstruction.isEnabled():
+            self.tree.find('.//InvertReconstruction').text = str(self.invertReconstruction.isChecked()).lower()
+            excel_dict.update({'InvertReconstruction':  str(self.invertReconstruction.isChecked()).lower()})
+        if self.backprojectionAuto.isEnabled():
+            directF = self.tree.find('.//DirectFilter')
+            if self.backprojectionAuto.isChecked():
+                directF.attrib['{http://www.w3.org/2001/XMLSchema-instance}nil'] = 'true'
+                directF.text = None
+                excel_dict.update({'Backprojection':  'Auto'})
+            elif self.backprojectionDirect.isChecked():
+                if '{http://www.w3.org/2001/XMLSchema-instance}nil' in directF.attrib:
+                    del directF.attrib['{http://www.w3.org/2001/XMLSchema-instance}nil']
+                directF.text = 'true'
+                excel_dict.update({'Backprojection':  'Direct'})
+            elif self.backprojectionDerivative.isChecked():
+                directF.text = 'false'
+                if '{http://www.w3.org/2001/XMLSchema-instance}nil' in directF.attrib:
+                    del directF.attrib['{http://www.w3.org/2001/XMLSchema-instance}nil']
+                excel_dict.update({'Backprojection':  'Derivative'})
         
         # ====== Visualization Tab =======
         self.tree.find('.//IsMultipleMspLivePreviewEnabled').text = str(self.enableMultiPanel.isChecked()).lower()
@@ -754,7 +792,33 @@ Continue to use the editor at your own risk, and check resulting presets careful
         self.setUIEditValue(self.backgroundOxyBox, float, './/BackgroundOxygenation')
         self.setUIEditValue(self.maxavgframes, int, './/MAXAVERAGES')
         self.setUIEditValue(self.sfabuffersize, int, './/MAXPASTSWEEPS')
+        self.filterTypeBox.setCurrentText(self.tree.find('.//FilterType').text)
 
+        v27_enabled = self.compat is not None and LooseVersion(self.compat) >= LooseVersion('1.2.0.27')
+        self.backprojectionAuto.setEnabled(v27_enabled)
+        self.backprojectionDirect.setEnabled(v27_enabled)
+        self.backprojectionDerivative.setEnabled(v27_enabled)
+        self.filterTypeBox.setEnabled(v27_enabled)
+        self.invertReconstruction.setEnabled(v27_enabled)
+        if v27_enabled:
+            invR = self.tree.find('.//InvertReconstruction')
+            if invR is None:
+                self.invertReconstruction.setEnabled(False)
+            else:
+                self.invertReconstruction.setChecked(invR.text == 'true')
+
+            directF = self.tree.find('.//DirectFilter')
+            if directF is None:
+                self.backprojectionAuto.setEnabled(False)
+                self.backprojectionDirect.setEnabled(False)
+                self.backprojectionDerivative.setEnabled(False)
+            else:
+                if directF.text is None:
+                    self.backprojectionAuto.setChecked(True)
+                elif directF.text == 'true':
+                    self.backprojectionDirect.setChecked(True)
+                elif directF.text == 'false':
+                    self.backprojectionDerivative.setChecked(True)
 
         self.prefWLBox.setCurrentText(self.tree.find('.//PreferredBackgroundWL').text)
         # ===============Visualization Tab==================
