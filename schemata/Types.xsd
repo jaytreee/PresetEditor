@@ -3,6 +3,24 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   attributeFormDefault="unqualified" elementFormDefault="qualified">
+  <xsd:complexType name="ArrayOfDataModelBodyAtlasNode">
+    <xsd:sequence>
+      <xsd:element name="DataModelBodyAtlasNode" type="DataModelBodyAtlasNode" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="DataModelBodyAtlasNode">
+    <xsd:all>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="ImageDataBase64" type="xsd:string"/>
+      <xsd:element name="Children" type="ArrayOfDataModelBodyAtlasNode"/>
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="DataModelBodyAtlas">
+    <xsd:all>
+      <xsd:element name="DataModelVersion" type="xsd:string" />
+      <xsd:element name="Root" type="DataModelBodyAtlasNode" />
+    </xsd:all>
+  </xsd:complexType>  
   <xsd:complexType name="DataModelFluenceModel">
     <xsd:all>
       <xsd:element name="DataModelVersion" type="xsd:string" />
@@ -466,11 +484,28 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:complexType name="ArrayOfViewIndexes">
+    <xsd:sequence>
+      <xsd:element name="int" type="xsd:int" maxOccurs="unbounded" minOccurs="0" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="DataModelImageSourceReference">
+    <xsd:all>
+      <xsd:element name="Reference" type="xsd:int" minOccurs="1" />
+      <xsd:element name="ViewsIndexes" type="ArrayOfViewIndexes" minOccurs="1" />
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="ArrayOfDataModelImageSourceReference">
+    <xsd:sequence>
+      <xsd:element name="DataModelImageSourceReference" type="DataModelImageSourceReference" maxOccurs="unbounded" minOccurs="0" />
+    </xsd:sequence>
+  </xsd:complexType>
   <xsd:complexType name="DataModel3DRegion">
     <xsd:complexContent>
       <xsd:extension base="DataModelRegionBase">
         <xsd:sequence>
           <xsd:element name="Region3D" type="ArrayOfDataModel3DRegionBase" minOccurs="0" />
+          <xsd:element name="ImageSourceReferences" type="ArrayOfDataModelImageSourceReference" minOccurs="0" />
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -488,6 +523,11 @@
   <xsd:complexType name="DataModelDrawingRois2D">
     <xsd:all>
       <xsd:element name="Regions" type="ArrayOfDataModel3DRegion" minOccurs="0" />
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="DataModelRegionsOfInterest">
+    <xsd:all>
+      <xsd:element name="Items" type="ArrayOfDataModel3DRegion" minOccurs="0" />
     </xsd:all>
   </xsd:complexType>
   <xsd:complexType name="DataModelMeasurementRuler2D">
@@ -612,6 +652,9 @@
       <xsd:element name="DesiredWaterTemperature" type="xsd:double" minOccurs="0" />
       <xsd:element name="IsMultipleMspLivePreviewEnabled" type="xsd:boolean" minOccurs="0" />
       <xsd:element name="MAXPASTSWEEPS" type="xsd:int" minOccurs="0" />
+      <xsd:element name="BodyAtlas" type="DataModelBodyAtlas" minOccurs="0" />
+      <xsd:element name="SelectedBodyAtlasNodeName" type="xsd:string" minOccurs="0" />
+      <xsd:element name="ScanLocationIDs" type="ArrayOfString" minOccurs="0"/>    
     </xsd:all>
   </xsd:complexType>
   <xsd:complexType name="DataModelViewingPreset">
@@ -659,9 +702,16 @@
       <xsd:element name="AdditionalViews" type="DataModelAdditionalViews" minOccurs="0" />
       <xsd:element name="PresetType" type="xsd:string" minOccurs="0" />
       <xsd:element name="CompatibleDetectorGUID" type="xsd:string" minOccurs="0" />
+      <xsd:element name="ControlsLocked" minOccurs="0" >
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="Control" type="ControlsEnablingProperty" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
     </xsd:all>
     <xsd:attribute name="contentHash" type="xsd:string" use="optional"/>
-  </xsd:complexType>
+  </xsd:complexType>  
   <xsd:complexType name="ArrayOfDataModelStudyPreset">
     <xsd:sequence>
       <xsd:element name="DataModelStudyPreset" type="DataModelStudyPreset" maxOccurs="unbounded" minOccurs="0" />
@@ -727,6 +777,7 @@
         </xsd:complexType>
       </xsd:element>
       <xsd:element name="ViewingPresets" type="ArrayOfDataModelViewingPreset" minOccurs="0" />
+      <xsd:element name="RegionsOfInterest" type="DataModelRegionsOfInterest" minOccurs="0" />
       <xsd:element name="Scenarios" type="xsd:string" minOccurs="0" />
       <xsd:element name="QuantificationSettings" type="DataModelImagingQuantificationSettings" minOccurs="0" />
     </xsd:sequence>
@@ -1029,6 +1080,7 @@
     </xsd:all>
     <xsd:attribute name="timestamp" type="xsd:unsignedLong" use="required" />
     <xsd:attribute name="ultraSound-frame-offset" type="xsd:int" />
+    <xsd:attribute name="Checksum-CRC32c" type="xsd:unsignedInt" />
   </xsd:complexType>
   <xsd:complexType name="DataModelScanFrame">
     <xsd:all>
@@ -1038,8 +1090,14 @@
   </xsd:complexType>
   <xsd:complexType name="DataModelScanNode">
     <xsd:all>
+      <xsd:element name="DataModelVersion" type="xsd:decimal" minOccurs="0"/>
       <xsd:element name="Name" type="xsd:string" />
       <xsd:element name="Comment" minOccurs="0"/>
+      <xsd:element name="SelectedBodyAtlasNodeName" type="xsd:string" minOccurs="0" />
+      <xsd:element name="ProbePosition" type="Point" minOccurs="0" />
+      <xsd:element name="ProbeAngle" type="xsd:double" minOccurs="0" />
+      <xsd:element name="ScanLocationIDs" type="ArrayOfString" minOccurs="0"/>    
+      <xsd:element name="SelectedScanLocationID" type="xsd:string" minOccurs="0"/>      
       <xsd:element name="zAxisUnit" type="xsd:string" minOccurs="0"/>
       <xsd:element name="NumberOfSlices" type="xsd:int" />
       <xsd:element name="TrimSpeedOfSound" type="xsd:double" />
@@ -1084,6 +1142,7 @@
       <xsd:element name="IDOffset" type="xsd:int" />
       <xsd:element name="zOffset" type="xsd:int" />
       <xsd:element name="HasErrors" type="xsd:boolean" />
+      <xsd:element name="Checksum" type="xsd:unsignedInt" minOccurs="0"/>
     </xsd:all>
   </xsd:complexType>
 
@@ -1093,13 +1152,25 @@
       <xsd:element name="FluenceHeader" type="DataModelFluenceHeader"/>
       <xsd:element name="ReconGuid" type="xsd:string" minOccurs="0"/>
     </xsd:all>
-  </xsd:complexType
-  >
+  </xsd:complexType>
+  <xsd:simpleType name="ReconNodePostCalculations">
+    <xsd:list>
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="None" />
+          <xsd:enumeration value="Depth" />
+          <xsd:enumeration value="Invertion" />
+          <xsd:enumeration value="WaterCoeff" />
+          <xsd:enumeration value="SensitivityMap" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:list>
+  </xsd:simpleType>
   <xsd:complexType name="DataModelNewReconstructionNode">
     <xsd:all>
       <xsd:element name="DataModelVersion" type="xsd:decimal" minOccurs="0"/>
       <xsd:element name="Name" type="xsd:string" />
-      <xsd:element name="Comment" type="xsd:string" />
+      <xsd:element name="Comment" type="xsd:string" minOccurs="0"/>
       <xsd:element name="CreationTime" type="xsd:dateTime" />
       <xsd:element name="GUID" type="xsd:string" />
       <xsd:element name="Method" type="xsd:string" />
@@ -1129,6 +1200,7 @@
       <xsd:element name="ImpulseResponse" type="xsd:boolean" minOccurs="0"/>
       <xsd:element name="SensitivityMap" type="xsd:boolean" minOccurs="0"/>
       <xsd:element name="FIELD-OF-VIEW" type="DataModelFieldOfView" minOccurs="0"/>
+      <xsd:element name="DataAppliedCalculations" minOccurs="0" type="ReconNodePostCalculations"/>
       <xsd:element name="ReconFrames">
         <xsd:complexType>
           <xsd:sequence>
@@ -1185,6 +1257,7 @@
       <xsd:element name="ComponRef" type="xsd:int"/>
       <xsd:element name="invert" type="xsd:boolean"/>
       <xsd:element name="SpectraName" type="xsd:string"/>
+      <xsd:element name="Checksum" type="xsd:unsignedInt" minOccurs="0"/>
     </xsd:all>
   </xsd:complexType>
   <xsd:complexType name="MspSliceFrame">
@@ -1338,4 +1411,27 @@
       <xsd:enumeration value="theta"/>
     </xsd:restriction>
   </xsd:simpleType>
+
+  <xsd:simpleType name="ControlsEnablingProperty">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="None"/>
+      <xsd:enumeration value="All"/>
+      <xsd:enumeration value="BackgroundSelection"/>
+      <xsd:enumeration value="DepthCorrection"/>
+      <xsd:enumeration value="SpeedOfSound"/>
+      <xsd:enumeration value="AutoScaling"/>  
+      <xsd:enumeration value="LogarithmicScale"/>    
+      <xsd:enumeration value="FilterMenu"/>   
+      <xsd:enumeration value="Transparency"/>   
+      <xsd:enumeration value="ColorMapSelection"/>  
+      <xsd:enumeration value="SetThresholdToMin"/>    
+      <xsd:enumeration value="SetThresholdToZero"/>   
+      <xsd:enumeration value="LowThresholdButtons"/>   
+      <xsd:enumeration value="UpThresholdButtons"/>    
+      <xsd:enumeration value="SetThresholdToMax"/>   
+      <xsd:enumeration value="UpThresholdField"/>   
+      <xsd:enumeration value="LowThresholdField"/>   
+    </xsd:restriction>
+  </xsd:simpleType>
+  
 </xsd:schema>

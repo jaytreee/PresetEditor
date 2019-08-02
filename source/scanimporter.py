@@ -77,7 +77,7 @@ def _load_and_verify(filename, schemafile):
     try:
         xmlschema.assertValid(tree)
     except etree.DocumentInvalid as err:
-        logging.debug('Exception while validating {}'.format(path), exc_info=err)
+        logging.debug('Exception while validating {}'.format(filename), exc_info=err)
         logging.error('XML Schema validation error: ' + str(err))
         return None
 
