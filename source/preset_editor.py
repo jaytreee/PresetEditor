@@ -231,8 +231,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.unselectedList.addItems(self.unselectedspectra)
         # self.viewSpectraList.addItems(self.defaultspectra)
 
-        # ===== Processing========
-        
+        # ===== Body Atlas ========
+        self.scanLocations.textChanged.connect(self.UItoTree)
 
         # ======== View Settings ===========
         self.autoScalingCheck.clicked.connect(self.changeViewSettings)
@@ -621,7 +621,17 @@ Continue to use the editor at your own risk, and check resulting presets careful
                 if el.isChecked():
                     x = etree.SubElement(cnode, 'Control')
                     x.text = el.text()
-        
+
+        # ====== BodyAtlas TAB =========
+        cnode = self.tree.find('.//ScanLocationIDs')
+        if cnode is not None:
+            while len(cnode) > 0:  # clean node
+                cnode.remove(cnode[0])
+            for line in self.scanLocations.toPlainText().splitlines():
+                logging.debug(line)
+                x = etree.SubElement(cnode, 'string')
+                x.text = line
+
         # ====== Visualization Tab =======
         if self.enableMultiPanel.isEnabled():
             self.tree.find('.//IsMultipleMspLivePreviewEnabled').text = str(self.enableMultiPanel.isChecked()).lower()
@@ -942,7 +952,20 @@ Continue to use the editor at your own risk, and check resulting presets careful
         else:  # If not in Preset, disable Tab completely
             self.lockNone()
             self.tabRestrictions.setEnabled(False)
-                    
+
+        # ====== Body Atlas TAB =========
+        cnode = self.tree.find('.//ScanLocationIDs')
+        if cnode is not None:
+            self.groupBodyRegion.setEnabled(True)
+            self.scanLocations.setPlainText('')
+            loclist = []
+            for loc in cnode:  # Enable each restrictions checkbox
+                loclist.append(loc.text)
+            self.scanLocations.setPlainText('\n'.join(loclist))            
+        else:  # If not in Preset, disable Tab completely
+            self.scanLocations.setPlainText('')            
+            self.groupBodyRegion.setEnabled(False)
+
         # ===============Visualization Tab==================
         
         self.getViewingPresets()
