@@ -11,13 +11,13 @@ class Test_PresetEditor(TestCase):
         app = PyQt5.QtWidgets.QApplication([])
         pe = PresetEditor(False)
         # load inconsistent file
-        testfile = 'testdata\\2D_Masterpreset_singleWL800_dual panel_Inconsistent.XML'
+        testfile = 'testdata\\2D_Masterpreset_v2.0_800nm_dualpanel_inconsistent.XML'
         ret = pe.loadxmlFile(testfile)
         assert ret 
         assert pe.loadeddata
         assert pe.consistencywarning
         # load file with XML Error
-        testfile = 'testdata\\2D_Masterpreset_singleWL800_dual panel_ERROR.XML'
+        testfile = 'testdata\\2D_Masterpreset_v2.0_800nm_dualpanel_XMLERROR.XML'
         ret = pe.loadxmlFile(testfile)
         assert not ret 
         assert not pe.loadeddata
@@ -31,27 +31,27 @@ class Test_PresetEditor(TestCase):
         app = PyQt5.QtWidgets.QApplication([])
         pe = PresetEditor(False)
         # load consistent file
-        testfile = 'testdata\\2D_Masterpreset_singleWL800_dual panel.XML'
+        testfile = 'testdata\\2D_Masterpreset_v2.0_800nm_dualpanel.XML'
         ret = pe.loadxmlFile(testfile)
         assert ret 
         assert pe.loadeddata
 
         # Wrong major version
-        testfile = 'testdata\\2D_Masterpreset_singleWL800_dual panel_WRONGv2.XML'
+        testfile = 'testdata\\2D_Masterpreset_v2.0_800nm_dualpanel_WRONGv1.XML'
         ret = pe.loadxmlFile(testfile)
         assert not ret 
         assert not pe.loadeddata
         assert pe.versionwarning == logging.ERROR
 
         # Wrong minor version
-        testfile = 'testdata\\2D_Masterpreset_Hb HbO2 Melanin_multipanel_WrongMinor.XML'
+        testfile = 'testdata\\2D_Masterpreset_v2.0_Hb HbO2 Melanin_multipanel_WrongMinor.XML'
         ret = pe.loadxmlFile(testfile)
         assert ret 
         assert pe.loadeddata
         assert pe.versionwarning == logging.WARNING
 
         # No version
-        testfile = 'testdata\\2D_Masterpreset_singleWL800_dual panel_NoVersion.XML'
+        testfile = 'testdata\\2D_Masterpreset_v2.0_800nm_dualpanel_NOVERSION.XML'
         ret = pe.loadxmlFile(testfile)
         assert ret 
         assert pe.loadeddata
@@ -67,14 +67,14 @@ class Test_PresetEditor(TestCase):
         assert pe.loadeddata
         firsthash = pe.contentHashBox.text()
 
-        # Import second Scan from same preset, with different visualisation parameters
-        testfile = 'testdata\\Scan_2.msot'
-        ret = pe.importscan(testfile)
-        assert ret 
-        assert pe.loadeddata
-        secondhash = pe.contentHashBox.text()
+        # # Import second Scan from same preset, with different visualisation parameters
+        # testfile = 'testdata\\Scan_2.msot'
+        # ret = pe.importscan(testfile)
+        # assert ret 
+        # assert pe.loadeddata
+        # secondhash = pe.contentHashBox.text()
 
-        assert firsthash != secondhash
+        # assert firsthash != secondhash
 
 
 def test_bindings_ID(qapp, qtbot):
@@ -82,7 +82,7 @@ def test_bindings_ID(qapp, qtbot):
     pe = PresetEditor(False)
     pe.contentHashChanged.connect(mymock)
     # load inconsistent file
-    testfile = 'testdata\\2D_Masterpreset_Hb HbO2 Melanin_multipanel.XML'
+    testfile = 'testdata\\2D_Masterpreset_v2.0_Hb HbO2 Melanin_multipanel.XML'
     ret = pe.loadxmlFile(testfile)
     pe.viewSpectraList.setCurrentRow(0)
     last_hash = pe.contentHashBox.text()
@@ -162,12 +162,12 @@ def test_bindings_ID(qapp, qtbot):
         chash = mymock.call_args[0][0]
         assert last_hash != chash, 'Checkbox {} does not influence preset ID'.format(el.objectName())
 
-def test_browsing(qapp):
+def test_browsing_views(qapp):
     mymock = MagicMock()
     pe = PresetEditor(False)
     pe.contentHashChanged.connect(mymock)
     # load inconsistent file
-    testfile = 'testdata\\2D_Masterpreset_Hb HbO2 Melanin_multipanel.XML'
+    testfile = 'testdata\\2D_Masterpreset_v2.0_Hb HbO2 Melanin_multipanel.XML'
     ret = pe.loadxmlFile(testfile)
     pe.viewSpectraList.setCurrentRow(0)
     pe.UItoTree()
@@ -194,14 +194,49 @@ def test_load_subsequent(qapp):
     pe = PresetEditor(False)
     pe.contentHashChanged.connect(mymock)
     # load inconsistent file
-    testfile = 'testdata\\2D_Masterpreset_Hb HbO2 Melanin_multipanel.XML'
+    testfile = 'testdata\\2D_Masterpreset_v2.0_Hb HbO2 Melanin_multipanel.XML'
     ret = pe.loadxmlFile(testfile)
     assert ret
     pe.viewSpectraList.setCurrentRow(0)
     pe.UItoTree()
     assert pe.enableMultiPanel.isEnabled()
 
-    testfile2 = 'testdata\\2D_Masterpreset_singleWL800_dual panel.XML'
+    testfile2 = 'testdata\\2D_Masterpreset_v2.0_800nm_dualpanel_ONLY.xml'
     ret = pe.loadxmlFile(testfile2)
     assert ret  #make sure it loaded sanely without consistency error
     assert not pe.enableMultiPanel.isEnabled()
+
+def test_locking_UI(qapp):
+    mymock = MagicMock()
+    pe = PresetEditor(False)
+    pe.contentHashChanged.connect(mymock)
+    assert not pe.tabRestrictions.isEnabled()
+
+    # No control locking in preset (hence tab disabled)
+    testfile = 'testdata\\2D_Masterpreset_v2.0_Hb HbO2 Melanin_multipanel_NoControlLocking.XML'
+    ret = pe.loadxmlFile(testfile)
+    assert not pe.tabRestrictions.isEnabled()
+
+    # Select None does not change hash (hence it happened before)
+    mymock.reset_mock()
+    pe.lockNone()
+    mymock.assert_not_called()
+
+    testfile = 'testdata\\2D_Masterpreset_v2.0_Hb HbO2 Melanin_multipanel.XML'
+    ret = pe.loadxmlFile(testfile)
+    assert pe.tabRestrictions.isEnabled()
+
+    # Loading a preset with locking and "Select None" does change hash (hence it was checked before)
+    testfile = 'testdata\\2D_Masterpreset_v2.0_Hb HbO2 Melanin_multipanel_AutoScalingLocked.xml'
+    ret = pe.loadxmlFile(testfile)
+    myel = None
+    for el in pe.tabRestrictions.findChildren(PyQt5.QtWidgets.QCheckBox):
+        if el.text() == 'AutoScaling':
+            myel = el
+            break
+    assert myel is not None
+    assert myel.isChecked()
+
+    mymock.reset_mock()
+    pe.lockNone()
+    mymock.assert_called()

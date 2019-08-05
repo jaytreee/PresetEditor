@@ -940,6 +940,7 @@ Continue to use the editor at your own risk, and check resulting presets careful
                         el.setChecked(True)
                         break
         else:  # If not in Preset, disable Tab completely
+            self.lockNone()
             self.tabRestrictions.setEnabled(False)
                     
         # ===============Visualization Tab==================
