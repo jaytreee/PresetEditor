@@ -17,7 +17,7 @@ from distutils.version import LooseVersion
 #from pprint import pprint
 from xmlfileparser import XmlFileParser
 from lxml import etree
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets, QtCore, QtGui
 #from PyQt5.QtWidgets import QFileDialog
 from preset_editor_gui import Ui_MainWindow
 from viewsetting import LayerSetting, ViewSettings
@@ -59,6 +59,12 @@ FILTERTYPES = [
     # 'Cheby1stOrderNZ'
 ]
 
+LOCK_TOOLTIPS = {
+    'BackgroundSelection': 'Selecting the background wavelength',
+    'DepthCorrection': 'Fluence Correction Slider',
+    'SpeedOfSound': 'Speed of Sound Slider',
+    'AutoScaling': 'Auto Scaling Button',
+}
 
 class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     """
@@ -131,6 +137,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.typechecker = ScalingValidator(0, 1, 5, None, -1)
 
         self.displayVersion()
+        self.displayUILocking()
 
         if autoload:
             self.loadxmlFile()
@@ -246,7 +253,6 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.nameBox.editingFinished.connect(self.generatePresetID)
         self.loadCheck.clicked.connect(self.generatePresetID)
 
-
     def displayVersion(self):
         # if exe
         if hasattr(sys, "_MEIPASS"):
@@ -272,7 +278,48 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.statusbar.showMessage(self.version)
         logging.info('PresetEditor started ({})'.format(self.version))
 
-        self.PECompatLabel.setText('Preset Editor: vMc v1.2 (<= {})'.format(self.vMc_compat))
+        self.PECompatLabel.setText('Preset Editor: vMc v2.0 (<= {})'.format(self.vMc_compat))
+
+    @QtCore.pyqtSlot()
+    def lockAll(self):
+        for el in self.tabRestrictions.findChildren(QtWidgets.QCheckBox):
+            el.setChecked(True)
+
+    @QtCore.pyqtSlot()
+    def lockNone(self):
+        for el in self.tabRestrictions.findChildren(QtWidgets.QCheckBox):
+            el.setChecked(False)
+
+    def displayUILocking(self):
+        options = self.xmlfp.readGUILockingOptions()
+        lay = QtWidgets.QGridLayout()
+        self.tabRestrictions.setLayout(lay)
+
+        self.restrAll = QtWidgets.QPushButton(self.tabRestrictions)
+        self.restrAll.setText('Select All')
+        self.restrAll.clicked.connect(self.lockAll)
+        lay.addWidget(self.restrAll, 0, 0)
+        self.restrNone = QtWidgets.QPushButton(self.tabRestrictions)
+        self.restrNone.setText('Select None')
+        self.restrNone.clicked.connect(self.lockNone)
+        lay.addWidget(self.restrNone, 0, 1)
+
+        spmin = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        spexp = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
+        font = QtGui.QFont()
+        font.setItalic(True)
+        for idx, op in enumerate(options):
+            cb = QtWidgets.QCheckBox(self.tabRestrictions)
+            cb.setText(op)
+            cb.toggled.connect(self.UItoTree)
+            cb.setSizePolicy(spmin)
+            self.tabRestrictions.layout().addWidget(cb, idx + 1, 0, 1, 2)
+            if op in LOCK_TOOLTIPS:
+                la = QtWidgets.QLabel(self.tabRestrictions)
+                la.setText(LOCK_TOOLTIPS[op])
+                la.setSizePolicy(spexp)
+                la.setFont(font)
+                self.tabRestrictions.layout().addWidget(la, idx + 1, 2, 1, 1)
 
     def changeFactorySpectra(self):
         """ opens Windows File Dialog, to select folder for the FactorySpectra"""
@@ -564,6 +611,16 @@ Continue to use the editor at your own risk, and check resulting presets careful
             pnode.text = str(self.mainPanelPaletteType.currentText())
             excel_dict.update({'MainPanel Background PaletteType':  str(self.mainPanelPaletteType.currentText())})
 
+
+        # ====== Locking TAB =========
+        cnode = self.tree.find('.//ControlsLocked')
+        if cnode is not None:
+            while len(cnode) > 0:  # clean node
+                cnode.remove(cnode[0])
+            for el in self.tabRestrictions.findChildren(QtWidgets.QCheckBox):
+                if el.isChecked():
+                    x = etree.SubElement(cnode, 'Control')
+                    x.text = el.text()
         
         # ====== Visualization Tab =======
         if self.enableMultiPanel.isEnabled():
@@ -870,6 +927,21 @@ Continue to use the editor at your own risk, and check resulting presets careful
                 elif directF.text == 'false':
                     self.backprojectionDerivative.setChecked(True)
 
+
+        # ====== Locking TAB =========
+        cnode = self.tree.find('.//ControlsLocked')
+        if cnode is not None:
+            self.tabRestrictions.setEnabled(True)
+            for el in self.tabRestrictions.findChildren(QtWidgets.QCheckBox):
+                el.setChecked(False)
+            for restr in cnode:  # Enable each restrictions checkbox
+                for el in self.tabRestrictions.findChildren(QtWidgets.QCheckBox):
+                    if el.text() == restr.text:
+                        el.setChecked(True)
+                        break
+        else:  # If not in Preset, disable Tab completely
+            self.tabRestrictions.setEnabled(False)
+                    
         # ===============Visualization Tab==================
         
         self.getViewingPresets()

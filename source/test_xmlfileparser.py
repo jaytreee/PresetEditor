@@ -55,3 +55,8 @@ class Test_XMLFileParser(TestCase):
 
         os.remove(of)
         
+    def test_readGUILocking(self):
+        x = XmlFileParser()
+        ret = x.readGUILockingOptions()
+        assert len(ret) > 0
+        assert isinstance(ret[0], str)

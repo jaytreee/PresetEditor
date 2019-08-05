@@ -152,3 +152,23 @@ class XmlFileParser:
             msg.exec()
         
         return hashstr
+
+    def readGUILockingOptions(self):
+        schemafile = os.path.join(self.sf, 'Types.xsd')
+        if not os.path.isfile(schemafile):
+            logging.error('Schema file {} not found'.format(schemafile))
+            logging.debug('Current dir contains: {}'.format(','.join(glob.glob('*'))))
+            return None
+        xmlschema = etree.parse(schemafile)
+
+        ret = []
+        for el in xmlschema.getroot():
+            if 'name' in el.attrib and el.attrib['name'] == 'ControlsEnablingProperty':
+                for subel in el[0]:
+                    if subel.attrib['value'] in ('None', 'All'):
+                        continue
+                    ret.append(subel.attrib['value'])
+                break
+        return ret
+
+

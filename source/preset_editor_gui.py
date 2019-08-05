@@ -914,6 +914,15 @@ class Ui_MainWindow(object):
         self.gridLayout_15.addWidget(self.mainPanelOPUSContrastDoubleSpinBox, 2, 3, 1, 1)
         self.gridLayout_11.addWidget(self.groupBox_11, 0, 0, 1, 2)
         self.tabWidget.addTab(self.tab_2, "")
+        self.tabRestrictions = QtWidgets.QWidget()
+        self.tabRestrictions.setObjectName("tabRestrictions")
+        self.gridLayoutWidget = QtWidgets.QWidget(self.tabRestrictions)
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(0, 0, 681, 521))
+        self.gridLayoutWidget.setObjectName("gridLayoutWidget")
+        self.gridLayout_16 = QtWidgets.QGridLayout(self.gridLayoutWidget)
+        self.gridLayout_16.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_16.setObjectName("gridLayout_16")
+        self.tabWidget.addTab(self.tabRestrictions, "")
         self.gridLayout_4.addWidget(self.tabWidget, 12, 0, 1, 4)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -933,7 +942,7 @@ class Ui_MainWindow(object):
         self.label_3.setBuddy(self.backgroundAbsorptionBox)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.detectorBox, self.tabWidget)
         MainWindow.setTabOrder(self.tabWidget, self.displayAllWLBox)
@@ -1081,6 +1090,7 @@ class Ui_MainWindow(object):
         self.label_19.setText(_translate("MainWindow", "OPUS Contrast"))
         self.label_20.setText(_translate("MainWindow", "OPUS Brightness"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Visualization"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabRestrictions), _translate("MainWindow", "UI Locking"))
 
 
 if __name__ == "__main__":
