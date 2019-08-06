@@ -1847,6 +1847,13 @@ QTabBar::tab:selected {
              <item row="0" column="0">
               <widget class="QTreeView" name="treeBodyAtlas"/>
              </item>
+             <item row="1" column="0">
+              <widget class="QPushButton" name="bodyAtlasDelete">
+               <property name="text">
+                <string>Delete</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </widget>
           </item>

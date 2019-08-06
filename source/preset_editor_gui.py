@@ -951,6 +951,9 @@ class Ui_MainWindow(object):
         self.treeBodyAtlas = QtWidgets.QTreeView(self.groupBodyAtlas)
         self.treeBodyAtlas.setObjectName("treeBodyAtlas")
         self.gridLayout_18.addWidget(self.treeBodyAtlas, 0, 0, 1, 1)
+        self.bodyAtlasDelete = QtWidgets.QPushButton(self.groupBodyAtlas)
+        self.bodyAtlasDelete.setObjectName("bodyAtlasDelete")
+        self.gridLayout_18.addWidget(self.bodyAtlasDelete, 1, 0, 1, 1)
         self.gridLayout_16.addWidget(self.groupBodyAtlas, 0, 0, 1, 1)
         self.gridLayout_17.addLayout(self.gridLayout_16, 0, 0, 1, 1)
         self.tabWidget.addTab(self.tab_4, "")
@@ -1125,6 +1128,7 @@ class Ui_MainWindow(object):
         self.groupBodyRegion.setTitle(_translate("MainWindow", "Scan Locations"))
         self.label_23.setText(_translate("MainWindow", "Scan locations available (each line one Region):"))
         self.groupBodyAtlas.setTitle(_translate("MainWindow", "Body Atlas"))
+        self.bodyAtlasDelete.setText(_translate("MainWindow", "Delete"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("MainWindow", "BodyAtlas"))
 
 

@@ -237,6 +237,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.scanLocations.textChanged.connect(self.UItoTree)
         self.treeBodyAtlas.setModel(self.bodyAtlasModel)
         self.treeBodyAtlas.setHeaderHidden(True)
+        self.bodyAtlasDelete.clicked.connect(self.deleteBodyAtlas)
 
         # ======== View Settings ===========
         self.autoScalingCheck.clicked.connect(self.changeViewSettings)
@@ -360,6 +361,13 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
             self.allspectra[i] = os.path.splitext(s)[0]
 
         self.FactorySpectraTextBox.setText(folder)
+
+    @QtCore.pyqtSlot()
+    def deleteBodyAtlas(self):
+        idx = self.treeBodyAtlas.selectionModel().currentIndex()
+        if idx.isValid():
+            self.bodyAtlasModel.removeRow(idx.row(), idx.parent())
+        pass
 
     @QtCore.pyqtSlot()
     def importscan(self, fn=None):
