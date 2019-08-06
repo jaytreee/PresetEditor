@@ -26,6 +26,7 @@ from functools import partial
 from errorhandler import ErrorLogHandler
 from excelExporter import ExcelExporter
 from scanimporter import import_scan
+from bodyatlas import BodyAtlasModel
 
 from addWavelengthDialog import Ui_AddWLDialog
 #from schemamanager import iXMLSchemaManager
@@ -123,6 +124,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.versionwarning = 0
         self.consistencywarning = False
         self.excel_dict = dict()
+        self.bodyAtlasModel = BodyAtlasModel(self)
         """Dictionary for easier excel export"""
         
         self.connectGUItoFunctionalty()
@@ -233,6 +235,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # ===== Body Atlas ========
         self.scanLocations.textChanged.connect(self.UItoTree)
+        self.treeBodyAtlas.setModel(self.bodyAtlasModel)
+        self.treeBodyAtlas.setHeaderHidden(True)
 
         # ======== View Settings ===========
         self.autoScalingCheck.clicked.connect(self.changeViewSettings)
@@ -971,6 +975,15 @@ Continue to use the editor at your own risk, and check resulting presets careful
         else:  # If not in Preset, disable Tab completely
             self.scanLocations.setPlainText('')            
             self.groupBodyRegion.setEnabled(False)
+
+        bnode = self.tree.find('.//BodyAtlas/Root')
+        if bnode is not None:
+            self.bodyAtlasModel.setRootNode(bnode)
+            self.groupBodyAtlas.setEnabled(True)
+            self.treeBodyAtlas.expandAll()
+        else:
+            self.bodyAtlasModel.setRootNode(None)
+            self.groupBodyAtlas.setEnabled(False)
 
         # ===============Visualization Tab==================
         

@@ -484,7 +484,7 @@ QTabBar::tab:selected {
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
@@ -1843,6 +1843,11 @@ QTabBar::tab:selected {
             <property name="title">
              <string>Body Atlas</string>
             </property>
+            <layout class="QGridLayout" name="gridLayout_18">
+             <item row="0" column="0">
+              <widget class="QTreeView" name="treeBodyAtlas"/>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>
