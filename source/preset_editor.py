@@ -237,6 +237,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.scanLocations.textChanged.connect(self.UItoTree)
         self.treeBodyAtlas.setModel(self.bodyAtlasModel)
         self.treeBodyAtlas.setHeaderHidden(True)
+        self.treeBodyAtlas.setEditTriggers(QtWidgets.QAbstractItemView.SelectedClicked)
         self.bodyAtlasDelete.clicked.connect(self.deleteBodyAtlas)
 
         # ======== View Settings ===========
