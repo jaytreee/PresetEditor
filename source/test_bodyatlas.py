@@ -27,3 +27,23 @@ def test_model():
     assert ba.data(subindex) == 'Breast front right'
     assert ba.data(subindex, Qt.UserRole)[0:6] == 'iVBORw'
 
+def test_export():
+    ba = BodyAtlasModel(None)
+    root = etree.parse('testdata\\bodyAtlas.xml').getroot()
+    ba.setRootNode(root)
+    contentparser = etree.XMLParser(remove_blank_text=True, remove_comments=True)
+    cleantree = etree.fromstring(etree.tostring(root), contentparser) 
+
+    # No change needs to returen the same tree
+    newroot = ba.toXML()
+    assert etree.tostring(cleantree) == etree.tostring(newroot)
+
+    # Delete an item should make the tree shorter
+    rootidx = ba.index(0, 0)
+    delidx = ba.index(0, 0, rootidx)
+    nodename = ba.data(delidx)
+    ba.removeRow(delidx.row(), delidx.parent())
+
+    newroot = ba.toXML()
+    assert len(etree.tostring(cleantree)) > len(etree.tostring(newroot))
+    assert nodename not in etree.tostring(newroot).decode('utf-8')

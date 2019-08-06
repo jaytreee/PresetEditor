@@ -1,5 +1,6 @@
 import PyQt5.QtGui
 from PyQt5.QtCore import Qt
+from lxml import etree
 
 
 class BodyAtlasModel(PyQt5.QtGui.QStandardItemModel):
@@ -33,6 +34,36 @@ class BodyAtlasModel(PyQt5.QtGui.QStandardItemModel):
 
         for idx, el in enumerate(node.find('./Children')):
             self.addWithChildren(el, item, idx)
+
+    def toXML(self):
+        root = etree.Element('Root')
+        qitem = self.invisibleRootItem().child(0, 0)
+
+        name = etree.SubElement(root, 'Name')
+        name.text = qitem.data(Qt.DisplayRole)
+
+        idata = etree.SubElement(root, 'ImageDataBase64')
+        idata.text = qitem.data(Qt.UserRole)
+
+        childroot = etree.SubElement(root, 'Children')
+
+        self.childrenToXML(qitem, childroot)
+
+        return root
+
+    def childrenToXML(self, rootqitem, xmlroot):
+        for row in range(rootqitem.rowCount()):
+            qitem = rootqitem.child(row, 0)
+            item = etree.SubElement(xmlroot, 'DataModelBodyAtlasNode')
+            
+            name = etree.SubElement(item, 'Name')
+            name.text = qitem.data(Qt.DisplayRole)
+
+            idata = etree.SubElement(item, 'ImageDataBase64')
+            idata.text = qitem.data(Qt.UserRole)
+
+            childroot = etree.SubElement(item, 'Children')
+            self.childrenToXML(qitem, childroot)
 
 
     # def columnCount(self, parent=None):

@@ -367,7 +367,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         idx = self.treeBodyAtlas.selectionModel().currentIndex()
         if idx.isValid():
             self.bodyAtlasModel.removeRow(idx.row(), idx.parent())
-        pass
+        self.UItoTree()
 
     @QtCore.pyqtSlot()
     def importscan(self, fn=None):
@@ -649,6 +649,11 @@ Continue to use the editor at your own risk, and check resulting presets careful
                 x.text = line
                 loclist.append(line)
             excel_dict.update({'Scan Location IDs': ', '.join(loclist)})
+
+        bnode = self.tree.find('.//BodyAtlas')
+        if bnode is not None:
+            newroot = self.bodyAtlasModel.toXML()
+            bnode.replace(bnode.find('./Root'), newroot)
 
         # ====== Visualization Tab =======
         if self.enableMultiPanel.isEnabled():
