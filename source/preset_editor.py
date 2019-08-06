@@ -617,20 +617,26 @@ Continue to use the editor at your own risk, and check resulting presets careful
         if cnode is not None:
             while len(cnode) > 0:  # clean node
                 cnode.remove(cnode[0])
+            locklist = []
             for el in self.tabRestrictions.findChildren(QtWidgets.QCheckBox):
                 if el.isChecked():
                     x = etree.SubElement(cnode, 'Control')
                     x.text = el.text()
+                    locklist.append(x.text)
+            excel_dict.update({'Locked Controls': ', '.join(locklist)})
 
         # ====== BodyAtlas TAB =========
         cnode = self.tree.find('.//ScanLocationIDs')
         if cnode is not None:
             while len(cnode) > 0:  # clean node
                 cnode.remove(cnode[0])
+            loclist = []
             for line in self.scanLocations.toPlainText().splitlines():
                 logging.debug(line)
                 x = etree.SubElement(cnode, 'string')
                 x.text = line
+                loclist.append(line)
+            excel_dict.update({'Scan Location IDs': ', '.join(loclist)})
 
         # ====== Visualization Tab =======
         if self.enableMultiPanel.isEnabled():
