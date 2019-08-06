@@ -10,6 +10,7 @@ import os
 import uuid
 import bisect
 import subprocess, re
+import base64
 import logging
 import logging.handlers
 from copy import deepcopy
@@ -238,7 +239,9 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.treeBodyAtlas.setModel(self.bodyAtlasModel)
         self.treeBodyAtlas.setHeaderHidden(True)
         self.treeBodyAtlas.setEditTriggers(QtWidgets.QAbstractItemView.SelectedClicked)
+        self.treeBodyAtlas.selectionModel().selectionChanged.connect(self.bodyAtlasSelected)
         self.bodyAtlasDelete.clicked.connect(self.deleteBodyAtlas)
+        self.bodyAtlasModel.dataChanged.connect(self.UItoTree)
 
         # ======== View Settings ===========
         self.autoScalingCheck.clicked.connect(self.changeViewSettings)
@@ -369,6 +372,15 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         if idx.isValid():
             self.bodyAtlasModel.removeRow(idx.row(), idx.parent())
         self.UItoTree()
+
+    @QtCore.pyqtSlot(QtCore.QItemSelection, QtCore.QItemSelection)
+    def bodyAtlasSelected(self, new, old):
+        newidx = new.indexes()[0]
+        if not newidx.isValid(): 
+            return
+        qimg = self.bodyAtlasModel.getImage(newidx)
+        self.bodyAtlasImage.setPixmap(qimg)
+
 
     @QtCore.pyqtSlot()
     def importscan(self, fn=None):

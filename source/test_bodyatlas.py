@@ -1,6 +1,7 @@
 from bodyatlas import BodyAtlasModel
 from lxml import etree
 from PyQt5.QtCore import Qt
+import PyQt5.QtWidgets
 
 
 def test_empty_model():
@@ -47,3 +48,12 @@ def test_export():
     newroot = ba.toXML()
     assert len(etree.tostring(cleantree)) > len(etree.tostring(newroot))
     assert nodename not in etree.tostring(newroot).decode('utf-8')
+
+def test_image(qapp):
+    ba = BodyAtlasModel(None)
+    root = etree.parse('testdata\\bodyAtlas.xml').getroot()
+    ba.setRootNode(root)
+    rootidx = ba.index(0, 0)
+    chestidx = ba.index(7, 0, rootidx)
+    qimg = ba.getImage(chestidx)
+

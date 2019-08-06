@@ -1,6 +1,7 @@
 import PyQt5.QtGui
 from PyQt5.QtCore import Qt
 from lxml import etree
+import base64
 
 
 class BodyAtlasModel(PyQt5.QtGui.QStandardItemModel):
@@ -65,6 +66,16 @@ class BodyAtlasModel(PyQt5.QtGui.QStandardItemModel):
             childroot = etree.SubElement(item, 'Children')
             self.childrenToXML(qitem, childroot)
 
+    def getImage(self, newidx):
+        qimg = PyQt5.QtGui.QPixmap()
+        img64 = self.data(newidx, Qt.UserRole)
+        if img64 is None:
+            return qimg
+
+        img = base64.b64decode(img64)
+        if not qimg.loadFromData(img):
+            raise ValueError()
+        return qimg
 
     # def columnCount(self, parent=None):
     #     if self.root is None:
