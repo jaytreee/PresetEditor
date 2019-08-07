@@ -17,7 +17,7 @@ class Test_XMLFileParser(TestCase):
     def test_read_error(self):
         # Needs Schema for tree validation
         path = 'testdata'
-        fn = '2D_Masterpreset_singleWL800_dual panel_ERROR.XML'
+        fn = '2D_Masterpreset_v2.0_800nm_dualpanel_XMLERROR.XML'
         x = XmlFileParser()
         tree = x.read(path+'\\'+fn)
         self.assertIsNone(tree)
@@ -25,7 +25,7 @@ class Test_XMLFileParser(TestCase):
     def test_read_nohash(self):
         """ Should return a warning if the preset is not authentic """
         path = 'testdata'
-        fn = '2D_Masterpreset_Hb HbO2 Melanin_multipanel_NOHASH.XML'
+        fn = '2D_Masterpreset_v2.0_Hb HbO2 Melanin_multipanel_NOHASH.XML'
         x = XmlFileParser()
         (tree, warn, compat, chash) = x.read(path+'\\'+fn)
         self.assertTrue(warn)
@@ -34,7 +34,7 @@ class Test_XMLFileParser(TestCase):
     def test_readwrite(self):
         """ test consistency between read write """
         path = 'testdata'
-        fn = '2D_Masterpreset_Hb HbO2 Melanin_multipanel.XML'
+        fn = '2D_Masterpreset_v2.0_Hb HbO2 Melanin_multipanel.XML'
         x = XmlFileParser()
 
         # read file

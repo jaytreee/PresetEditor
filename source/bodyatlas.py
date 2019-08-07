@@ -15,7 +15,8 @@ class BodyAtlasModel(PyQt5.QtGui.QStandardItemModel):
         self.root = node    
         self.clear()
 
-        self.addWithChildren(self.root, self.invisibleRootItem(), 0)
+        if node is not None:
+            self.addWithChildren(self.root, self.invisibleRootItem(), 0)
 
 
         # self.dataChanged.emit(

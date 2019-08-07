@@ -7,7 +7,7 @@ import PyQt5.QtWidgets
 def test_empty_model():
     ba = BodyAtlasModel(None)
     assert ba.rowCount() == 0
-    assert ba.columnCount() == 0
+    assert ba.columnCount() == 1
 
 def test_model():
     ba = BodyAtlasModel(None)
