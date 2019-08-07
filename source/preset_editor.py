@@ -34,6 +34,7 @@ from addWavelengthDialog import Ui_AddWLDialog
 from viewEnum import ViewEnum
 
 
+# As per 2.0.0.8
 COLORMAPS = [
     'Gray',
     # 'Bone',
@@ -51,7 +52,12 @@ COLORMAPS = [
     # 'Jet',
     # 'Union Jack',
     # 'RedBlueBlack',
-    'Contrast'
+    'Blue yellow Contrast',
+    'Max contrast 3',
+    'Orange',
+    'Pink beige contrast',
+    'Pink',
+    'Red orange contrast'
 ]
 
 FILTERTYPES = [
