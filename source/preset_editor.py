@@ -218,10 +218,10 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.minBox.editingFinished.connect(self.maxThreshCheck)
         self.minBox.valueChanged.connect(self.maxThreshCheck)
 
-        self.mainPanelBrightnessDoubleSpinBox.editingFinished.connect(self.UItoTree)
-        self.mainPanelBrightnessDoubleSpinBox.valueChanged.connect(self.UItoTree)
-        self.mainPanelContrastDoubleSpinBox.editingFinished.connect(self.UItoTree)
-        self.mainPanelContrastDoubleSpinBox.valueChanged.connect(self.UItoTree)
+        self.mainPanelLowerThresholdDoubleSpinBox.editingFinished.connect(self.UItoTree)
+        self.mainPanelLowerThresholdDoubleSpinBox.valueChanged.connect(self.UItoTree)
+        self.mainPanelUpperThresholdDoubleSpinBox.editingFinished.connect(self.UItoTree)
+        self.mainPanelUpperThresholdDoubleSpinBox.valueChanged.connect(self.UItoTree)
         self.mainPanelOPUSBrightnessDoubleSpinBox.editingFinished.connect(self.UItoTree)
         self.mainPanelOPUSBrightnessDoubleSpinBox.valueChanged.connect(self.UItoTree)
         self.mainPanelOPUSContrastDoubleSpinBox.editingFinished.connect(self.UItoTree)
@@ -619,28 +619,28 @@ Continue to use the editor at your own risk, and check resulting presets careful
                 excel_dict.update({'Backprojection':  'Derivative'})
 
         # ======= Main Panel =========
-        mainPanelNodes = self.tree.findall('.//ImageLayers//DataModelImagingLayer')
+        mainPanelNodes = self.tree.findall('./DataModelStudyPreset/ImagingSettingsPreset/ImageLayers/DataModelImagingLayer')
 
         bnode = mainPanelNodes[0].find('.//Palette//Brightness')
         if bnode is not None:        
             bnode.text = str(self.mainPanelOPUSBrightnessDoubleSpinBox.value())
             excel_dict.update({'MainPanel OPUS Brightness':  str(self.mainPanelOPUSBrightnessDoubleSpinBox.value())})
-        cnode = mainPanelNodes[0].find('.//Palette//Contrast')
+        cnode = mainPanelNodes[0].find('./Palette//Contrast')
         if cnode is not None:
             cnode.text = str(self.mainPanelOPUSContrastDoubleSpinBox.value())
             excel_dict.update({'MainPanel OPUS Contrast':   str(self.mainPanelOPUSContrastDoubleSpinBox.value())})
-        bnode = mainPanelNodes[1].find('.//Palette//Brightness')
+        bnode = mainPanelNodes[1].find('./GainMin')
         if bnode is not None:        
-            bnode.text = str(self.mainPanelBrightnessDoubleSpinBox.value())
-            excel_dict.update({'MainPanel Background Brightness':  str(self.mainPanelBrightnessDoubleSpinBox.value())})
-        cnode = mainPanelNodes[1].find('.//Palette//Contrast')
+            bnode.text = str(self.mainPanelLowerThresholdDoubleSpinBox.value())
+            excel_dict.update({'MainPanel Background Lower Threshold':  str(self.mainPanelLowerThresholdDoubleSpinBox.value())})
+        cnode = mainPanelNodes[1].find('./GainMax')
         if cnode is not None:
-            cnode.text = str(self.mainPanelContrastDoubleSpinBox.value())
-            excel_dict.update({'MainPanel Background Contrast':   str(self.mainPanelContrastDoubleSpinBox.value())})
-        pnode = mainPanelNodes[1].find('.//Palette//PaletteType')
+            cnode.text = str(self.mainPanelUpperThresholdDoubleSpinBox.value())
+            excel_dict.update({'MainPanel Background Upper Threshold':   str(self.mainPanelUpperThresholdDoubleSpinBox.value())})
+        pnode = mainPanelNodes[1].find('./Palette//PaletteType')
         if pnode is not None:
             pnode.text = str(self.mainPanelPaletteType.currentText())
-            excel_dict.update({'MainPanel Background PaletteType':  str(self.mainPanelPaletteType.currentText())})
+            excel_dict.update({'MainPanel Background Palette':  str(self.mainPanelPaletteType.currentText())})
 
 
         # ====== Locking TAB =========
@@ -946,12 +946,12 @@ Continue to use the editor at your own risk, and check resulting presets careful
 
         # ======= Main Panel =================
         # should find 2 DataModelImagingLayer (first Opus and then Background)
-        mainPanelNodes = self.tree.findall('.//ImageLayers//DataModelImagingLayer')
+        mainPanelNodes = self.tree.findall('./DataModelStudyPreset/ImagingSettingsPreset/ImageLayers/DataModelImagingLayer')
         self.setUIEditValue(self.mainPanelOPUSBrightnessDoubleSpinBox, float, mainPanelNodes[0], './/Palette//Brightness')
         self.setUIEditValue(self.mainPanelOPUSContrastDoubleSpinBox, float, mainPanelNodes[0], './/Palette//Contrast')
         self.setUIComboBox(self.mainPanelPaletteType, mainPanelNodes[1], './/Palette//PaletteType')
-        self.setUIEditValue(self.mainPanelBrightnessDoubleSpinBox, float, mainPanelNodes[1], './/Palette//Brightness')
-        self.setUIEditValue(self.mainPanelContrastDoubleSpinBox, float, mainPanelNodes[1], './/Palette//Contrast')
+        self.setUIEditValue(self.mainPanelLowerThresholdDoubleSpinBox, float, mainPanelNodes[1], './GainMin')
+        self.setUIEditValue(self.mainPanelUpperThresholdDoubleSpinBox, float, mainPanelNodes[1], './GainMax')
 
         v27_enabled = self.compat is not None and LooseVersion(self.compat) >= LooseVersion('1.2.0.27')
         self.backprojectionAuto.setEnabled(v27_enabled)

@@ -484,7 +484,7 @@ QTabBar::tab:selected {
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
@@ -1722,7 +1722,7 @@ QTabBar::tab:selected {
               </font>
              </property>
              <property name="text">
-              <string>Background Contrast</string>
+              <string>Background Upper Threshold</string>
              </property>
             </widget>
            </item>
@@ -1735,12 +1735,22 @@ QTabBar::tab:selected {
               </font>
              </property>
              <property name="text">
-              <string>Background Brightness</string>
+              <string>Background Lower Threshold</string>
              </property>
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QDoubleSpinBox" name="mainPanelBrightnessDoubleSpinBox"/>
+            <widget class="QDoubleSpinBox" name="mainPanelLowerThresholdDoubleSpinBox">
+             <property name="decimals">
+              <number>1</number>
+             </property>
+             <property name="minimum">
+              <double>-2000.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>2000.000000000000000</double>
+             </property>
+            </widget>
            </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label_18">
@@ -1756,7 +1766,20 @@ QTabBar::tab:selected {
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QDoubleSpinBox" name="mainPanelContrastDoubleSpinBox"/>
+            <widget class="QDoubleSpinBox" name="mainPanelUpperThresholdDoubleSpinBox">
+             <property name="decimals">
+              <number>1</number>
+             </property>
+             <property name="minimum">
+              <double>-2000.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>2000.000000000000000</double>
+             </property>
+             <property name="value">
+              <double>0.000000000000000</double>
+             </property>
+            </widget>
            </item>
            <item row="1" column="2">
             <widget class="QLabel" name="label_19">
