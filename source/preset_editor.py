@@ -115,7 +115,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     sortedwvlist = []
     """ sorted wavelength list"""
 
-    vMc_compat = '2.0.0.8'
+    vMc_compat = '2.0.0.9'
 
     contentHashChanged = QtCore.pyqtSignal(str)
 
@@ -178,6 +178,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.versionTextBox.textChanged.connect(self.UItoTree) # also live typing
         self.versionTextBox.editingFinished.connect(self.UItoTree)
 
+        self.WLList.setEditTriggers(QtWidgets.QAbstractItemView.SelectedClicked)
+        self.WLList.itemChanged.connect(self.propagateWLList)
         self.prefWLBox.currentIndexChanged.connect(self.UItoTree)
         self.displayAllWLBox.toggled.connect(self.UItoTree)
         self.usvisibleBox.toggled.connect(self.UItoTree)
@@ -867,6 +869,7 @@ Continue to use the editor at your own risk, and check resulting presets careful
         if AddWLDialog.exec():
             
             q = QtWidgets.QListWidgetItem()
+            q.setFlags(q.flags() | QtCore.Qt.ItemIsEditable)
             q.setData(0, ui.spinBox.value())
             self.WLList.addItem(q)
 
@@ -896,6 +899,26 @@ Continue to use the editor at your own risk, and check resulting presets careful
             # if there is no element in the list
             pass
 
+    @QtCore.pyqtSlot()
+    def propagateWLList(self):
+        pidx = self.prefWLBox.currentIndex()
+        while self.prefWLBox.count() > 0:
+            self.prefWLBox.removeItem(0)
+
+        bgidx = self.bgWavelength.currentIndex()
+        while self.bgWavelength.count() > 0:
+            self.bgWavelength.removeItem(0)
+
+        for idx in range(self.WLList.count()):
+            q = self.WLList.item(idx)
+            w = str(q.data(0))
+            self.prefWLBox.addItem(w)
+            self.bgWavelength.addItem(w)
+
+        self.prefWLBox.setCurrentIndex(pidx)
+        self.bgWavelength.setCurrentIndex(bgidx)
+        self.UItoTree()
+
     def displayTreetoGUI(self):
         """ Update the GUI  with the information in the xml file"""
 
@@ -917,15 +940,15 @@ Continue to use the editor at your own risk, and check resulting presets careful
             try:
                 w = (str(int(wl.text)))
                 q = QtWidgets.QListWidgetItem()
+                q.setFlags(q.flags() | QtCore.Qt.ItemIsEditable)                
                 q.setData(0, int(w))
                 p = bisect.bisect_left(self.sortedwvlist, int(w))
                 bisect.insort_left(self.sortedwvlist, int(w))
                 self.WLList.addItem(q)
-                self.prefWLBox.addItem(w)
-                self.bgWavelength.addItem(w)
                 # self.bgWL.addItem(w)
             except ValueError:
                 pass
+        self.propagateWLList()
         # Disable multispectral features for single WL presets (otherwise no layer template exists)
         multispectral = not len(self.WLList) == 1
         self.addWL.setEnabled(multispectral)
