@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDataModelStudyPreset xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">   
 <!-- Compatible Software Version: <=1.2.0.99 -->
-	<DataModelStudyPreset contentHash="db7ec262-6304-5a7e-bd20-33ffcbb5b3dc">
+	<DataModelStudyPreset contentHash="ea84ece20f599ff6c0feb14adc6c04eb09591c72">
 <!-- **************************************************************************************
 	 RELEASE 1.2 Multi-panel Panel - 2D Multi WL Preset
 	 ************************************************************************************** 
@@ -15,7 +15,7 @@
 <!-- ** ALWAYS change the Identifier upon copying to uniquely identify the Preset.
 		Upon Change, tag with your Name and Date of change. 
 		This is not shown anywhere in the software, but will appear in the .msot File -->
-		<PresetIdentifier>PType212_Master_2D_Hb, HbO2, Melanin_MULTIPANEL_v1.2#db7ec262-6304-5a7e-bd20-33ffcbb5b3dc</PresetIdentifier>
+		<PresetIdentifier>PType212_Master_2D_Hb, HbO2, Melanin_MULTIPANEL_v1.2#ea84ece20f599ff6c0feb14adc6c04eb09591c72</PresetIdentifier>
 
 <!-- ** COMPATIBLE DETECTOR ** must be matching a detector in settings file -->
 		<CompatibleDetectorGUID>PType212</CompatibleDetectorGUID>

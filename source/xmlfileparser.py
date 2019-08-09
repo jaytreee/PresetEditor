@@ -5,7 +5,7 @@ XML/XSD  file parser, for Preset Editor GUI
 # pylint: disable=E1101
 
 import os, glob, sys, re
-import uuid
+from hashlib import sha1
 from lxml import etree
 from copy import deepcopy
 from  PyQt5 import QtWidgets, QtCore
@@ -107,12 +107,13 @@ class XmlFileParser:
             if item.tag in ('PresetIdentifier', 'Name', 'PresetType', 'PresetVersion', 'IsDefaultPreset'):
                 contenttree.remove(item)
 
-        chash = str(uuid.uuid5(uuid.NAMESPACE_DNS, etree.tostring(contenttree, encoding='unicode')))
-        logging.debug('Content hash is now {}'.format(chash))
-        return chash
-        # hsh = int.from_bytes(blake2s( etree.tostring(contenttree) , digest_size=12).digest(),'little')
-        # hashstr = b64encode(hsh.to_bytes(12,'little')).decode('utf-8')
-        # return hashstr
+        xmlbytes = etree.tostring(contenttree)
+        chash = sha1()
+        chash.update(xmlbytes)
+        # Hex output
+        hashstr = chash.hexdigest()
+        logging.debug('Content hash is now {}'.format(hashstr))
+        return hashstr
 
 
     def write(self, origtree, path, message=True, version='Y.YY-revZZ', compat='x.x.xx', initials='XX', presetversion='Q'):

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <ArrayOfDataModelStudyPreset xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">   
 <!-- Compatible Software Version: <=1.2.0.21 -->
-	<DataModelStudyPreset contentHash="cf5c7f62-f35d-5893-8af0-03d159b6c7af">
+	<DataModelStudyPreset contentHash="9c6b417977711bdd22b61e723baf7660875f46d8">
 <!-- **************************************************************************************
 	 RELEASE 1.2 Single Panel - Melanin Preset
 	 ************************************************************************************** 
@@ -12,7 +12,7 @@
 <!-- ** ALWAYS change the Identifier upon copying to uniquely identify the Preset.
 		Upon Change, tag with your Name and Date of change. 
 		This is not shown anywhere in the software, but will appear in the .msot File -->
-		<PresetIdentifier>3D-Hb HbO2 Collagen Lipid_v1.2</PresetIdentifier>
+		<PresetIdentifier>3D-Hb HbO2 Collagen Lipid_v1.2#9c6b417977711bdd22b61e723baf7660875f46d8</PresetIdentifier>
 
 <!-- ** COMPATIBLE DETECTOR ** must be matching a detector in settings file -->
 		<CompatibleDetectorGUID>PType308</CompatibleDetectorGUID>

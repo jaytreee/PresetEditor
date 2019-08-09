@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDataModelStudyPreset xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">   
 <!-- Compatible Software Version: <=2.2.0.21 -->
-	<DataModelStudyPreset contentHash="f4021044-ec4c-5172-bb8c-51284f3241e9">
+	<DataModelStudyPreset contentHash="a43bc7e3d890110602741e163e49efceeced5a03">
 <!-- **************************************************************************************
 	 RELEASE 1.2 Single Panel - 2D 800nm Single WL Preset
 	 ************************************************************************************** 
@@ -16,7 +16,7 @@
 <!-- ** ALWAYS change the Identifier upon copying to uniquely identify the Preset.
 		Upon Change, tag with your Name and Date of change. 
 		This is not shown anywhere in the software, but will appear in the .msot File -->
-		<PresetIdentifier>PType212_Master_2D_800nm_v1.2#f4021044-ec4c-5172-bb8c-51284f3241e9</PresetIdentifier>
+		<PresetIdentifier>PType212_Master_2D_800nm_v1.2#a43bc7e3d890110602741e163e49efceeced5a03</PresetIdentifier>
 
 <!-- ** COMPATIBLE DETECTOR ** must be matching a detector in settings file -->
 		<CompatibleDetectorGUID>PType212</CompatibleDetectorGUID>
