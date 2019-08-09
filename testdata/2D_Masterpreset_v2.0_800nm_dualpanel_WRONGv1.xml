@@ -1,9 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <ArrayOfDataModelStudyPreset xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">   
 <!-- Compatible Software Version: <=1.0.0.8 -->
-	<DataModelStudyPreset contentHash="30b206ec-6f33-5b1b-97df-70ea9fc11124">
-<!-- 2019-08-05 16:03:17 * SM  * v1 * #30b206ec-6f33-5b1b-97df-70ea9fc11124 * PE v2.00-rev120 -->
-<!-- 2019-08-05 16:01:57 * SM  * v1 * #0db443f7-9fef-5618-8bb9-2e995cd6b217 * PE v2.00-rev120 -->
+	<DataModelStudyPreset contentHash="72949647eca886065bae425681e2259561946daa">
+
 <!-- **************************************************************************************
 	 RELEASE 2.0 Multi-panel Panel - 2D Multi WL Preset
 	 ************************************************************************************** 
@@ -15,7 +14,7 @@
 <!-- ** ALWAYS change the Identifier upon copying to uniquely identify the Preset.
 		Upon Change, tag with your Name and Date of change. 
 		This is not shown anywhere in the software, but will appear in the .msot File -->
-		<PresetIdentifier>PType212_2D, Master v2.0 - 800nm_US_MP#0db443f7-9fef-5618-8bb9-2e995cd6b217</PresetIdentifier>
+		<PresetIdentifier>PType212_2D, Master v2.0 - 800nm_US_MP#72949647eca886065bae425681e2259561946daa</PresetIdentifier>
 
 <!-- ** COMPATIBLE DETECTOR ** must be matching a detector in settings file -->
 		<CompatibleDetectorGUID>PType212</CompatibleDetectorGUID>
