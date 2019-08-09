@@ -150,7 +150,6 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
 
         if autoload:
             self.loadxmlFile()
-        
 
 
     def connectGUItoFunctionalty(self):
@@ -250,6 +249,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.treeBodyAtlas.selectionModel().selectionChanged.connect(self.bodyAtlasSelected)
         self.bodyAtlasDelete.clicked.connect(self.deleteBodyAtlas)
         self.bodyAtlasModel.dataChanged.connect(self.UItoTree)
+        self.bodyAtlasSetPreselected.clicked.connect(self.bodyAtlasSelectPreselected)
 
         # ======== View Settings ===========
         self.autoScalingCheck.clicked.connect(self.changeViewSettings)
@@ -378,6 +378,9 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     def deleteBodyAtlas(self):
         idx = self.treeBodyAtlas.selectionModel().currentIndex()
         if idx.isValid():
+            # If that item is selected, then remove pre-selection
+            if idx.data(QtCore.Qt.DisplayRole) == self.bodyAtlasPreselectedLabel.text():
+                self.bodyAtlasPreselectedLabel.setText('<none>')
             self.bodyAtlasModel.removeRow(idx.row(), idx.parent())
         self.UItoTree()
 
@@ -389,7 +392,21 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         qimg = self.bodyAtlasModel.getImage(newidx)
         self.bodyAtlasImage.setPixmap(qimg)
 
-
+    @QtCore.pyqtSlot()
+    def bodyAtlasSelectPreselected(self):
+        idx = self.treeBodyAtlas.selectionModel().currentIndex()
+        if idx is not None and idx.isValid():
+            txt = idx.data(QtCore.Qt.DisplayRole)
+            if txt != 'Body':
+                self.bodyAtlasPreselectedLabel.setText(txt)
+                self.UItoTree()
+                return
+        # in case index is invalid or Body is selected
+        txt = '<none>'
+        self.bodyAtlasPreselectedLabel.setText(txt)
+        self.UItoTree()
+            
+    
     @QtCore.pyqtSlot()
     def importscan(self, fn=None):
         if fn is None:
@@ -675,6 +692,14 @@ Continue to use the editor at your own risk, and check resulting presets careful
         if bnode is not None:
             newroot = self.bodyAtlasModel.toXML()
             bnode.replace(bnode.find('./Root'), newroot)
+
+        bnode = self.tree.find('.//SelectedBodyAtlasNodeName')
+        if bnode is not None:
+            txt = self.bodyAtlasPreselectedLabel.text()
+            if txt == '<none>':
+                bnode.text = None
+            else:
+                bnode.text = txt
 
         # ====== Visualization Tab =======
         if self.enableMultiPanel.isEnabled():
@@ -1040,6 +1065,17 @@ Continue to use the editor at your own risk, and check resulting presets careful
             self.bodyAtlasModel.setRootNode(None)
             self.groupBodyAtlas.setEnabled(False)
 
+        bnode = self.tree.find('.//SelectedBodyAtlasNodeName')
+        if bnode is not None:
+            txt = bnode.text
+            if txt is not None:
+                self.bodyAtlasPreselectedLabel.setText(txt)
+            else:
+                self.bodyAtlasPreselectedLabel.setText('<none>')
+            self.bodyAtlasSetPreselected.setEnabled(True)
+        else:
+            self.bodyAtlasSetPreselected.setEnabled(False)
+    
         # ===============Visualization Tab==================
         
         self.getViewingPresets()
