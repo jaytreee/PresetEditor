@@ -1,3 +1,8 @@
+[2.01]
+Bug PE-B041: Cannot change Wavelength in single wavelength presets
+Feature PE-F040: Mark pre-selected body atlas region
+Feature PE-F041: Change hash generation to SHA1 hexdigest
+
 [2.0]
 Feature PE-F027: Sync color palettes with vMc 2.0
 Feature PE-F031: Select subparts of the Body Atlas
