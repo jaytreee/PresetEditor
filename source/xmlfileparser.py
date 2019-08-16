@@ -87,6 +87,12 @@ class XmlFileParser:
         return tree, hashwarning, compat, hashstr
 
     @staticmethod
+    def recursively_empty(e):
+        if e.text:
+            return False
+        return all((XmlFileParser.recursively_empty(c) for c in e.iterchildren()))
+
+    @staticmethod
     def get_contenthash(tree):
         """ copy of tree to take all other comments and tails out, get the hash """
         presetelem = None  # isolate the preset element
@@ -107,7 +113,14 @@ class XmlFileParser:
             if item.tag in ('PresetIdentifier', 'Name', 'PresetType', 'PresetVersion', 'IsDefaultPreset'):
                 contenttree.remove(item)
 
-        xmlbytes = etree.tostring(contenttree)
+        # Remove empty nodes
+        context = etree.iterwalk(contenttree)
+        for action, elem in context:
+            parent = elem.getparent()
+            if XmlFileParser.recursively_empty(elem):
+                parent.remove(elem)
+
+        xmlbytes = b'<?xml version="1.0" encoding="utf-8"?>' + etree.tostring(contenttree, xml_declaration=False, encoding="utf-8", pretty_print=False)
         chash = sha1()
         chash.update(xmlbytes)
         # Hex output
