@@ -1,3 +1,7 @@
+[2.02]
+Feature PE-F042: Add locking of US Layer
+Feature PE-F043: Align Preset Hash with vMc 2.0
+
 [2.01]
 Bug PE-B041: Cannot change Wavelength in single wavelength presets
 Feature PE-F040: Mark pre-selected body atlas region
