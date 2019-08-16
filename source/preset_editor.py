@@ -115,7 +115,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     sortedwvlist = []
     """ sorted wavelength list"""
 
-    vMc_compat = '2.0.0.9'
+    vMc_compat = '2.0.0.10'
 
     contentHashChanged = QtCore.pyqtSignal(str)
 

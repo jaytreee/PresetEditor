@@ -1,3 +1,6 @@
+[2.03]
+Bumped compatiblity to 2.0.0.10 for US layer locking
+
 [2.02]
 Feature PE-F042: Add locking of US Layer
 Feature PE-F043: Align Preset Hash with vMc 2.0
