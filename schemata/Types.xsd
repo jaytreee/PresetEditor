@@ -636,6 +636,7 @@
           </xsd:all>
         </xsd:complexType>
       </xsd:element>
+      <xsd:element name="RecordingTimeLimit" type="xsd:int" minOccurs="0" />
       <xsd:element name="USVisible" type="xsd:boolean" minOccurs="0" />
       <xsd:element name="SelectiveFrameAveraging" minOccurs="0" >
         <xsd:complexType>
@@ -1430,7 +1431,8 @@
       <xsd:enumeration value="UpThresholdButtons"/>    
       <xsd:enumeration value="SetThresholdToMax"/>   
       <xsd:enumeration value="UpThresholdField"/>   
-      <xsd:enumeration value="LowThresholdField"/>   
+      <xsd:enumeration value="LowThresholdField"/>
+      <xsd:enumeration value="USLayerVisibility"/>      
     </xsd:restriction>
   </xsd:simpleType>
   
