@@ -187,6 +187,8 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.prefWLBox.currentIndexChanged.connect(self.UItoTree)
         self.displayAllWLBox.toggled.connect(self.UItoTree)
         self.usvisibleBox.toggled.connect(self.UItoTree)
+        self.recordingTimeLimit.textChanged.connect(self.UItoTree)  # also live typing
+        self.recordingTimeLimit.editingFinished.connect(self.UItoTree)
 
         self.userSoundBox.editingFinished.connect(self.UItoTree)
         self.userSoundBox.valueChanged.connect(self.UItoTree)
@@ -608,6 +610,9 @@ Continue to use the editor at your own risk, and check resulting presets careful
         except AttributeError:
             pass
         excel_dict.update({'Preferred Wavelength (left panel)':  self.prefWLBox.currentText()})
+        if self.recordingTimeLimit.isEnabled():
+            self.tree.find('.//RecordingTimeLimit').text = str(self.recordingTimeLimit.text())
+            excel_dict.update({'Recording Time Limit':  str(self.recordingTimeLimit.text())})
 
         # ====== Processing Tab ==========
         self.tree.find('.//UserSoundTrim').text = str(self.userSoundBox.value())
@@ -988,6 +993,7 @@ Continue to use the editor at your own risk, and check resulting presets careful
         self.removeWL.setEnabled(multispectral)
         self.addButton.setEnabled(multispectral)
         self.deleteButton.setEnabled(multispectral)
+        self.setUIEditText(self.recordingTimeLimit, self.tree, './/RecordingTimeLimit')
 
         # ========= Processing Tab ===========
         self.userSoundBox.setValue(int(self.tree.find('.//UserSoundTrim').text))
@@ -1132,6 +1138,14 @@ Continue to use the editor at your own risk, and check resulting presets careful
             uiel.setEnabled(False)
         else:
             uiel.setValue(datatype(el.text))
+            uiel.setEnabled(True)
+
+    def setUIEditText(self, uiel, tree, xmltag):
+        el = tree.find(xmltag)
+        if el is None:
+            uiel.setEnabled(False)
+        else:
+            uiel.setText(el.text)
             uiel.setEnabled(True)
 
     def setUIComboBox(self, uiel, tree, xmltag):
