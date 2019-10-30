@@ -34,7 +34,7 @@ from addWavelengthDialog import Ui_AddWLDialog
 from viewEnum import ViewEnum
 
 
-# As per 2.0.0.14
+# As per 2.0.0.15
 COLORMAPS = [
     'Gray',
     # 'Bone',
@@ -43,21 +43,25 @@ COLORMAPS = [
     # 'Light-Red',
     # 'Green',
     # 'Light-Green',
-    'Blue',
+    # 'Blue',
+    'Yellow',
+    'DarkBlue',
     # 'Light-Blue',
     # 'Cyan',
     # 'Magenta',
     'Yellow',
     # 'HSB_HSL',
     # 'Jet',
-    # 'Union Jack',
-    # 'RedBlueBlack',
-    'Blue yellow Contrast',
+    # 'UnionJack',
+    # 'RdBuBl',
+    # 'Contrast',
+    'Beige',
+    'BlueYellowContrast',
     'MaxContrast3',
     'Orange',
-    'Pink beige contrast',
+    'PinkBeigeContrast',
     'Pink',
-    'Red orange contrast'
+    'RedOrangeContrast'
 ]
 
 FILTERTYPES = [
@@ -115,7 +119,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
     sortedwvlist = []
     """ sorted wavelength list"""
 
-    vMc_compat = '2.0.0.10'
+    vMc_compat = '2.0.0.15'
 
     contentHashChanged = QtCore.pyqtSignal(str)
 
@@ -137,6 +141,7 @@ class PresetEditor(QtWidgets.QMainWindow, Ui_MainWindow):
         self.connectGUItoFunctionalty()
         for cmap in sorted(COLORMAPS):
             self.paletteType.addItem(cmap)
+            self.mainPanelPaletteType.addItem(cmap)
         for ft in FILTERTYPES:
             self.filterTypeBox.addItem(ft)
 
