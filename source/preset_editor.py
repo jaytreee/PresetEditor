@@ -1164,6 +1164,7 @@ Continue to use the editor at your own risk, and check resulting presets careful
     def toggleMultipanel(self):
         """ disable Multipanel if 3D is enabled == 3D depth is greater than 1"""
         uiel = self.tree.find('.//IsMultipleMspLivePreviewEnabled')
+        self.enableMultiPanel.setChecked(uiel.text =='true')
 
         if int(self.tree.find('.//Nz').text) > 1 or len(self.viewsettings) == 1 or uiel is None:
 
@@ -1176,7 +1177,6 @@ Continue to use the editor at your own risk, and check resulting presets careful
                 self.enableMultiPanel.setCheckState(False)
 
         else:
-            self.enableMultiPanel.setChecked(uiel.text =='true')
             self.enableMultiPanel.setEnabled(True)
             self.enableMultiPanel.setToolTip('')
             self.enableMultiPanel.setStyleSheet('color: #cccccc')
