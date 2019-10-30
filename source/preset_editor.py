@@ -34,7 +34,7 @@ from addWavelengthDialog import Ui_AddWLDialog
 from viewEnum import ViewEnum
 
 
-# As per 2.0.0.8
+# As per 2.0.0.14
 COLORMAPS = [
     'Gray',
     # 'Bone',
@@ -53,7 +53,7 @@ COLORMAPS = [
     # 'Union Jack',
     # 'RedBlueBlack',
     'Blue yellow Contrast',
-    'Max contrast 3',
+    'MaxContrast3',
     'Orange',
     'Pink beige contrast',
     'Pink',
@@ -598,8 +598,11 @@ Continue to use the editor at your own risk, and check resulting presets careful
         if self.usvisibleBox.isEnabled():
             self.tree.find('.//USVisible').text = str(self.usvisibleBox.isChecked()).lower()
             excel_dict.update({'Show Ultrasound':  str(self.usvisibleBox.isChecked()).lower()})
-        self.tree.find('.//PreferredBackgroundWL').text = self.prefWLBox.currentText()
-        excel_dict.update({'Preferred Wavelength':  self.prefWLBox.currentText()})
+        try:
+            self.tree.find('.//PreferredBackroundWL').text = self.prefWLBox.currentText()
+        except AttributeError:
+            pass
+        excel_dict.update({'Preferred Wavelength (left panel)':  self.prefWLBox.currentText()})
 
         # ====== Processing Tab ==========
         self.tree.find('.//UserSoundTrim').text = str(self.userSoundBox.value())
@@ -989,8 +992,11 @@ Continue to use the editor at your own risk, and check resulting presets careful
         self.setUIEditValue(self.maxavgframes, int, self.tree, './/MAXAVERAGES')
         self.setUIEditValue(self.sfabuffersize, int, self.tree, './/MAXPASTSWEEPS')
         self.filterTypeBox.setCurrentText(self.tree.find('.//FilterType').text)
-        self.prefWLBox.setCurrentText(self.tree.find('.//PreferredBackgroundWL').text)
-
+        try:
+            self.prefWLBox.setCurrentText(self.tree.find('.//PreferredBackroundWL').text)
+            self.prefWLBox.setEnabled(True)
+        except AttributeError: 
+            self.prefWLBox.setEnabled(False)
 
         # ======= Main Panel =================
         # should find 2 DataModelImagingLayer (first Opus and then Background)
