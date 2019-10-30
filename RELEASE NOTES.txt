@@ -1,3 +1,9 @@
+[2.04]
+Bug PE-B043: MutliPanel invalid warning although multipanel is disabled in preset
+Bug PE-B044: Support BackroundWavelength in Preset (rather than BackgroundWavelength)
+Feature PE-F044: Color palette align with Examination color maps in viewMSOTc 2.0
+Feature PE-F045: Add Recording Time Limit
+
 [2.03]
 Bumped compatiblity to 2.0.0.10 for US layer locking
 
